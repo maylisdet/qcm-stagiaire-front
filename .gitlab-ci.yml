@@ -1,9 +1,8 @@
 image: node:16.13.1
 
-tags:
-    - docker
-
 prettier:
+    tags:
+        - docker
     script:
         - yarn install
         - yarn format:write
