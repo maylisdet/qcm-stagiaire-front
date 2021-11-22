@@ -1,0 +1,7 @@
+image: node:latest
+
+prettier:
+    script:
+        - yarn install
+        - yarn format:write
+        - yarn format:check
