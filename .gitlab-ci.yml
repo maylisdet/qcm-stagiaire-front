@@ -1,4 +1,7 @@
-image: node:latest
+image: node:16.13.1
+
+tags:
+    - docker
 
 prettier:
     script:
