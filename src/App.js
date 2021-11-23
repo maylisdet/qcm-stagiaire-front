@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LoginComponent } from './Components/Authentication/Login/LoginComponent';
 import { AdminComponent } from './Components/WelcomePage/Admin/AdminComponent';
-import { UserManagement } from './Components/UserManagement'
+import { UserManagement } from './Components/UserManagement';
 
 function App() {
     return (
