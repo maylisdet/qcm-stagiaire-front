@@ -1,0 +1,9 @@
+image: node:16.13.0
+
+prettier:
+    tags:
+        - docker
+    script:
+        - yarn install
+        - yarn format:write
+        - yarn format:check

@@ -3,6 +3,8 @@ import {Container, Stack, TextField} from '@mui/material';
 import { LoginButton } from '../LoginButton';
 
 const LoginComponent = () => {
+  return <Button variant="contained" href="/admin">Hello World</Button>;
+};
 
     return (
       <Container maxWidth="sm">
