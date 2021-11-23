@@ -8,7 +8,7 @@ const AdminComponent = () => {
         <>
             <Grid container direction="row" justifyContent="center" alignItems="center">
                 <Stack direction="column" spacing={2}>
-                    <Button variant="contained" href="/user_administration">
+                    <Button variant="contained" href="/admin/user-management">
                         User Management
                     </Button>
                     <Button variant="contained">Quizzes Management</Button>
