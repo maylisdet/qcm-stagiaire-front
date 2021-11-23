@@ -7,7 +7,7 @@ const AdminComponent = () => {
     return (
         <>
             <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Stack direction="column" spacing={2}>
+                <Stack direction="column" spacing={2}  mt={2}>
                     <Button variant="contained" href="/admin/user-management">
                         User Management
                     </Button>
