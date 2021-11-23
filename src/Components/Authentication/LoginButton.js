@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 const LoginButton = () => {
 
     return (
-        <Button variant="contained">Login</Button>
+        <Button variant="contained" href="/admin">Login</Button>
     )
 }
 
