@@ -21,9 +21,9 @@ const UserManagement = () => {
     {
       name: "Action", 
       options:{ 
-        customBodyRender: (value, tableMeta, updateValue) => {
+        customBodyRender: () => {
         return (
-          <Button>Action Button</Button>
+          <Button onClick={({id=1}) => {history.push(`/admin/user/${id}/profile`)}}>See profile</Button>
         );
         }
       }
