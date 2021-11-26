@@ -9,6 +9,7 @@ import { QuizzesComponent } from './Components/Trainee/QuizzesComponent';
 
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { UserDetailledProfileComponent } from './Components/Admin/UserDetailledProfileComponent';
+import { QuizzesManagement } from './Components/Admin/QuizzesManagement';
 
 const getMuiTheme = () => createTheme({
   overrides: {
@@ -47,6 +48,7 @@ function App() {
             <Route exact path="/admin/create-user" component={CreateUser} />
             <Route exact path="/admin" component={AdminComponent} />
             <Route exact path="/admin/user-management" component={UserManagement} />
+            <Route exact path="/admin/quizzes-management" component={QuizzesManagement} />
             <Route exact path="/admin/user/:id/profile" component={UserDetailledProfileComponent} />
 
             {/* TRAINEE ROUTES */}
