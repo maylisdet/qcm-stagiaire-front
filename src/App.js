@@ -3,7 +3,7 @@ import { LoginComponent } from './Components/Authentication/Login/LoginComponent
 import { AdminComponent } from './Components/WelcomePage/Admin/AdminComponent';
 import { UserManagement } from './Components/Admin/UserManagement';
 import { CreateUser } from './Components/Admin/CreateUser';
-import { QuizzesResultsComponent } from './Components/Trainee/QuizzesResultsComponent'
+import { QuizzesResultsComponent } from './Components/Trainee/QuizzesResultsComponent';
 import { UserComponent } from './Components/WelcomePage/Trainee/UserComponent';
 import { QuizzesComponent } from './Components/Trainee/QuizzesComponent';
 
@@ -11,34 +11,33 @@ import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { UserDetailledProfileComponent } from './Components/Admin/UserDetailledProfileComponent';
 import { QuizzesManagement } from './Components/Admin/QuizzesManagement';
 
-const getMuiTheme = () => createTheme({
-  overrides: {
-    // MuiTableCell: {
-    //   head: {
-    //       backgroundColor: "blue!important",
-    //   },
-    MUIDataTableHeadCell: {
-      root: {
-        border: '1px solid #000',
-        textAlign: 'center', //Not working
+const getMuiTheme = () =>
+  createTheme({
+    overrides: {
+      // MuiTableCell: {
+      //   head: {
+      //       backgroundColor: "blue!important",
+      //   },
+      MUIDataTableHeadCell: {
+        root: {
+          border: '1px solid #000',
+          textAlign: 'center', //Not working
+        },
+        toolButton: {
+          justifyContent: 'center', //Not working
+        },
       },
-      toolButton: {
-        justifyContent: 'center' //Not working
-      },
+      // MuiTableCell: {
+      //   root: {
+      //     border: "1px solid #000"
+      //   }
+      // },
     },
-    // MuiTableCell: {
-    //   root: {
-    //     border: "1px solid #000"
-    //   }
-    // },
-  }
-});
-
+  });
 
 function App() {
-
   return (
-    <MuiThemeProvider theme={getMuiTheme()}>  
+    <MuiThemeProvider theme={getMuiTheme()}>
       <BrowserRouter>
         <div className="App">
           <Switch>
