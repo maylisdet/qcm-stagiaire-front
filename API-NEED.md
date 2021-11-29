@@ -32,7 +32,7 @@ This paper has been written in order to communicate to backend devs what is need
 
 ## 2. Quizz
 
-**[GET]** _/api/quizz/_
+**[GET]** _/api/quizzes/_
 
 ### Request
 
