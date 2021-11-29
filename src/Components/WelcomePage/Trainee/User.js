@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Button, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from '../../Authentication/LogoutButton';
+import { LogoutButton } from 'Components/Authentication/LogoutButton';
 import { useHistory } from 'react-router-dom';
 
-const UserComponent = () => {
+const User = () => {
   const history = useHistory();
 
   return (
@@ -22,7 +22,7 @@ const UserComponent = () => {
           <Button
             variant="contained"
             onClick={() => {
-              history.push('/trainee/quizzes-results');
+              history.push('/trainee/quizzes/records');
             }}
           >
             {' '}
@@ -35,4 +35,4 @@ const UserComponent = () => {
   );
 };
 
-export { UserComponent };
+export { User };

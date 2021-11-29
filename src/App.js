@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { LoginComponent } from './Components/Authentication/Login/LoginComponent';
-import { AdminComponent } from './Components/WelcomePage/Admin/AdminComponent';
-import { UserManagement } from './Components/Admin/UserManagement';
-import { CreateUser } from './Components/Admin/CreateUser';
-import { QuizzesResultsComponent } from './Components/Trainee/QuizzesResultsComponent';
-import { UserComponent } from './Components/WelcomePage/Trainee/UserComponent';
-import { QuizzesComponent } from './Components/Trainee/QuizzesComponent';
+import { Login } from 'Components/Authentication/Login/Login';
+import { Admin } from 'Components/WelcomePage/Admin/Admin';
+import { UserManagement } from 'Components/Admin/User/UserManagement';
+import { CreateUser } from 'Components/Admin/User/CreateUser';
+import { QuizzesRecords } from 'Components/Trainee/QuizzesRecords';
+import { User } from 'Components/WelcomePage/Trainee/User';
+import { Quizzes } from 'Components/Trainee/Quizzes';
 
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { UserDetailledProfileComponent } from './Components/Admin/UserDetailledProfileComponent';
-import { QuizzesManagement } from './Components/Admin/QuizzesManagement';
+import { UserDetailledProfile } from 'Components/Admin/User/UserDetailledProfile';
+import { QuizzesManagement } from 'Components/Admin/Quiz/QuizzesManagement';
 
 const getMuiTheme = () =>
   createTheme({
@@ -41,19 +41,19 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route exact path="/" component={LoginComponent} />
-            <Route exact path="/login" component={LoginComponent} />
+            <Route exact path="/" component={Login} />
+            <Route exact path="/login" component={Login} />
             {/* ADMIN ROUTES */}
             <Route exact path="/admin/create-user" component={CreateUser} />
-            <Route exact path="/admin" component={AdminComponent} />
-            <Route exact path="/admin/user-management" component={UserManagement} />
-            <Route exact path="/admin/quizzes-management" component={QuizzesManagement} />
-            <Route exact path="/admin/user/:id/profile" component={UserDetailledProfileComponent} />
+            <Route exact path="/admin" component={Admin} />
+            <Route exact path="/admin/users" component={UserManagement} />
+            <Route exact path="/admin/quizzes" component={QuizzesManagement} />
+            <Route exact path="/admin/users/:id" component={UserDetailledProfile} />
 
             {/* TRAINEE ROUTES */}
-            <Route exact path="/trainee" component={UserComponent} />
-            <Route exact path="/trainee/quizzes-results" component={QuizzesResultsComponent} />
-            <Route exact path="/trainee/quizzes" component={QuizzesComponent} />
+            <Route exact path="/trainee" component={User} />
+            <Route exact path="/trainee/quizzes/records" component={QuizzesRecords} />
+            <Route exact path="/trainee/quizzes" component={Quizzes} />
           </Switch>
         </div>
       </BrowserRouter>

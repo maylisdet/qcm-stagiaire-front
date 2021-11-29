@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { Container, Stack, TextField, Grid } from '@mui/material';
-import { LoginButton } from '../LoginButton';
+import { LoginButton } from 'Components/Authentication/LoginButton';
 import { useHistory } from 'react-router-dom';
 
-const LoginComponent = () => {
-  const [login, setLogin] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState();
 
-  const handleLoginChange = (event) => {
-    setLogin(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -17,12 +18,22 @@ const LoginComponent = () => {
   const history = useHistory();
 
   const redirectToNextPage = () => {
-    if (login === 'admin') {
+    if (email === 'admin') {
       history.push('/admin');
     } else {
       history.push('/trainee');
     }
   };
+
+  axios
+    .post(`https://jsonplaceholder.typicode.com/users`, {
+      email: email,
+      password: password,
+    })
+    .then((res) => {
+      console.log(res);
+      console.log(res.data);
+    });
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -33,8 +44,8 @@ const LoginComponent = () => {
             label="Email"
             variant="outlined"
             type="email"
-            value={login}
-            onChange={handleLoginChange}
+            value={email}
+            onChange={handleEmailChange}
           />
           <TextField
             id="outlined-basic"
@@ -51,4 +62,4 @@ const LoginComponent = () => {
   );
 };
 
-export { LoginComponent };
+export { Login };

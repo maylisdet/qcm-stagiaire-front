@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Button, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from '../../Authentication/LogoutButton';
+import { LogoutButton } from 'Components/Authentication/LogoutButton';
 import { useHistory } from 'react-router-dom';
 
-const AdminComponent = () => {
+const Admin = () => {
   const history = useHistory();
 
   return (
@@ -14,7 +14,7 @@ const AdminComponent = () => {
           <Button
             variant="contained"
             onClick={() => {
-              history.push('/admin/user-management');
+              history.push('/admin/users');
             }}
           >
             User Management
@@ -22,7 +22,7 @@ const AdminComponent = () => {
           <Button
             variant="contained"
             onClick={() => {
-              history.push('/admin/quizzes-management');
+              history.push('/admin/quizzes');
             }}
           >
             Quizzes Management
@@ -34,4 +34,4 @@ const AdminComponent = () => {
   );
 };
 
-export { AdminComponent };
+export { Admin };

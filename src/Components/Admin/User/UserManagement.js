@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from '../Authentication/LogoutButton';
+import { LogoutButton } from 'Components/Authentication/LogoutButton';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const UserManagement = () => {
           return (
             <Button
               onClick={({ id = 1 }) => {
-                history.push(`/admin/user/${id}/profile`);
+                history.push(`/admin/users/${id}`);
               }}
             >
               See profile
