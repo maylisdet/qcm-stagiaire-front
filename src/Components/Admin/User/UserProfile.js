@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Container, Stack, TextField, Button, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 
 const UserProfile = () => {
-  const [name, setName] = React.useState('Pierre');
+  const [name, setName] = useState('Pierre');
 
   const handleChange = (event) => {
     setName(event.target.value);

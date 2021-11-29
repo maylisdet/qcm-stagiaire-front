@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { Grid, Stack, Button } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import { LogoutButton } from 'Components/Authentication/LogoutButton';
+import { LogoutButton } from 'components/authentication/LogoutButton';
 
 const UserRecord = () => {
   const columns = [

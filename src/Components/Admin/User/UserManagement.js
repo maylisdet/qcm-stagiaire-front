@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { Button, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from 'Components/Authentication/LogoutButton';
+import { LogoutButton } from 'components/authentication/LogoutButton';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 

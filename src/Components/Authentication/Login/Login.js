@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Container, Stack, TextField, Grid } from '@mui/material';
-import { LoginButton } from 'Components/Authentication/LoginButton';
+import { LoginButton } from 'components/authentication/LoginButton';
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
