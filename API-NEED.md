@@ -32,7 +32,7 @@ This paper has been written in order to communicate to backend devs what is need
 
 ## 2. Quizz
 
-**[GET]** _/api/quizz/_
+**[GET]** _/api/quizzes/_
 
 ### Request
 
@@ -55,6 +55,55 @@ This paper has been written in order to communicate to backend devs what is need
     "theme": {
       "label": "DataSciences"
     }
+  }
+]
+```
+
+## 3. User Management
+
+**[GET]** _/api/users/{id}
+
+
+### Request
+
+```json
+{}
+```
+
+### Response
+
+```json
+[
+  {
+    "firstname": "May",
+    "lastname": "de Talhou",
+    "email": "maylisdet",
+    "phoneNumber": "08.....",
+    "company": "UTC",
+    "createdAt": "2021-06-12 00:00:00",
+    "isActive": true,
+    "records": [
+      {
+        "duration": "tobeDefined",
+        "score": 17,
+        "quiz": {
+          "label": "React",
+          "theme": {
+            "label": "ReactTheme"
+          }
+        }
+      },
+      {
+        "duration": "tobeDefined",
+        "score": 25,
+        "quiz": {
+          "label": "LinearRegression",
+          "theme": {
+            "label": "DataSciences"
+          }
+        }
+      },
+    ]
   }
 ]
 ```
