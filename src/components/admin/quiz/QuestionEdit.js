@@ -6,7 +6,7 @@ import {
   Typography, 
   Stack, IconButton} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { DeleteButton } from '../../DeleteButton'
+import { DeleteButton } from 'components/DeleteButton'
 import { useHistory } from 'react-router-dom'
 
 

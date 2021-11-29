@@ -2,8 +2,8 @@ import {useState} from 'react';
 import { Container, Stack, Box, Tab} from '@mui/material';
 import { TabContext, TabList, TabPanel}   from '@mui/lab/';
 
-import { QuizzContent } from './QuizzContent';
-import { QuizzRecords } from './QuizzRecords';
+import { QuizzContent } from 'components/admin/quiz/QuizzContent';
+import { QuizzRecords } from 'components/admin/quiz/QuizzRecords';
 
 const QuizzEdit = () => {
   const [value, setValue] = useState('0');
