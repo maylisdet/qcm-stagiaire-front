@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { Button, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from '../Authentication/LogoutButton';
+import { LogoutButton } from 'components/authentication/LogoutButton';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 
@@ -20,8 +19,10 @@ const QuizzesManagement = () => {
     {
       name: 'Edit quizz',
       options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return <Button>Edit</Button>;
+        customBodyRender: () => {
+          return (
+            <Button onClick={({id=1}) => {history.push(`/admin/quizz/${id}/edit`)}}>Edit</Button>
+          )
         },
       },
     },

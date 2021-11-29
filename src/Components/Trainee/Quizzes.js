@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
-import { LogoutButton } from '../Authentication/LogoutButton';
+import { LogoutButton } from 'components/authentication/LogoutButton';
 import MUIDataTable from 'mui-datatables';
 
-const QuizzesComponent = () => {
+const Quizzes = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [quizzs, setQuizzs] = useState([]);
@@ -24,9 +24,6 @@ const QuizzesComponent = () => {
           setIsLoaded(true);
           setQuizzs(result);
         },
-        // Remarque : il faut gérer les erreurs ici plutôt que dans
-        // un bloc catch() afin que nous n’avalions pas les exceptions
-        // dues à de véritables bugs dans les composants.
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -78,4 +75,4 @@ const QuizzesComponent = () => {
   }
 };
 
-export { QuizzesComponent };
+export { Quizzes };

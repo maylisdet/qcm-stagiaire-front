@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Container, Stack, Tabs, Tab, Typography, Box } from '@mui/material';
-import { UserProfile } from './UserProfile';
-import { UserRecord } from './UserRecord';
+import { UserProfile } from 'components/admin/user/UserProfile';
+import { UserRecord } from 'components/admin/user/UserRecord';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -17,8 +17,8 @@ function TabPanel(props) {
   );
 }
 
-const UserDetailledProfileComponent = () => {
-  const [value, setValue] = React.useState(0);
+const UserDetailledProfile = () => {
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -41,4 +41,4 @@ const UserDetailledProfileComponent = () => {
   );
 };
 
-export { UserDetailledProfileComponent };
+export { UserDetailledProfile };

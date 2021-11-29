@@ -1,10 +1,9 @@
-import * as React from 'react';
 import { Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from '../Authentication/LogoutButton';
+import { LogoutButton } from 'components/authentication/LogoutButton';
 import MUIDataTable from 'mui-datatables';
 
-const QuizzesResultsComponent = () => {
+const QuizzesRecords = () => {
   const columns = ['Quizz Name', 'Theme', 'Score', 'Duration'];
 
   const data = [
@@ -30,4 +29,4 @@ const QuizzesResultsComponent = () => {
   );
 };
 
-export { QuizzesResultsComponent };
+export { QuizzesRecords };
