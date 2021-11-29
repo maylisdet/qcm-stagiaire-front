@@ -1,15 +1,17 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login } from 'Components/Authentication/Login/Login';
-import { Admin } from 'Components/WelcomePage/Admin/Admin';
-import { UserManagement } from 'Components/Admin/User/UserManagement';
-import { CreateUser } from 'Components/Admin/User/CreateUser';
-import { QuizzesRecords } from 'Components/Trainee/QuizzesRecords';
-import { User } from 'Components/WelcomePage/Trainee/User';
-import { Quizzes } from 'Components/Trainee/Quizzes';
+import { Login } from 'components/authentication/login/Login';
+import { Admin } from 'components/welcome_page/admin/Admin';
+import { UserManagement } from 'components/admin/user/UserManagement';
+import { CreateUser } from 'components/admin/user/CreateUser';
+import { QuizzesRecords } from 'components/trainee/QuizzesRecords';
+import { User } from 'components/welcome_page/trainee/User';
+import { Quizzes } from 'components/trainee/Quizzes';
 
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { UserDetailledProfile } from 'Components/Admin/User/UserDetailledProfile';
-import { QuizzesManagement } from 'Components/Admin/Quiz/QuizzesManagement';
+import { UserDetailledProfile } from 'components/admin/user/UserDetailledProfile';
+import { QuizzesManagement } from 'components/admin/quiz/QuizzesManagement';
+import { QuizzEdit } from 'components/admin/quiz/QuizzEdit';
+import { QuestionEdit } from 'components/admin/quiz/QuestionEdit';
 
 const getMuiTheme = () =>
   createTheme({
@@ -45,10 +47,15 @@ function App() {
             <Route exact path="/login" component={Login} />
             {/* ADMIN ROUTES */}
             <Route exact path="/admin/create-user" component={CreateUser} />
+            <Route exact path="/admin/quizz/:id/edit" component={QuizzEdit} />
+            <Route exact path="/admin/quizz/:id/question/:id/edit" component={QuestionEdit} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/admin/users" component={UserManagement} />
             <Route exact path="/admin/quizzes" component={QuizzesManagement} />
             <Route exact path="/admin/users/:id" component={UserDetailledProfile} />
+            <Route exact path="/admin/quizz/:id/edit" component={QuizzEdit} />
+            <Route exact path="/admin/quizz/:id/question/:id/edit" component={QuestionEdit} />
+
 
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />

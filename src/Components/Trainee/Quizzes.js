@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
-import { LogoutButton } from 'Components/Authentication/LogoutButton';
+import { LogoutButton } from 'components/authentication/LogoutButton';
 import MUIDataTable from 'mui-datatables';
 
 const Quizzes = () => {

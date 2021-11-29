@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Container, Stack, TextField, Button } from '@mui/material';
 
 const CreateUser = () => {
