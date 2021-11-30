@@ -221,6 +221,7 @@ records
 ##### Includes options 
 ```json
 records
+ranks
 ```
 
 #### Request
@@ -253,6 +254,13 @@ records
           "theme": {
             "label": "ReactTheme"
           }
+        },
+        "rank": {
+          "id": "9",
+          "nb_respondents": "10",
+          "score_rank": "3/10",
+          "best_score": "20",
+          "duration_of_best_score": "12",
         }
       },
       {
@@ -264,6 +272,13 @@ records
           "theme": {
             "label": "DataSciences"
           }
+        },
+        "rank": {
+          "id": "9",
+          "nb_respondents": "10",
+          "score_rank": "3/10",
+          "best_score": "30",
+          "duration_of_best_score": "12",
         }
       },
     ]
