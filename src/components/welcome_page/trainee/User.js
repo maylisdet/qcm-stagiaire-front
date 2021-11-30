@@ -12,8 +12,8 @@ const User = () => {
         <Stack direction="column" spacing={2} mt={2}>
           <Button
             variant="contained"
-            onClick={() => {
-              history.push('/trainee/quizzes');
+            onClick={({id = 1}) => {
+              history.push(`/trainee/${id}/quizzes`);
             }}
           >
             See quizzes

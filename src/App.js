@@ -60,7 +60,7 @@ function App() {
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />
             <Route exact path="/trainee/quizzes/records" component={QuizzesRecords} />
-            <Route exact path="/trainee/quizzes" component={Quizzes} />
+            <Route exact path="/trainee/:id/quizzes" component={Quizzes} />
           </Switch>
         </div>
       </BrowserRouter>
