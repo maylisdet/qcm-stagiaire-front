@@ -12,7 +12,7 @@ This paper has been written in order to communicate to backend devs what is need
 
 ```json
 {
-  "email": "jean.bonno@etu.utc.fr",
+  "email": "clement.botty@etu.utc.fr",
   "password": "helloworld"
 }
 ```
@@ -37,7 +37,7 @@ This paper has been written in order to communicate to backend devs what is need
 **[GET]** _/api/quizzes/_
 
 #### Filter options 
-```json
+```
 is_active
 is_inactive
 ```
@@ -69,7 +69,7 @@ is_inactive
 
 ### 2.1 For trainee
 
-**[GET]** _/api/trainee/{id}quizzes/_
+**[GET]** _/api/trainees/{id}/quizzes/_
 
 Available quizzes for a given trainee
 
@@ -100,10 +100,10 @@ Available quizzes for a given trainee
 
 ## 3. User Management
 
-**[GET]** _/api/users
+**[GET]** _/api/users_
 
 #### Filter options 
-```json
+```
 is_not_admin
 ```
 
@@ -131,10 +131,10 @@ is_not_admin
 ```
 
 
-**[GET]** _/api/users/{id}
+**[GET]** _/api/users/{id}_
 
 #### Includes options 
-```json
+```
 records
 ```
 
@@ -182,7 +182,7 @@ records
 ]
 ```
 
-**[GET]** _/api/users/create
+**[POST]** _/api/users_
 
 ### Request
 
@@ -193,7 +193,6 @@ records
   "email": "maylisdet",
   "phoneNumber": "08.....",
   "company": "UTC",
-  "createdAt": "2021-06-12 00:00:00",
 }
 ```
 
@@ -217,7 +216,7 @@ records
 
 ### Quiz detail
 
-**[GET]** _/api/quizzes/{id}
+**[GET]** _/api/quizzes/{id}_
 
 ##### Includes options 
 ```json
@@ -274,7 +273,7 @@ records
 
 ### Quiz update
 
-**[PUT]** _/api/quizzes/{id}
+**[PUT]** _/api/quizzes/{id}_
 
 ##### Includes options 
 ```json
@@ -325,7 +324,7 @@ records
 
 ### All themes
 
-**[GET]** _/api/themes
+**[GET]** _/api/themes_
 
 #### Request
 
@@ -354,7 +353,7 @@ records
 
 ### Create theme
 
-**[POST]** _/api/themes
+**[POST]** _/api/themes_
 
 #### Request
 
@@ -374,7 +373,7 @@ records
 
 ### Delete theme
 
-**[DELETE]** _/api/themes/:id
+**[DELETE]** _/api/themes/{id}_
 
 #### Request
 
@@ -394,7 +393,7 @@ records
 
 ### Create question
 
-**[POST]** _/api/questions
+**[POST]** _/api/questions_
 
 #### Request
 
@@ -402,26 +401,23 @@ records
 {
   "title": "Quel est le hook le plus utilisé",
   "is_active": true,
-  "correct_answer": [
-      {
-        "id": "3",
-        "label": "useEffect",
-      }
-    ],
-    "possible_answers": [
-      {
-         "id": "8",
-        "label": "UseEffect",
-      },
-      {
-         "id": "4",
-        "label": "UseState",
-      },
-      {
-         "id": "5",
-        "label": "UseCallback",
-      }
-    ],
+  "answers": [
+    {
+      "id": "8",
+      "label": "useEffect",
+      "is_correct": true
+    },
+    {
+      "id": "4",
+      "label": "useState",
+      "is_correct": false
+    },
+    {
+      "id": "5",
+      "label": "useCallback",
+      "is_correct": false
+    }
+  ],
 }
 ```
 
@@ -434,7 +430,7 @@ records
 
 ### Update question
 
-**[POST]** _/api/questions/:id
+**[PUT]** _/api/questions/{id}_
 
 #### Request
 
@@ -442,26 +438,23 @@ records
 {
   "title": "Quel est le hook le plus utilisé",
   "is_active": true,
-  "correct_answer": [
-      {
-        "id": "3",
-        "label": "useEffect",
-      }
-    ],
-    "possible_answers": [
-      {
-         "id": "8",
-        "label": "UseEffect",
-      },
-      {
-         "id": "4",
-        "label": "UseState",
-      },
-      {
-         "id": "5",
-        "label": "UseCallback",
-      }
-    ],
+  "answers": [
+    {
+      "id": "8",
+      "label": "useEffect",
+      "is_correct": true
+    },
+    {
+      "id": "4",
+      "label": "useState",
+      "is_correct": false
+    },
+    {
+      "id": "5",
+      "label": "useCallback",
+      "is_correct": false
+    }
+  ],
 }
 ```
 
@@ -474,7 +467,7 @@ records
 
 ### Question detail
 
-**[GET]** _/api/question/:id
+**[GET]** _/api/question/{id}_
 
 #### Request
 
@@ -516,7 +509,7 @@ records
 
 ### Delete Question
 
-**[DELETE]** _/api/question/:id
+**[DELETE]** _/api/question/{id}_
 
 #### Resquest
 
