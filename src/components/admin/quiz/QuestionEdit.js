@@ -1,22 +1,17 @@
 import { useState } from 'react';
-import { 
-  Button, 
-  TextField, 
-  Container, 
-  Typography, 
-  Stack, IconButton} from '@mui/material';
+import { Button, TextField, Container, Typography, Stack, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { DeleteButton } from 'components/DeleteButton'
-import { useHistory } from 'react-router-dom'
-
+import { DeleteButton } from 'components/DeleteButton';
+import { useHistory } from 'react-router-dom';
+import { Header } from 'components/header/Header';
 
 const QuestionEdit = (props) => {
-  const history = useHistory()
+  const history = useHistory();
   const [values, setValues] = useState({
     title: props.title,
     theme: '',
     correct_answer: {
-      content: 'Blabla'
+      content: 'Blabla',
     },
     possible_answers: [
       {
@@ -25,7 +20,7 @@ const QuestionEdit = (props) => {
       {
         content: 'Rep 2',
       },
-    ]
+    ],
   });
 
   const handleChange = (prop) => (event) => {
@@ -33,11 +28,10 @@ const QuestionEdit = (props) => {
   };
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Stack spacing={4} mt={4}>
-        <Typography variant="h5">
-          Edit question
-        </Typography>
+        <Header />
+        <Typography variant="h5">Edit question</Typography>
         <Stack>
           <Stack spacing={6}>
             <TextField
@@ -55,7 +49,7 @@ const QuestionEdit = (props) => {
                 fullWidth
                 variant="standard"
                 value={values.correct_answer.content}
-                onChange={handleChange("correct_answer.content")}
+                onChange={handleChange('correct_answer.content')}
               />
             </Stack>
             <Stack spacing={2}>
@@ -67,26 +61,33 @@ const QuestionEdit = (props) => {
               </Stack>
               {values.possible_answers.map((answer) => {
                 return (
-                  <Stack direction='row'>
+                  <Stack direction="row">
                     <TextField
-                    id="outlined-basic"
-                    fullWidth
-                    variant="standard"
-                    value={answer.content}
-                    onChange={handleChange('content')}/>
-                    <DeleteButton/>
+                      id="outlined-basic"
+                      fullWidth
+                      variant="standard"
+                      value={answer.content}
+                      onChange={handleChange('content')}
+                    />
+                    <DeleteButton />
                   </Stack>
-                )
+                );
               })}
             </Stack>
           </Stack>
         </Stack>
         <Stack>
-          <Button onClick= {({id= 1}) => {history.push(`/admin/quizz/${id}/edit`)}}>Save Modifications</Button>
+          <Button
+            onClick={({ id = 1 }) => {
+              history.push(`/admin/quizz/${id}/edit`);
+            }}
+          >
+            Save Modifications
+          </Button>
         </Stack>
       </Stack>
     </Container>
   );
-}
+};
 
 export { QuestionEdit };

@@ -1,6 +1,5 @@
 import { Grid, Stack, Button } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import { LogoutButton } from 'components/authentication/LogoutButton';
 
 const UserRecord = () => {
   const columns = [
@@ -39,9 +38,6 @@ const UserRecord = () => {
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Stack direction="column" alignItems={'flex-end'} spacing={2}>
-        <LogoutButton />
-      </Stack>
       <MUIDataTable title={'Trainees'} data={data} columns={columns} />
     </Grid>
   );

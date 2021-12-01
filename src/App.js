@@ -56,7 +56,6 @@ function App() {
             <Route exact path="/admin/quizz/:id/edit" component={QuizzEdit} />
             <Route exact path="/admin/quizz/:id/question/:id/edit" component={QuestionEdit} />
 
-
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />
             <Route exact path="/trainee/quizzes/records" component={QuizzesRecords} />

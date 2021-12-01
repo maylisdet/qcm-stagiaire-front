@@ -1,7 +1,7 @@
 import { Button, Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { LogoutButton } from 'components/authentication/LogoutButton';
 import { useHistory } from 'react-router-dom';
+import { Header } from 'components/header/Header';
 
 const Admin = () => {
   const history = useHistory();
@@ -10,6 +10,7 @@ const Admin = () => {
     <>
       <Grid container direction="row" justifyContent="center" alignItems="center">
         <Stack direction="column" spacing={2} mt={2}>
+          <Header />
           <Button
             variant="contained"
             onClick={() => {
@@ -26,7 +27,6 @@ const Admin = () => {
           >
             Quizzes Management
           </Button>
-          <LogoutButton />
         </Stack>
       </Grid>
     </>

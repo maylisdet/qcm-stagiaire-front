@@ -36,7 +36,8 @@ This paper has been written in order to communicate to backend devs what is need
 
 **[GET]** _/api/quizzes/_
 
-#### Filter options 
+#### Filter options
+
 ```
 is_active
 is_inactive
@@ -102,7 +103,8 @@ Available quizzes for a given trainee
 
 **[GET]** _/api/users_
 
-#### Filter options 
+#### Filter options
+
 ```
 is_not_admin
 ```
@@ -120,20 +122,20 @@ is_not_admin
   {
     "firstname": "May",
     "lastname": "de Talhou",
-    "company": "UTC",
+    "company": "UTC"
   },
   {
     "firstname": "pierre",
     "lastname": "dupont",
-    "company": "UTC",
-  },
+    "company": "UTC"
+  }
 ]
 ```
 
-
 **[GET]** _/api/users/{id}_
 
-#### Includes options 
+#### Includes options
+
 ```
 records
 ```
@@ -176,7 +178,7 @@ records
             "label": "DataSciences"
           }
         }
-      },
+      }
     ]
   }
 ]
@@ -192,7 +194,7 @@ records
   "lastname": "de Talhou",
   "email": "maylisdet",
   "phoneNumber": "08.....",
-  "company": "UTC",
+  "company": "UTC"
 }
 ```
 
@@ -207,7 +209,7 @@ records
     "phoneNumber": "08.....",
     "company": "UTC",
     "createdAt": "2021-06-12 00:00:00",
-    "isActive": true,
+    "isActive": true
   }
 ]
 ```
@@ -218,7 +220,8 @@ records
 
 **[GET]** _/api/quizzes/{id}_
 
-##### Includes options 
+##### Includes options
+
 ```json
 records
 ranks
@@ -241,7 +244,7 @@ ranks
       {
         "id": "4",
         "label": "Quel est le hook le plus utilisé",
-        "show_number": "1",
+        "show_number": "1"
       }
     ],
     "records": [
@@ -260,7 +263,7 @@ ranks
           "nb_respondents": "10",
           "score_rank": "3/10",
           "best_score": "20",
-          "duration_of_best_score": "12",
+          "duration_of_best_score": "12"
         }
       },
       {
@@ -278,9 +281,9 @@ ranks
           "nb_respondents": "10",
           "score_rank": "3/10",
           "best_score": "30",
-          "duration_of_best_score": "12",
+          "duration_of_best_score": "12"
         }
-      },
+      }
     ]
   }
 ]
@@ -290,7 +293,8 @@ ranks
 
 **[PUT]** _/api/quizzes/{id}_
 
-##### Includes options 
+##### Includes options
+
 ```json
 records
 ```
@@ -306,7 +310,7 @@ records
       {
         "id": "4",
         "label": "Quel est le hook le plus utilisé",
-        "show_number": "1",
+        "show_number": "1"
       }
     ],
     "records": [
@@ -331,7 +335,7 @@ records
             "label": "DataSciences"
           }
         }
-      },
+      }
     ]
   }
 ]
@@ -353,16 +357,16 @@ records
 [
   {
     "id": "1",
-    "label": "React",
+    "label": "React"
   },
   {
     "id": "2",
-    "label": "Ruby",
+    "label": "Ruby"
   },
   {
     "id": "3",
-    "label": "POO",
-  },
+    "label": "POO"
+  }
 ]
 ```
 
@@ -374,16 +378,17 @@ records
 
 ```json
 {
-  "label": "React",
+  "label": "React"
 }
 ```
 
 #### Response
+
 ```json
-  {
-    "id": "4",
-    "label": "React",
-  }
+{
+  "id": "4",
+  "label": "React"
+}
 ```
 
 ### Delete theme
@@ -432,11 +437,12 @@ records
       "label": "useCallback",
       "is_correct": false
     }
-  ],
+  ]
 }
 ```
 
 #### Response
+
 ```json
 {
   "code": "200"
@@ -469,11 +475,12 @@ records
       "label": "useCallback",
       "is_correct": false
     }
-  ],
+  ]
 }
 ```
 
 #### Response
+
 ```json
 {
   "code": "200"
@@ -501,23 +508,23 @@ records
     "correct_answer": [
       {
         "id": "3",
-        "label": "useEffect",
+        "label": "useEffect"
       }
     ],
     "possible_answers": [
       {
-         "id": "8",
-        "label": "UseEffect",
+        "id": "8",
+        "label": "UseEffect"
       },
       {
-         "id": "4",
-        "label": "UseState",
+        "id": "4",
+        "label": "UseState"
       },
       {
-         "id": "5",
-        "label": "UseCallback",
+        "id": "5",
+        "label": "UseCallback"
       }
-    ],
+    ]
   }
 ]
 ```

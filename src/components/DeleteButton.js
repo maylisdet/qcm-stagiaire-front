@@ -7,6 +7,6 @@ const DeleteButton = (onClick) => {
       <DeleteIcon />
     </IconButton>
   );
-}
+};
 
-export { DeleteButton }; 
+export { DeleteButton };

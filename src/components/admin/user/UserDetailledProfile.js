@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Container, Stack, Tabs, Tab, Typography, Box } from '@mui/material';
 import { UserProfile } from 'components/admin/user/UserProfile';
 import { UserRecord } from 'components/admin/user/UserRecord';
+import { Header } from 'components/header/Header';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -26,6 +27,7 @@ const UserDetailledProfile = () => {
   return (
     <Container maxWidth="sm">
       <Stack spacing={3} mt={4}>
+        <Header />
         <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
           <Tab label="User's information" />
           <Tab label="Records" />

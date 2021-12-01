@@ -24,7 +24,7 @@ const UserProfile = () => {
           value="01/01/01 at 01:01"
         />
         <FormGroup>
-          <FormControlLabel control={<Checkbox defaultChecked />} label="is active" />
+          <FormControlLabel control={<Checkbox defaultChecked />} label=" Active" />
         </FormGroup>
         <Button variant="outlined">Save modifications</Button>
       </Stack>
