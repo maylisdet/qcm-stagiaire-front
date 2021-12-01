@@ -15,6 +15,7 @@ const Login = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
   const history = useHistory();
 
   const redirectToNextPage = () => {

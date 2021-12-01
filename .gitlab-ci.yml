@@ -5,5 +5,4 @@ prettier:
     - docker
   script:
     - yarn install
-    - yarn format:write
     - yarn format:check
