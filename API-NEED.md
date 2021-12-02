@@ -310,12 +310,30 @@ records
       {
         "id": "4",
         "label": "Quel est le hook le plus utilisé",
-        "show_number": "1"
+        "show_number": "1",
+        "answers": [
+          {
+            "id": "1",
+            "label": "My awsome answer1",
+            "correct_answer": true
+          },
+          {
+            "id": "2",
+            "label": "My awsome answer2",
+            "correct_answer": false
+          },
+          {
+            "id": "3",
+            "label": "My awsome answer3",
+            "correct_answer": false
+          }
+        ]
       }
     ],
     "records": [
       {
         "id": "4",
+        "user_id": "5",
         "duration": "tobeDefined",
         "score": 17,
         "quiz": {
@@ -327,6 +345,7 @@ records
       },
       {
         "id": "4",
+        "user_id": "6",
         "duration": "tobeDefined",
         "score": 25,
         "quiz": {
