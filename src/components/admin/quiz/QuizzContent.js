@@ -18,7 +18,7 @@ const QuizzContent = () => {
 
   const columns = [
     { field: 'show_number', headerName: 'Number', width: 100 },
-    { field: 'title', headerName: 'Question', width: 700 },
+    { field: 'title', headerName: 'Question', width: 400 },
     {
       field: 'edit',
       headerName: 'Edit',

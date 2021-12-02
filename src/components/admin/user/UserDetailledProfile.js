@@ -26,7 +26,7 @@ const UserDetailledProfile = () => {
   };
   return (
     <Container maxWidth="sm">
-      <Stack spacing={3} mt={4}>
+      <Stack spacing={3} mt={2}>
         <Header />
         <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
           <Tab label="User's information" />

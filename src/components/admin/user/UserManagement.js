@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
@@ -40,7 +40,7 @@ const UserManagement = () => {
   ];
   return (
     <>
-      <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Container maxWidth="sm">
         <Stack direction="column" spacing={2} mt={2} alignItems={'strech'}>
           <Stack direction="column" alignItems={'flex-end'} spacing={2}>
             <Header />
@@ -56,7 +56,7 @@ const UserManagement = () => {
           </Stack>
           <MUIDataTable title={'Trainees'} data={data} columns={columns} />
         </Stack>
-      </Grid>
+      </Container>
     </>
   );
 };

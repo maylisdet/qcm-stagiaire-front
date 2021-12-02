@@ -1,4 +1,4 @@
-import { Grid, Stack, Button } from '@mui/material';
+import { Grid } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 
 const UserRecord = () => {
@@ -15,19 +15,11 @@ const UserRecord = () => {
     {
       name: 'Best Score of the quizz',
       options: {
-        setCellProps: () => ({ style: { minWidth: '200px', maxWidth: '500px' } }),
+        setCellProps: () => ({ style: { minWidth: '150px' } }),
       },
     },
     {
       name: 'Rank',
-    },
-    {
-      name: 'Action',
-      options: {
-        customBodyRender: () => {
-          return <Button>See profile</Button>;
-        },
-      },
     },
   ];
 

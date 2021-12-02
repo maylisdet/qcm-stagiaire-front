@@ -1,5 +1,4 @@
-import { Button, Grid } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import { Button, Container, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { Header } from 'components/header/Header';
 
@@ -8,7 +7,7 @@ const Admin = () => {
 
   return (
     <>
-      <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Container maxWidth="sm">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <Button
@@ -28,7 +27,7 @@ const Admin = () => {
             Quizzes Management
           </Button>
         </Stack>
-      </Grid>
+      </Container>
     </>
   );
 };
