@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Container } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import MUIDataTable from 'mui-datatables';
 import { Header } from 'components/header/Header';
@@ -19,12 +19,12 @@ const QuizzesRecords = () => {
 
   return (
     <>
-      <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Container maxWidth="sm" justifyContent="center" alignItems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <MUIDataTable title={'Results'} data={data} columns={columns} options={options} />
         </Stack>
-      </Grid>
+      </Container>
     </>
   );
 };

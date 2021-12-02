@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Container, Stack, TextField, Grid } from '@mui/material';
+import { Container, Stack, TextField } from '@mui/material';
 import { LoginButton } from 'components/authentication/LoginButton';
 import { useHistory } from 'react-router-dom';
 
@@ -37,29 +37,27 @@ const Login = () => {
     });
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Container maxWidth="sm">
-        <Stack spacing={3} mt={4}>
-          <TextField
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <LoginButton variant="contained" onClick={redirectToNextPage} />
-        </Stack>
-      </Container>
-    </Grid>
+    <Container maxWidth="sm">
+      <Stack spacing={3} mt={4}>
+        <TextField
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <LoginButton variant="contained" onClick={redirectToNextPage} />
+      </Stack>
+    </Container>
   );
 };
 

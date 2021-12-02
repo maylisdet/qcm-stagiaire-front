@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Container } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import MUIDataTable from 'mui-datatables';
@@ -64,12 +64,12 @@ const Quizzes = () => {
   } else {
     return (
       <>
-        <Grid container direction="row" justifyContent="center" alignItems="center">
+        <Container maxWidth="sm" justifyContent="center" alignItems="center">
           <Stack direction="column" spacing={2} mt={2}>
             <Header />
             <MUIDataTable title={'Available Quizzes'} data={quizzs} columns={columns} options={options} />
           </Stack>
-        </Grid>
+        </Container>
       </>
     );
   }

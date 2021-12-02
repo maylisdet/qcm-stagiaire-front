@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Container } from '@mui/material';
 import { Login } from 'components/authentication/login/Login';
 import { Admin } from 'components/welcome_page/admin/Admin';
 import { UserManagement } from 'components/admin/user/UserManagement';
@@ -40,8 +41,8 @@ const getMuiTheme = () =>
 function App() {
   return (
     <MuiThemeProvider theme={getMuiTheme()}>
-      <BrowserRouter>
-        <div className="App">
+      <Container maxWidth="md">
+        <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
@@ -61,8 +62,8 @@ function App() {
             <Route exact path="/trainee/quizzes/records" component={QuizzesRecords} />
             <Route exact path="/trainee/:id/quizzes" component={Quizzes} />
           </Switch>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Container>
     </MuiThemeProvider>
   );
 }
