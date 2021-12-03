@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { useHistory } from 'react-router-dom';
 import { Header } from 'components/header/Header';
@@ -8,7 +8,7 @@ const User = () => {
 
   return (
     <>
-      <Grid container direction="row" justifyContent="center" alignItems="center">
+      <Container maxWidth="sm">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <Button
@@ -29,7 +29,7 @@ const User = () => {
             Results{' '}
           </Button>
         </Stack>
-      </Grid>
+      </Container>
     </>
   );
 };

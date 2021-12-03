@@ -1,16 +1,55 @@
-import { Container } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import { Container, Button, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { Header } from 'components/header/Header';
+import { useHistory } from 'react-router-dom';
 
 const QuizzesRecords = () => {
-  const columns = ['Quizz Name', 'Theme', 'Score', 'Duration'];
+  const history = useHistory();
+
+  const columns = [
+    {
+      name: 'quizLabel',
+      label: 'Quiz Name',
+    },
+    {
+      name: 'theme',
+      label: 'Theme',
+    },
+    {
+      name: 'score',
+      label: 'Score',
+    },
+    {
+      name: 'rank',
+      label: 'Rank',
+    },
+    {
+      name: 'duration',
+      label: 'Duration',
+    },
+    {
+      name: 'details',
+      label: 'Details',
+      options: {
+        customBodyRender: () => {
+          return (
+            <Button
+              onClick={({ quizz_id = 1, trainee_id = 3 }) => {
+                history.push(`/trainee/${trainee_id}/quizzes/${quizz_id}/result`);
+              }}
+            >
+              Detail
+            </Button>
+          );
+        },
+      },
+    },
+  ];
 
   const data = [
-    ['ReactJS', 'React', '60%', '10.3'],
-    ['ReactNative', 'React', '80%', '12'],
-    ['Hooks', 'React', '80%', '15'],
-    ['API Calls', 'React Queries', '20%', '15'],
+    { quizLabel: 'Joe James', theme: 'Test Corp', score: '30', rank: '4/20', duration: '3 hours' },
+    { quizLabel: 'Joe James', theme: 'Test Corp', score: '30', rank: '4/20', duration: '3 hours' },
+    { quizLabel: 'Joe James', theme: 'Test Corp', score: '30', rank: '4/20', duration: '3 hours' },
   ];
 
   const options = {
@@ -19,7 +58,7 @@ const QuizzesRecords = () => {
 
   return (
     <>
-      <Container maxWidth="sm" justifyContent="center" alignItems="center">
+      <Container maxWidth="md" justifyContent="center" alignItems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <MUIDataTable title={'Results'} data={data} columns={columns} options={options} />
