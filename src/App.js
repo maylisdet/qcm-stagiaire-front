@@ -13,6 +13,7 @@ import { UserDetailledProfile } from 'components/admin/user/UserDetailledProfile
 import { QuizzesManagement } from 'components/admin/quiz/QuizzesManagement';
 import { QuizzEdit } from 'components/admin/quiz/QuizzEdit';
 import { QuestionEdit } from 'components/admin/quiz/QuestionEdit';
+import { QuizDetailledResult } from 'components/trainee/QuizDetailledResult';
 
 const getMuiTheme = () =>
   createTheme({
@@ -61,6 +62,7 @@ function App() {
             <Route exact path="/trainee" component={User} />
             <Route exact path="/trainee/quizzes/records" component={QuizzesRecords} />
             <Route exact path="/trainee/:id/quizzes" component={Quizzes} />
+            <Route exact path="/trainee/:id/quizzes/:id/result" component={QuizDetailledResult} />
           </Switch>
         </BrowserRouter>
       </Container>
