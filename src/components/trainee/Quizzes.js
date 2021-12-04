@@ -64,7 +64,7 @@ const Quizzes = () => {
   } else {
     return (
       <>
-        <Container maxWidth="sm" justifyContent="center" alignItems="center">
+        <Container maxWidth="sm" justifycontent="center" alignitems="center">
           <Stack direction="column" spacing={2} mt={2}>
             <Header />
             <MUIDataTable title={'Available Quizzes'} data={quizzs} columns={columns} options={options} />

@@ -1,19 +1,30 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Stack, TextField, FormControl, InputLabel, MenuItem, Select, Button } from '@mui/material';
+import { Container, Stack, TextField, FormControl, InputLabel, MenuItem, Select, Button, Modal } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import 'styles/themes.css';
 import { DeleteButton } from 'components/DeleteButton';
 
 const QuizzContent = () => {
   const history = useHistory();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [values, setValues] = useState({
     name: '',
     theme: '',
+    new_theme: '',
   });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const createTheme = () => {
+    //Add theme + reload themes from back
+    console.log(values);
+    setOpen(false);
   };
 
   const columns = [
@@ -53,6 +64,21 @@ const QuizzContent = () => {
     { id: 5, show_number: 5, title: 'Quelle est la différence entre A et B' },
   ];
 
+  const themes = [
+    {
+      id: '1',
+      label: 'React',
+    },
+    {
+      id: '2',
+      label: 'Ruby',
+    },
+    {
+      id: '3',
+      label: 'POO',
+    },
+  ];
+
   return (
     <Container>
       <Stack spacing={6} mt={4}>
@@ -66,13 +92,24 @@ const QuizzContent = () => {
         <Stack direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={2}>
           <p>Theme</p>
           <FormControl fullWidth={true}>
-            <InputLabel id="demo-simple-select-label">Theme</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" value={values.theme} label="Theme">
-              <MenuItem value={10}>Java</MenuItem>
-              <MenuItem value={20}>React</MenuItem>
+            <InputLabel>Theme</InputLabel>
+            <Select value={values.theme} label="Theme" onChange={handleChange('theme')}>
+              {themes.map((theme) => {
+                return <MenuItem value={theme.label}>{theme.label}</MenuItem>;
+              })}
             </Select>
           </FormControl>
-          <Button variant="contained">New Theme</Button>
+          <Button variant="contained" onClick={handleOpen}>
+            New Theme
+          </Button>
+          <Modal open={open} onClose={handleClose}>
+            <Stack className="theme_modal" direction="row" alignItems="center" justifyContent="space-around">
+              <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleChange('new_theme')} />
+              <Button variant="contained" onClick={createTheme}>
+                Add Theme
+              </Button>
+            </Stack>
+          </Modal>
         </Stack>
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} disableSelectionOnClick />
