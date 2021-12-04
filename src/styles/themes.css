@@ -1,0 +1,12 @@
+.theme_modal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: white;
+  border: 3px solid #1976d2;
+  box-shadow: 50px;
+  padding: 4ch;
+  border-radius: 15px;
+}
