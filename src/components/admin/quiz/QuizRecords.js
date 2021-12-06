@@ -52,7 +52,7 @@ const QuizRecords = () => {
 
   return (
     <>
-      <Container alignItems="center">
+      <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <MUIDataTable title={'Quiz Record'} data={data} columns={columns} />
         </Stack>

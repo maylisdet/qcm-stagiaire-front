@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 
 const UserRecord = () => {
@@ -29,9 +29,13 @@ const UserRecord = () => {
   ];
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <MUIDataTable title={'Trainees'} data={data} columns={columns} />
-    </Grid>
+    <>
+      <Container alignitems="center">
+        <Stack direction="column" spacing={2} mt={2}>
+          <MUIDataTable title={'Trainees'} data={data} columns={columns} />
+        </Stack>
+      </Container>
+    </>
   );
 };
 

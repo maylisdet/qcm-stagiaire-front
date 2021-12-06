@@ -64,8 +64,8 @@ const UserManagement = () => {
   return (
     <>
       <Container maxWidth="md">
-        <Stack direction="column" spacing={2} mt={2} alignItems={'strech'}>
-          <Stack direction="column" alignItems={'flex-end'} spacing={2}>
+        <Stack direction="column" spacing={2} mt={2} alignItems="strech">
+          <Stack direction="column" alignItems="flex-end" spacing={2}>
             <Header />
             <Button variant="contained" onClick={toCreateUser}>
               New trainee

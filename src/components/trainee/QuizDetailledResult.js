@@ -119,7 +119,7 @@ const QuizDetailledResult = () => {
 
   return (
     <>
-      <Container maxWidth="md" justifyContent="center" alignItems="center">
+      <Container maxWidth="md" justifyContent="center" alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <QuizResume {...quiz} />
