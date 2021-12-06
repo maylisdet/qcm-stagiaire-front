@@ -74,7 +74,7 @@ const CreateQuiz = () => {
               </Modal>
             </Stack>
             <Button variant="contained" onClick={toQuizzesManagementPage}>
-              Create Quizz
+              Create Quiz
             </Button>
           </Stack>
         </Stack>

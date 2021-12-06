@@ -6,7 +6,7 @@ import 'styles/themes.css';
 import { DeleteButton } from 'components/DeleteButton';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
-const QuizzContent = () => {
+const QuizContent = () => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -28,8 +28,8 @@ const QuizzContent = () => {
     setOpen(false);
   };
 
-  const toQuestionEdit = (quizz_id, question_id) => {
-    const url = `/admin/quizz/${quizz_id}/question/${question_id}/edit`;
+  const toQuestionEdit = (quiz_id, question_id) => {
+    const url = `/admin/quiz/${quiz_id}/question/${question_id}/edit`;
     history.push(url);
   };
 
@@ -42,7 +42,7 @@ const QuizzContent = () => {
       with: 600,
       renderCell: () => {
         return (
-          <Button onClick={(quizz_id, question_id) => toQuestionEdit(2, 3)}>
+          <Button onClick={(quiz_id, question_id) => toQuestionEdit(2, 3)}>
             <ModeEditOutlineOutlinedIcon />
           </Button>
         );
@@ -120,4 +120,4 @@ const QuizzContent = () => {
   );
 };
 
-export { QuizzContent };
+export { QuizContent };

@@ -33,7 +33,7 @@ const QuestionEdit = (props) => {
   };
 
   const toQuizEditPage = (id) => {
-    const url = `/admin/quizz/${id}/edit`;
+    const url = `/admin/quiz/${id}/edit`;
     history.push(url);
   };
 
