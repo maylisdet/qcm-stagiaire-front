@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { BackButton } from './BackButton';
-import { LogoutButton } from './LogoutButton';
+import { BackButton } from 'components/header/BackButton';
+import { LogoutButton } from 'components/header/LogoutButton';
 import { useHistory } from 'react-router-dom';
 
 const Header = () => {

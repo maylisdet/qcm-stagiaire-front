@@ -62,10 +62,10 @@ const QuizzesManagement = () => {
   ];
   return (
     <>
-      <Container maxWidth="md" justifyContent="center" alignItems="center">
-        <Stack direction="column" spacing={2} mt={2} alignItems={'stretch'}>
+      <Container alignItems="center">
+        <Stack direction="column" spacing={2} mt={2}>
           <Header />
-          <Stack direction="column" alignItems={'flex-end'} spacing={2}>
+          <Stack direction="column" alignItems="flex-end" spacing={2}>
             <Button variant="contained" onClick={toCreateQuiz}>
               New quizz
             </Button>
