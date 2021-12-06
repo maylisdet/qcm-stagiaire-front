@@ -1,7 +1,15 @@
 import { Container, Stack, TextField, Button } from '@mui/material';
 import { Header } from 'components/header/Header';
+import { useHistory } from 'react-router-dom';
 
 const CreateUser = () => {
+  const history = useHistory();
+
+  const toUsersManagementPage = () => {
+    const url = '/admin/users';
+    history.push(url);
+  };
+
   return (
     <Container maxWidth="md">
       <Stack spacing={2} mt={2}>
@@ -21,7 +29,9 @@ const CreateUser = () => {
               required
             />
             <TextField id="outlined-basic" label="Company" variant="outlined" required />
-            <Button variant="contained">Create Profile</Button>
+            <Button variant="contained" onClick={toUsersManagementPage}>
+              Create Profile
+            </Button>
           </Stack>
         </Stack>
       </Stack>

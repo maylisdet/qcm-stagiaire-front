@@ -20,8 +20,7 @@ const QuizzesManagement = () => {
   };
 
   const toCreateQuiz = () => {
-    // URL to be changed when the view is created
-    const url = '/admin/create-user';
+    const url = '/admin/create-quiz';
     history.push(url);
   };
 
