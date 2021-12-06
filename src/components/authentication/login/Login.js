@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState();
+  const history = useHistory();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -16,7 +17,11 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const history = useHistory();
+  const handleEnter = (event) => {
+    if (event.key === 'Enter') {
+      redirectToNextPage();
+    }
+  };
 
   const redirectToNextPage = () => {
     if (email === 'admin') {
@@ -46,6 +51,7 @@ const Login = () => {
           type="email"
           value={email}
           onChange={handleEmailChange}
+          onKeyPress={handleEnter}
         />
         <TextField
           //id="outlined-basic"
@@ -54,6 +60,7 @@ const Login = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+          onKeyPress={handleEnter}
         />
         <LoginButton variant="contained" onClick={redirectToNextPage} />
       </Stack>

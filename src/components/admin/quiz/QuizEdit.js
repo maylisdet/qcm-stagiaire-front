@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Stack, Box, Tab, Container } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab/';
 
-import { QuizzContent } from 'components/admin/quiz/QuizzContent';
-import { QuizzRecords } from 'components/admin/quiz/QuizzRecords';
+import { QuizContent } from 'components/admin/quiz/QuizContent';
+import { QuizRecords } from 'components/admin/quiz/QuizRecords';
 import { Header } from 'components/header/Header';
 
-const QuizzEdit = () => {
+const QuizEdit = () => {
   const [value, setValue] = useState('0');
 
   const handleChange = (event, newValue) => {
@@ -19,15 +19,15 @@ const QuizzEdit = () => {
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange}>
-              <Tab label="Quizz Content" value="0" />
+              <Tab label="Quiz Content" value="0" />
               <Tab label="Records" value="1" />
             </TabList>
           </Box>
           <TabPanel value="0">
-            <QuizzContent />
+            <QuizContent />
           </TabPanel>
           <TabPanel value="1">
-            <QuizzRecords />
+            <QuizRecords />
           </TabPanel>
         </TabContext>
       </Stack>
@@ -35,4 +35,4 @@ const QuizzEdit = () => {
   );
 };
 
-export { QuizzEdit };
+export { QuizEdit };

@@ -8,7 +8,7 @@ import { Header } from 'components/header/Header';
 const Quizzes = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [quizzs, setQuizzs] = useState([]);
+  const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
     fetch('https://myfakeapi.com/api/cars/')
@@ -16,13 +16,13 @@ const Quizzes = () => {
       .then(
         (result) => {
           result = [
-            { quizzLabel: 'ReactJS', themeLabel: 'React' },
-            { quizzLabel: 'ReactNative', themeLabel: 'React' },
-            { quizzLabel: 'Hooks', themeLabel: 'React' },
-            { quizzLabel: 'LinearRegression', themeLabel: 'DataSciences' },
+            { quizLabel: 'ReactJS', themeLabel: 'React' },
+            { quizLabel: 'ReactNative', themeLabel: 'React' },
+            { quizLabel: 'Hooks', themeLabel: 'React' },
+            { quizLabel: 'LinearRegression', themeLabel: 'DataSciences' },
           ];
           setIsLoaded(true);
-          setQuizzs(result);
+          setQuizzes(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -31,11 +31,11 @@ const Quizzes = () => {
       );
   }, []);
 
-  //const columns = ["Quizz Name", "Theme"];
+  //const columns = ["Quiz Name", "Theme"];
   const columns = [
     {
-      name: 'quizzLabel',
-      label: 'Quizz Name',
+      name: 'quizLabel',
+      label: 'Quiz Name',
       options: {
         filter: true,
         sort: true,
@@ -67,7 +67,7 @@ const Quizzes = () => {
         <Container maxWidth="md" justifyContent="center" alignItems="center">
           <Stack direction="column" spacing={2} mt={2}>
             <Header />
-            <MUIDataTable title={'Available Quizzes'} data={quizzs} columns={columns} options={options} />
+            <MUIDataTable title={'Available Quizzes'} data={quizzes} columns={columns} options={options} />
           </Stack>
         </Container>
       </>
