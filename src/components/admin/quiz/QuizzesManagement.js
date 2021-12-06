@@ -62,7 +62,7 @@ const QuizzesManagement = () => {
   ];
   return (
     <>
-      <Container alignItems="center">
+      <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <Stack direction="column" alignItems="flex-end" spacing={2}>

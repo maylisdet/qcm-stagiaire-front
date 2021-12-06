@@ -20,7 +20,7 @@ const Admin = () => {
       <Container maxWidth="md">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
-          <Stack alignItems={'center'}>
+          <Stack alignItems="center">
             <Stack width="300px" spacing={2} mt={2}>
               <Button variant="contained" onClick={toUserManagement}>
                 User Management
