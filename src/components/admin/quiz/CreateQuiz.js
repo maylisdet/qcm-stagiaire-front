@@ -1,13 +1,11 @@
-import { Container, Stack, TextField, Button, FormControl, InputLabel, Select, MenuItem, Modal } from '@mui/material';
+import { Container, Stack, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Header } from 'components/header/Header';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 
 const CreateQuiz = () => {
   const history = useHistory();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const toQuizzesManagementPage = () => {
     const url = '/admin/quizzes';
@@ -22,12 +20,6 @@ const CreateQuiz = () => {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const createTheme = () => {
-    //Add theme + reload themes from back
-    console.log(values);
-    setOpen(false);
   };
 
   const themes = [
@@ -61,17 +53,7 @@ const CreateQuiz = () => {
                   })}
                 </Select>
               </FormControl>
-              <Button variant="contained" onClick={handleOpen}>
-                New Theme
-              </Button>
-              <Modal open={open} onClose={handleClose}>
-                <Stack className="theme_modal" direction="row" alignItems="center" justifyContent="space-around">
-                  <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleChange('new_theme')} />
-                  <Button variant="contained" onClick={createTheme}>
-                    Add Theme
-                  </Button>
-                </Stack>
-              </Modal>
+              <CreateThemeModal initial_page={history.location.pathname} />
             </Stack>
             <Button variant="contained" onClick={toQuizzesManagementPage}>
               Create Quizz
