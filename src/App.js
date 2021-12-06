@@ -8,50 +8,19 @@ import { QuizzesRecords } from 'components/trainee/QuizzesRecords';
 import { User } from 'components/welcome_page/trainee/User';
 import { Quizzes } from 'components/trainee/Quizzes';
 
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { UserDetailledProfile } from 'components/admin/user/UserDetailledProfile';
 import { QuizzesManagement } from 'components/admin/quiz/QuizzesManagement';
 import { QuizzEdit } from 'components/admin/quiz/QuizzEdit';
 import { QuestionEdit } from 'components/admin/quiz/QuestionEdit';
 import { QuizDetailledResult } from 'components/trainee/QuizDetailledResult';
 import { CreateQuiz } from 'components/admin/quiz/CreateQuiz';
-
-const getMuiTheme = () =>
-  createTheme({
-    overrides: {
-      MUIDataTableHeadCell: {
-        toolButton: {
-          fontWeight: 'bold',
-          fontSize: 'medium',
-        },
-      },
-      MuiSvgIcon: {
-        root: {
-          height: '0.9em',
-          width: '0.9em',
-        },
-      },
-      MuiTableCell: {
-        root: {
-          paddingTop: '5px',
-          paddingBottom: '5px',
-        },
-      },
-      MuiButton: {
-        root: {
-          minWidth: '50px',
-          minHeight: '40px',
-        },
-        text: {
-          padding: 0,
-        },
-      },
-    },
-  });
+import { ThemeProvider } from '@material-ui/core/styles';
+// import { ThemeProvider } from '@emotion/react';
+import { tableTheme } from 'theme';
 
 function App() {
   return (
-    <MuiThemeProvider theme={getMuiTheme()}>
+    <ThemeProvider theme={tableTheme}>
       <Container maxWidth="md">
         <BrowserRouter>
           <Switch>
@@ -78,7 +47,7 @@ function App() {
           </Switch>
         </BrowserRouter>
       </Container>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 }
 

@@ -90,7 +90,7 @@ const QuizzContent = () => {
           value={values.name}
           onChange={handleChange('name')}
         />
-        <Stack direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={2}>
+        <Stack direction="row" spacing={2}>
           <p>Theme</p>
           <FormControl fullWidth={true}>
             <InputLabel>Theme</InputLabel>

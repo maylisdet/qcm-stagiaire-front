@@ -2,7 +2,7 @@ import { Container, Button, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { Header } from 'components/header/Header';
 import { useHistory } from 'react-router-dom';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import SearchIcon from '@mui/icons-material/Search';
 
 const QuizzesRecords = () => {
   const history = useHistory();
@@ -40,7 +40,7 @@ const QuizzesRecords = () => {
         customBodyRender: () => {
           return (
             <Button onClick={(trainee_id, quiz_id) => toTraineeQuizResult(1, 3)}>
-              <MoreHorizIcon />
+              <SearchIcon />
             </Button>
           );
         },
