@@ -2,9 +2,15 @@ import { Container, Button, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { Header } from 'components/header/Header';
 import { useHistory } from 'react-router-dom';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const QuizzesRecords = () => {
   const history = useHistory();
+
+  const toTraineeQuizResult = (trainee_id, quiz_id) => {
+    const url = `/trainee/${trainee_id}/quizzes/${quiz_id}/result`;
+    history.push(url);
+  };
 
   const columns = [
     {
@@ -33,12 +39,8 @@ const QuizzesRecords = () => {
       options: {
         customBodyRender: () => {
           return (
-            <Button
-              onClick={({ quizz_id = 1, trainee_id = 3 }) => {
-                history.push(`/trainee/${trainee_id}/quizzes/${quizz_id}/result`);
-              }}
-            >
-              Detail
+            <Button onClick={(trainee_id, quiz_id) => toTraineeQuizResult(1, 3)}>
+              <MoreHorizIcon />
             </Button>
           );
         },

@@ -46,7 +46,7 @@ const Quizzes = () => {
       label: 'Theme',
       options: {
         filter: true,
-        sort: false,
+        sort: true,
       },
     },
   ];
@@ -64,7 +64,7 @@ const Quizzes = () => {
   } else {
     return (
       <>
-        <Container maxWidth="sm" justifycontent="center" alignitems="center">
+        <Container maxWidth="md" justifyContent="center" alignItems="center">
           <Stack direction="column" spacing={2} mt={2}>
             <Header />
             <MUIDataTable title={'Available Quizzes'} data={quizzs} columns={columns} options={options} />

@@ -4,6 +4,7 @@ import { Container, Stack, TextField, FormControl, InputLabel, MenuItem, Select,
 import { DataGrid } from '@mui/x-data-grid';
 import 'styles/themes.css';
 import { DeleteButton } from 'components/DeleteButton';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 const QuizzContent = () => {
   const history = useHistory();
@@ -27,6 +28,11 @@ const QuizzContent = () => {
     setOpen(false);
   };
 
+  const toQuestionEdit = (quizz_id, question_id) => {
+    const url = `/admin/quizz/${quizz_id}/question/${question_id}/edit`;
+    history.push(url);
+  };
+
   const columns = [
     { field: 'show_number', headerName: 'Number', width: 100 },
     { field: 'title', headerName: 'Question', width: 400 },
@@ -36,13 +42,8 @@ const QuizzContent = () => {
       with: 600,
       renderCell: () => {
         return (
-          <Button
-            onClick={({ quizz_id = 2, question_id = 3 }) => {
-              history.push(`/admin/quizz/${quizz_id}/question/${question_id}/edit`);
-            }}
-          >
-            {' '}
-            Edit
+          <Button onClick={(quizz_id, question_id) => toQuestionEdit(2, 3)}>
+            <ModeEditOutlineOutlinedIcon />
           </Button>
         );
       },
@@ -80,7 +81,7 @@ const QuizzContent = () => {
   ];
 
   return (
-    <Container>
+    <Container maxWidth="md">
       <Stack spacing={6} mt={4}>
         <TextField
           id="standard-basic"

@@ -25,19 +25,23 @@ const UserDetailledProfile = () => {
     setValue(newValue);
   };
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <Stack spacing={3} mt={2}>
         <Header />
-        <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-          <Tab label="User's information" />
-          <Tab label="Records" />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          <UserProfile />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <UserRecord />
-        </TabPanel>
+        <Stack alignItems={'center'}>
+          <Stack width="600px">
+            <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
+              <Tab label="User's information" />
+              <Tab label="Records" />
+            </Tabs>
+            <TabPanel value={value} index={0}>
+              <UserProfile />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <UserRecord />
+            </TabPanel>
+          </Stack>
+        </Stack>
       </Stack>
     </Container>
   );
