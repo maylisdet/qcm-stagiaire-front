@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-const QuizzContent = () => {
+const QuizContent = () => {
   const history = useHistory();
   //Needs call API to get quiz detail
   const [values, setValues] = useState({
@@ -23,8 +23,8 @@ const QuizzContent = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const toQuestionEdit = (quizz_id, question_id) => {
-    const url = `/admin/quizz/${quizz_id}/question/${question_id}/edit`;
+  const toQuestionEdit = (quiz_id, question_id) => {
+    const url = `/admin/quiz/${quiz_id}/question/${question_id}/edit`;
     history.push(url);
   };
 
@@ -133,4 +133,4 @@ const QuizzContent = () => {
   );
 };
 
-export { QuizzContent };
+export { QuizContent };

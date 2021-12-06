@@ -1,10 +1,10 @@
-import { Grid } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 
 const UserRecord = () => {
   const columns = [
     {
-      name: 'Quizz Name',
+      name: 'Quiz Name',
     },
     {
       name: 'Theme',
@@ -13,7 +13,7 @@ const UserRecord = () => {
       name: 'Score',
     },
     {
-      name: 'Best Score of the quizz',
+      name: 'Best Score of the quiz',
       options: {
         setCellProps: () => ({ style: { minWidth: '150px' } }),
       },
@@ -29,9 +29,13 @@ const UserRecord = () => {
   ];
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <MUIDataTable title={'Trainees'} data={data} columns={columns} />
-    </Grid>
+    <>
+      <Container alignitems="center">
+        <Stack direction="column" spacing={2} mt={2}>
+          <MUIDataTable title={'Trainees'} data={data} columns={columns} />
+        </Stack>
+      </Container>
+    </>
   );
 };
 

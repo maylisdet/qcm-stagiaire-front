@@ -4,7 +4,7 @@ import Search from '@mui/icons-material/Search';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 
-const QuizzRecords = () => {
+const QuizRecords = () => {
   const history = useHistory();
 
   const toTraineeProfil = (trainee_id) => {
@@ -52,13 +52,13 @@ const QuizzRecords = () => {
 
   return (
     <>
-      <Container alignItems="center">
+      <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
-          <MUIDataTable title={'Quizz Record'} data={data} columns={columns} />
+          <MUIDataTable title={'Quiz Record'} data={data} columns={columns} />
         </Stack>
       </Container>
     </>
   );
 };
 
-export { QuizzRecords };
+export { QuizRecords };

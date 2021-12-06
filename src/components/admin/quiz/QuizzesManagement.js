@@ -10,7 +10,7 @@ const QuizzesManagement = () => {
   const history = useHistory();
 
   const toQuizEditPage = (id) => {
-    const url = `/admin/quizz/${id}/edit`;
+    const url = `/admin/quiz/${id}/edit`;
     history.push(url);
   };
 
@@ -26,7 +26,7 @@ const QuizzesManagement = () => {
 
   const columns = [
     {
-      name: 'Quizz',
+      name: 'Quiz',
     },
     {
       name: 'Theme',
@@ -62,12 +62,12 @@ const QuizzesManagement = () => {
   ];
   return (
     <>
-      <Container alignItems="center">
+      <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <Stack direction="column" alignItems="flex-end" spacing={2}>
             <Button variant="contained" onClick={toCreateQuiz}>
-              New quizz
+              New quiz
             </Button>
           </Stack>
           <Stack spacing={8} bottom={2}>

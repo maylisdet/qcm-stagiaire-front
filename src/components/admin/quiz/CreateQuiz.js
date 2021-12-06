@@ -41,7 +41,7 @@ const CreateQuiz = () => {
     <Container maxWidth="md">
       <Stack spacing={2} mt={2}>
         <Header />
-        <Stack alignItems={'center'}>
+        <Stack alignItems="center">
           <Stack width="600px" spacing={2} mt={2}>
             <TextField id="outlined-basic" label="Quiz Name" variant="outlined" required />
             <Stack direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={2}>
@@ -56,7 +56,7 @@ const CreateQuiz = () => {
               <CreateThemeModal initial_page={history.location.pathname} />
             </Stack>
             <Button variant="contained" onClick={toQuizzesManagementPage}>
-              Create Quizz
+              Create Quiz
             </Button>
           </Stack>
         </Stack>
