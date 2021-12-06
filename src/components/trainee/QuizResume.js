@@ -3,7 +3,7 @@ import { Stack, Typography } from '@mui/material';
 const QuizResume = (quiz) => {
   console.log(quiz);
   return (
-    <Stack direction="column">
+    <Stack direction="column" p="20px">
       <Stack justifyContent="center" alignItems="center">
         <Typography variant="h4" color="burlywood" fontWeight="bold">
           Quiz Result

@@ -1,15 +1,8 @@
 import Button from '@mui/material/Button';
-import { useHistory } from 'react-router-dom';
 
-const LogoutButton = () => {
-  const history = useHistory();
+const LogoutButton = ({ onClick }) => {
   return (
-    <Button
-      variant="outlined"
-      onClick={() => {
-        history.push('/login');
-      }}
-    >
+    <Button variant="outlined" onClick={onClick}>
       Logout
     </Button>
   );

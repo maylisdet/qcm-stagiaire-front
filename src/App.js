@@ -18,24 +18,33 @@ import { QuizDetailledResult } from 'components/trainee/QuizDetailledResult';
 const getMuiTheme = () =>
   createTheme({
     overrides: {
-      // MuiTableCell: {
-      //   head: {
-      //       backgroundColor: "blue!important",
-      //   },
       MUIDataTableHeadCell: {
-        root: {
-          border: '1px solid #000',
-          textAlign: 'center', //Not working
-        },
         toolButton: {
-          justifyContent: 'center', //Not working
+          fontWeight: 'bold',
+          fontSize: 'medium',
         },
       },
-      // MuiTableCell: {
-      //   root: {
-      //     border: "1px solid #000"
-      //   }
-      // },
+      MuiSvgIcon: {
+        root: {
+          height: '0.9em',
+          width: '0.9em',
+        },
+      },
+      MuiTableCell: {
+        root: {
+          paddingTop: '5px',
+          paddingBottom: '5px',
+        },
+      },
+      MuiButton: {
+        root: {
+          minWidth: '50px',
+          minHeight: '40px',
+        },
+        text: {
+          padding: 0,
+        },
+      },
     },
   });
 
@@ -47,6 +56,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
+
             {/* ADMIN ROUTES */}
             <Route exact path="/admin/create-user" component={CreateUser} />
             <Route exact path="/admin/quizz/:id/edit" component={QuizzEdit} />
@@ -60,7 +70,7 @@ function App() {
 
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />
-            <Route exact path="/trainee/quizzes/records" component={QuizzesRecords} />
+            <Route exact path="/trainee/:id/quizzes/records" component={QuizzesRecords} />
             <Route exact path="/trainee/:id/quizzes" component={Quizzes} />
             <Route exact path="/trainee/:id/quizzes/:id/result" component={QuizDetailledResult} />
           </Switch>

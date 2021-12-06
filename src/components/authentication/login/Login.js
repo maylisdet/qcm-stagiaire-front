@@ -37,10 +37,10 @@ const Login = () => {
     });
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xs">
       <Stack spacing={3} mt={4}>
         <TextField
-          id="outlined-basic"
+          //id="outlined-basic"
           label="Email"
           variant="outlined"
           type="email"
@@ -48,7 +48,7 @@ const Login = () => {
           onChange={handleEmailChange}
         />
         <TextField
-          id="outlined-basic"
+          //id="outlined-basic"
           label="Password"
           variant="outlined"
           type="password"

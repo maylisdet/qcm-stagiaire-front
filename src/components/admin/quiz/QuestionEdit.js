@@ -8,6 +8,7 @@ import 'styles/answer.css';
 
 const QuestionEdit = (props) => {
   const history = useHistory();
+
   const [values, setValues] = useState({
     title: props.title,
     theme: '',
@@ -29,6 +30,11 @@ const QuestionEdit = (props) => {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const toQuizEditPage = (id) => {
+    const url = `/admin/quizz/${id}/edit`;
+    history.push(url);
   };
 
   return (
@@ -64,14 +70,7 @@ const QuestionEdit = (props) => {
           <Button variant="outlined" size="large">
             <AddIcon />
           </Button>
-          <Button
-            variant="contained"
-            size="large"
-            color="success"
-            onClick={({ id = 1 }) => {
-              history.push(`/admin/quizz/${id}/edit`);
-            }}
-          >
+          <Button variant="contained" size="large" color="success" onClick={(id) => toQuizEditPage(1)}>
             Save Modifications
           </Button>
         </Stack>
