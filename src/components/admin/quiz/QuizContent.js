@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Stack, TextField, FormControl, InputLabel, MenuItem, Select, Button } from '@mui/material';
+import {
+  Container,
+  Stack,
+  TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Button,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import 'styles/themes.css';
 import { DeleteButton } from 'components/DeleteButton';
@@ -12,6 +24,8 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const QuizContent = () => {
   const history = useHistory();
+  const [isActive, setIsActive] = useState();
+  const [toogleLabel, setToogleLabel] = useState('active');
   //Needs call API to get quiz detail
   const [values, setValues] = useState({
     name: '',
@@ -25,6 +39,11 @@ const QuizContent = () => {
 
   const toQuestionEdit = (quiz_id, question_id) => {
     const url = `/admin/quiz/${quiz_id}/question/${question_id}/edit`;
+    history.push(url);
+  };
+
+  const toCreateQuestion = (quiz_id) => {
+    const url = `/admin/quiz/${quiz_id}/create-question`;
     history.push(url);
   };
 
@@ -91,6 +110,11 @@ const QuizContent = () => {
     },
   ];
 
+  const changeActiveLabel = () => {
+    setIsActive(!isActive);
+    setToogleLabel(isActive ? 'active' : 'inactive');
+  };
+
   return (
     <Container maxWidth="md" direction="column">
       <Stack spacing={6} mt={4}>
@@ -113,6 +137,15 @@ const QuizContent = () => {
           </FormControl>
           <CreateThemeModal initial_page={history.location.pathname} />
         </Stack>
+        <Stack>
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label={toogleLabel}
+              onChange={() => changeActiveLabel()}
+            />
+          </FormGroup>
+        </Stack>
         <Stack direction="column" spacing={2} style={{ height: 450, alignItems: 'center' }}>
           <DataGrid
             rows={rows}
@@ -123,7 +156,7 @@ const QuizContent = () => {
             sortModel={[{ field: 'show_number', sort: 'asc' }]}
             style={{ width: '100%' }}
           />
-          <Button variant="outlined" size="large">
+          <Button variant="outlined" size="large" onClick={() => toCreateQuestion(1)}>
             <AddIcon />
             Add Question
           </Button>
