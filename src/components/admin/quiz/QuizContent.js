@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Stack, TextField, FormControl, InputLabel, MenuItem, Select, Button, Modal } from '@mui/material';
+import { Container, Stack, TextField, FormControl, InputLabel, MenuItem, Select, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import 'styles/themes.css';
 import { DeleteButton } from 'components/DeleteButton';
+import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const QuizContent = () => {
   const history = useHistory();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  //Needs call API to get quiz detail
   const [values, setValues] = useState({
     name: '',
     theme: '',
@@ -22,29 +23,39 @@ const QuizContent = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const createTheme = () => {
-    //Add theme + reload themes from back
-    console.log(values);
-    setOpen(false);
-  };
-
   const toQuestionEdit = (quiz_id, question_id) => {
     const url = `/admin/quiz/${quiz_id}/question/${question_id}/edit`;
     history.push(url);
   };
 
+  const addOneToQuestionShowNumber = (row_id) => {
+    console.log(row_id);
+  };
+
+  const minusOneToQuestionShowNumber = (row_id) => {
+    console.log(row_id);
+  };
+
   const columns = [
-    { field: 'show_number', headerName: 'Number', width: 100 },
-    { field: 'title', headerName: 'Question', width: 400 },
+    { field: 'show_number', headerName: 'Number', width: 50 },
+    { field: 'title', headerName: 'Question', width: 350 },
     {
       field: 'edit',
       headerName: 'Edit',
-      with: 600,
-      renderCell: () => {
+      width: 200,
+      renderCell: (row) => {
         return (
-          <Button onClick={(quiz_id, question_id) => toQuestionEdit(2, 3)}>
-            <ModeEditOutlineOutlinedIcon />
-          </Button>
+          <>
+            <Button onClick={(quizz_id, question_id) => toQuestionEdit(2, 3)}>
+              <ModeEditOutlineOutlinedIcon />
+            </Button>
+            <Button onClick={() => addOneToQuestionShowNumber(row.id)}>
+              <ArrowUpwardIcon />
+            </Button>
+            <Button onClick={() => minusOneToQuestionShowNumber(row.id)}>
+              <ArrowDownwardIcon />
+            </Button>
+          </>
         );
       },
     },
@@ -59,8 +70,8 @@ const QuizContent = () => {
 
   const rows = [
     { id: 1, show_number: 1, title: 'Quel est le hook le plus utilisé en React ?' },
-    { id: 23, show_number: 2, title: 'Comment définir une constante?' },
-    { id: 3, show_number: 3, title: 'Quelle est la différence entre A et B' },
+    { id: 23, show_number: 10, title: 'Comment définir une constante?' },
+    { id: 3, show_number: 30, title: 'Quelle est la différence entre A et B' },
     { id: 4, show_number: 4, title: 'Qui a inventé React' },
     { id: 5, show_number: 5, title: 'Quelle est la différence entre A et B' },
   ];
@@ -81,7 +92,7 @@ const QuizContent = () => {
   ];
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" direction="column">
       <Stack spacing={6} mt={4}>
         <TextField
           id="standard-basic"
@@ -100,21 +111,23 @@ const QuizContent = () => {
               })}
             </Select>
           </FormControl>
-          <Button variant="contained" onClick={handleOpen}>
-            New Theme
-          </Button>
-          <Modal open={open} onClose={handleClose}>
-            <Stack className="theme_modal" direction="row" alignItems="center" justifyContent="space-around">
-              <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleChange('new_theme')} />
-              <Button variant="contained" onClick={createTheme}>
-                Add Theme
-              </Button>
-            </Stack>
-          </Modal>
+          <CreateThemeModal initial_page={history.location.pathname} />
         </Stack>
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} disableSelectionOnClick />
-        </div>
+        <Stack direction="column" spacing={2} style={{ height: 450, alignItems: 'center' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            sortModel={[{ field: 'show_number', sort: 'asc' }]}
+            style={{ width: '100%' }}
+          />
+          <Button variant="outlined" size="large">
+            <AddIcon />
+            Add Question
+          </Button>
+        </Stack>
       </Stack>
     </Container>
   );
