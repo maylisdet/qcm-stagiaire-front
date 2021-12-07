@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Stack, TextField, Button, FormGroup, FormControlLabel, Switch } from '@mui/material';
 
 const UserProfile = () => {
+  const [isActive, setIsActive] = useState();
+  const [toogleLabel, setToogleLabel] = useState('active');
   const [name, setName] = useState('Pierre');
   const [last_name, setLastName] = useState('Dupond');
   const [email, setEmail] = useState('p.dupon@email.fr');
@@ -26,6 +28,11 @@ const UserProfile = () => {
 
   const handleCompanyChange = (event) => {
     setCompany(event.target.value);
+  };
+
+  const changeActiveLabel = () => {
+    setIsActive(!isActive);
+    setToogleLabel(isActive ? 'active' : 'inactive');
   };
 
   return (
@@ -68,7 +75,11 @@ const UserProfile = () => {
         value="01/01/01 at 01:01"
       />
       <FormGroup>
-        <FormControlLabel control={<Switch defaultChecked />} label=" Active" />
+        <FormControlLabel
+          control={<Switch defaultChecked />}
+          label={toogleLabel}
+          onChange={() => changeActiveLabel()}
+        />
       </FormGroup>
       <Button variant="outlined">Save modifications</Button>
     </Stack>
