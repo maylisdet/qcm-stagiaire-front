@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { Container, Stack, Typography, Box } from '@mui/material';
 import { Header } from 'components/header/Header';
 import CheckIcon from '@mui/icons-material/Check';
-
 import CloseIcon from '@mui/icons-material/Close';
 import 'styles/answer.css';
 

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Container, Stack, Tab, Box } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
 import { UserProfile } from 'components/admin/user/UserProfile';
 import { UserRecord } from 'components/admin/user/UserRecord';
 import { Header } from 'components/header/Header';
-import { TabContext, TabList, TabPanel } from '@mui/lab/';
 
 const UserDetailledProfile = () => {
   const [value, setValue] = useState('0');

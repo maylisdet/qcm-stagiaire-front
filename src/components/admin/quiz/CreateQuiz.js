@@ -1,8 +1,9 @@
 import { Container, Stack, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Header } from 'components/header/Header';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
+
 import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
+import { Header } from 'components/header/Header';
 
 const CreateQuiz = () => {
   const history = useHistory();
@@ -47,7 +48,7 @@ const CreateQuiz = () => {
             <Stack direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={2}>
               <FormControl fullWidth={true}>
                 <InputLabel required>Theme</InputLabel>
-                <Select value={values.theme} label="Theme" onChange={handleChange('theme')}>
+                <Select value={values.theme} label="Theme" onChange={() => handleChange('theme')}>
                   {themes.map((theme) => {
                     return <MenuItem value={theme.label}>{theme.label}</MenuItem>;
                   })}
@@ -55,7 +56,7 @@ const CreateQuiz = () => {
               </FormControl>
               <CreateThemeModal initial_page={history.location.pathname} />
             </Stack>
-            <Button variant="contained" onClick={toQuizzesManagementPage}>
+            <Button variant="contained" onClick={() => toQuizzesManagementPage()}>
               Create Quiz
             </Button>
           </Stack>

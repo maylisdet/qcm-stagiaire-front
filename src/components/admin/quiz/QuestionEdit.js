@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button, TextField, Container, Typography, Stack } from '@mui/material';
-import { DeleteButton } from 'components/DeleteButton';
 import { useHistory } from 'react-router-dom';
-import { Header } from 'components/header/Header';
 import 'styles/answer.css';
+
 import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
+import { Header } from 'components/header/Header';
+import { DeleteButton } from 'components/DeleteButton';
 
 const QuestionEdit = (props) => {
   const history = useHistory();
