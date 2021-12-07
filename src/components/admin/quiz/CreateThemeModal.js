@@ -8,7 +8,7 @@ const CreateThemeModal = (props) => {
 
   const history = useHistory();
 
-  const handleChange = (prop) => (event) => {};
+  const handleValueChange = (prop) => (event) => {};
 
   const createTheme = () => {
     //Add theme + reload themes from back
@@ -23,7 +23,7 @@ const CreateThemeModal = (props) => {
       </Button>
       <Modal open={open} onClose={handleChange}>
         <Stack className="theme_modal" direction="row" alignItems="center" justifyContent="space-around">
-          <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleChange('new_theme')} />
+          <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleValueChange('new_theme')} />
           <Button variant="contained" onClick={createTheme}>
             Add Theme
           </Button>
