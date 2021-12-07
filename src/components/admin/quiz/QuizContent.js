@@ -15,12 +15,14 @@ import {
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import 'styles/themes.css';
-import { DeleteButton } from 'components/DeleteButton';
-import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+
 import AddIcon from '@mui/icons-material/Add';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+
+import { DeleteButton } from 'components/DeleteButton';
+import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 
 const QuizContent = () => {
   const history = useHistory();

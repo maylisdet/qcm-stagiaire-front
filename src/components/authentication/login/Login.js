@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Container, Stack, TextField } from '@mui/material';
-import { LoginButton } from 'components/authentication/LoginButton';
 import { useHistory } from 'react-router-dom';
+
+import { LoginButton } from 'components/authentication/LoginButton';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -45,7 +46,6 @@ const Login = () => {
     <Container maxWidth="xs">
       <Stack spacing={3} mt={4}>
         <TextField
-          //id="outlined-basic"
           label="Email"
           variant="outlined"
           type="email"
@@ -54,7 +54,6 @@ const Login = () => {
           onKeyPress={handleEnter}
         />
         <TextField
-          //id="outlined-basic"
           label="Password"
           variant="outlined"
           type="password"
@@ -62,7 +61,7 @@ const Login = () => {
           onChange={handlePasswordChange}
           onKeyPress={handleEnter}
         />
-        <LoginButton variant="contained" onClick={redirectToNextPage} />
+        <LoginButton variant="contained" onClick={() => redirectToNextPage()} />
       </Stack>
     </Container>
   );

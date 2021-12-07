@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Stack, Box, Tab, Container } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab/';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import { QuizContent } from 'components/admin/quiz/QuizContent';
 import { QuizRecords } from 'components/admin/quiz/QuizRecords';

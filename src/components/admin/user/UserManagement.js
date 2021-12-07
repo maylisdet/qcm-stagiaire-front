@@ -1,11 +1,10 @@
-import React from 'react';
-import { Button, Container } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import { Button, Container, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
-import { Header } from 'components/header/Header';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+
 import { DeleteButton } from 'components/DeleteButton';
+import { Header } from 'components/header/Header';
 
 const UserManagement = () => {
   const history = useHistory();
@@ -67,7 +66,7 @@ const UserManagement = () => {
         <Stack direction="column" spacing={2} mt={2} alignItems="strech">
           <Stack direction="column" alignItems="flex-end" spacing={2}>
             <Header />
-            <Button variant="contained" onClick={toCreateUser}>
+            <Button variant="contained" onClick={() => toCreateUser()}>
               New trainee
             </Button>
           </Stack>

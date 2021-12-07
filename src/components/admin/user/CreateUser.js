@@ -1,6 +1,7 @@
 import { Container, Stack, TextField, Button } from '@mui/material';
-import { Header } from 'components/header/Header';
 import { useHistory } from 'react-router-dom';
+
+import { Header } from 'components/header/Header';
 
 const CreateUser = () => {
   const history = useHistory();

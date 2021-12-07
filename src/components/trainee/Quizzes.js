@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Container } from '@mui/material';
-import Stack from '@mui/material/Stack';
-import LinearProgress from '@mui/material/LinearProgress';
+import { Container, Stack, LinearProgress } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
+
 import { Header } from 'components/header/Header';
 
 const Quizzes = () => {

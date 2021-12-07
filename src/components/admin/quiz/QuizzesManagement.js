@@ -1,10 +1,10 @@
-import { Button, Container } from '@mui/material';
-import Stack from '@mui/material/Stack';
-import { Header } from 'components/header/Header';
+import { Button, Container, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+
 import { DeleteButton } from 'components/DeleteButton';
+import { Header } from 'components/header/Header';
 
 const QuizzesManagement = () => {
   const history = useHistory();
@@ -66,7 +66,7 @@ const QuizzesManagement = () => {
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <Stack direction="column" alignItems="flex-end" spacing={2}>
-            <Button variant="contained" onClick={toCreateQuiz}>
+            <Button variant="contained" onClick={() => toCreateQuiz()}>
               New quiz
             </Button>
           </Stack>

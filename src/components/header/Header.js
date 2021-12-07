@@ -14,7 +14,7 @@ const Header = () => {
     <>
       <Grid container direction="row" justifyContent="space-between">
         <BackButton />
-        <LogoutButton onClick={toLoginPage} />
+        <LogoutButton onClick={() => toLoginPage()} />
       </Grid>
     </>
   );

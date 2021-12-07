@@ -1,5 +1,6 @@
 import { Button, Container, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+
 import { Header } from 'components/header/Header';
 
 const Admin = () => {
@@ -22,10 +23,10 @@ const Admin = () => {
           <Header />
           <Stack alignItems="center">
             <Stack width="300px" spacing={2} mt={2}>
-              <Button variant="contained" onClick={toUserManagement}>
+              <Button variant="contained" onClick={() => toUserManagement()}>
                 User Management
               </Button>
-              <Button variant="contained" onClick={toQuizzesManagement}>
+              <Button variant="contained" onClick={() => toQuizzesManagement()}>
                 Quizzes Management
               </Button>
             </Stack>

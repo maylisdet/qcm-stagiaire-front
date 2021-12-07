@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button, TextField, Container, Typography, Stack } from '@mui/material';
-import { DeleteButton } from 'components/DeleteButton';
 import { useHistory } from 'react-router-dom';
-import { Header } from 'components/header/Header';
-import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
 import 'styles/answer.css';
+
+import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
+import { Header } from 'components/header/Header';
+import { DeleteButton } from 'components/DeleteButton';
 
 const AddQuestion = () => {
   const history = useHistory();
@@ -30,7 +31,7 @@ const AddQuestion = () => {
           fullWidth
           variant="standard"
           value={values.title}
-          onChange={handleChange('title')}
+          onChange={() => handleChange('title')}
         />
         {values.answers.map((answer) => {
           const className = `correct_answer correct_answer_${answer.correct_answer}`;

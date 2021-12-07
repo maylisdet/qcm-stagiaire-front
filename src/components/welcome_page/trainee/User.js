@@ -1,5 +1,6 @@
 import { Button, Container, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+
 import { Header } from 'components/header/Header';
 
 const User = () => {

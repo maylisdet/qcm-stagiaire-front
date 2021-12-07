@@ -1,8 +1,9 @@
 import { Container, Button, Stack } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
-import { Header } from 'components/header/Header';
 import { useHistory } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
+
+import { Header } from 'components/header/Header';
 
 const QuizzesRecords = () => {
   const history = useHistory();

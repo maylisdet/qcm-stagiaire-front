@@ -18,13 +18,18 @@ const CreateThemeModal = (props) => {
 
   return (
     <Stack>
-      <Button variant="contained" onClick={handleChange}>
+      <Button variant="contained" onClick={() => handleChange()}>
         New Theme
       </Button>
-      <Modal open={open} onClose={handleChange}>
+      <Modal open={open} onClose={() => handleChange()}>
         <Stack className="theme_modal" direction="row" alignItems="center" justifyContent="space-around">
-          <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleValueChange('new_theme')} />
-          <Button variant="contained" onClick={createTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            onChange={() => handleValueChange('new_theme')}
+          />
+          <Button variant="contained" onClick={() => createTheme()}>
             Add Theme
           </Button>
         </Stack>
