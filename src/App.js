@@ -39,8 +39,8 @@ function App() {
             {/* Quiz management */}
             <Route exact path="/admin/create-quiz" component={CreateQuiz} />
             <Route exact path="/admin/quizzes" component={QuizzesManagement} />
-            <Route exact path="/admin/quiz/:id/edit" component={QuizEdit} />
-            <Route exact path="/admin/quiz/:id/question/:id/edit" component={QuestionEdit} />
+            <Route exact path="/admin/quiz/:quizId/edit" component={QuizEdit} />
+            <Route exact path="/admin/quiz/:quizId/question/:questionId/edit" component={QuestionEdit} />
             <Route exact path="/admin/quiz/:id/create-question" component={AddQuestion} />
 
             {/* TRAINEE ROUTES */}
