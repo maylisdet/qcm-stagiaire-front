@@ -1,4 +1,5 @@
-import { Button, Container, Stack } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Button, Container, Stack, LinearProgress, AlertTitle, Alert } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -6,8 +7,33 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
 
-const QuizzesManagement = () => {
+import QuizService from 'services/QuizService';
+import { tableOptions } from 'utils/TableUtils';
+
+const QuizzesManagement = (props) => {
+  /*************************/
+  /******** useHooks ******/
+  /***********************/
   const history = useHistory();
+  const [quizzes, setQuizzes] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+  const successCallback = (data) => {
+    setQuizzes(data);
+    setIsLoaded(true);
+  };
+
+  const errorCallback = (error) => {
+    setError(true);
+  };
+
+  useEffect(() => {
+    QuizService.index(successCallback, errorCallback);
+  }, []);
 
   const toQuizEditPage = (id) => {
     const url = `/admin/quiz/${id}/edit`;
@@ -26,29 +52,36 @@ const QuizzesManagement = () => {
 
   const columns = [
     {
-      name: 'Quiz',
+      name: 'label',
+      label: 'Quiz',
     },
     {
-      name: 'Theme',
+      name: 'theme.label',
+      label: 'Theme',
     },
     {
-      name: 'Number of records',
+      label: 'Number of records',
+      name: 'records',
+      options: {
+        customBodyRender: (value) => {
+          return <p>{value.length}</p>;
+        },
+      },
     },
     {
-      name: 'Actions',
+      label: 'Actions',
+      name: 'id',
       options: {
         setCellHeaderProps: () => ({
           style: { display: 'flex', justifyContent: 'center', flexDirection: 'row-reverse' },
         }),
-        customBodyRender: () => {
+        customBodyRender: (value) => {
           return (
             <Stack direction="row" justifyContent="center">
-              <Button onClick={(id) => toQuizEditPage(1)}>
+              <Button onClick={() => toQuizEditPage(value)}>
                 <ModeEditOutlineOutlinedIcon />
               </Button>
-              <Button onClick={toQuizzesManagementPage}>
-                <DeleteButton />
-              </Button>
+              <DeleteButton onClick={toQuizzesManagementPage} />
             </Stack>
           );
         },
@@ -56,28 +89,46 @@ const QuizzesManagement = () => {
     },
   ];
 
-  const data = [
-    ['Intro JEE', 'Back', '8'],
-    ['Intro React', 'Front', '57'],
-  ];
-  return (
-    <>
+  /*************************/
+  /***** Component UI *****/
+  /***********************/
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
       <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
-          <Stack direction="column" alignItems="flex-end" spacing={2}>
-            <Button variant="contained" onClick={() => toCreateQuiz()}>
+          <Stack direction="column" alignItems={'flex-end'} spacing={2}>
+            <Button variant="contained" onClick={toCreateQuiz}>
               New quiz
             </Button>
           </Stack>
           <Stack spacing={8} bottom={2}>
-            <MUIDataTable title={'Active quizzes'} data={data} columns={columns} />
-            <MUIDataTable title={'Inactive quizzes'} data={data} columns={columns} />
+            <MUIDataTable
+              title={'Active quizzes'}
+              data={quizzes.filter((quiz) => quiz.active)}
+              columns={columns}
+              options={tableOptions}
+            />
+            <MUIDataTable
+              title={'Inactive quizzes'}
+              data={quizzes.filter((quiz) => !quiz.active)}
+              columns={columns}
+              options={tableOptions}
+            />
           </Stack>
         </Stack>
       </Container>
-    </>
-  );
+    );
+  }
 };
 
 export { QuizzesManagement };

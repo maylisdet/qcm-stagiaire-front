@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -12,6 +12,9 @@ import {
   FormGroup,
   FormControlLabel,
   Switch,
+  LinearProgress,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import 'styles/themes.css';
@@ -24,24 +27,55 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import { DeleteButton } from 'components/DeleteButton';
 import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 
-const QuizContent = () => {
-  const history = useHistory();
-  const [isActive, setIsActive] = useState();
-  const [toogleLabel, setToogleLabel] = useState('active');
-  //Needs call API to get quiz detail
+import ThemeService from 'services/ThemeService';
+import { toQuestionEdit } from 'utils/RouteUtils';
+
+const QuizContent = (prop) => {
+  /*************************/
+  /******** UseState ******/
+  /***********************/
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [quiz, setQuiz] = useState(prop.quiz);
+  const [themes, setThemes] = useState([]);
   const [values, setValues] = useState({
     name: '',
     theme: '',
     new_theme: '',
   });
+  const history = useHistory();
+  const [isActive, setIsActive] = useState();
+  const [toogleLabel, setToogleLabel] = useState('active');
 
+  /*************************/
+  /******** Handlers ******/
+  /***********************/
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const toQuestionEdit = (quiz_id, question_id) => {
-    const url = `/admin/quiz/${quiz_id}/question/${question_id}/edit`;
-    history.push(url);
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+  const themesSuccessCallback = (themes) => {
+    setThemes(themes);
+    setIsLoaded(true);
+  };
+
+  const themesErrorCallback = (error) => {
+    setError(true);
+  };
+
+  useEffect(() => {
+    ThemeService.index(themesSuccessCallback, themesErrorCallback);
+  }, []);
+
+  /*************************/
+  /***** Other Methods ****/
+  /***********************/
+  const changeActiveLabel = () => {
+    setIsActive(!isActive);
+    setToogleLabel(isActive ? 'active' : 'inactive');
   };
 
   const toCreateQuestion = (quiz_id) => {
@@ -58,7 +92,7 @@ const QuizContent = () => {
   };
 
   const columns = [
-    { field: 'show_number', headerName: 'Number', width: 50 },
+    { field: 'position', headerName: 'Number', width: 100 },
     { field: 'title', headerName: 'Question', width: 350 },
     {
       field: 'edit',
@@ -67,7 +101,7 @@ const QuizContent = () => {
       renderCell: (row) => {
         return (
           <>
-            <Button onClick={(quizz_id, question_id) => toQuestionEdit(2, 3)}>
+            <Button onClick={(quizz_id, question_id) => toQuestionEdit(history, 2, 3)}>
               <ModeEditOutlineOutlinedIcon />
             </Button>
             <Button onClick={() => addOneToQuestionShowNumber(row.id)}>
@@ -89,83 +123,64 @@ const QuizContent = () => {
     },
   ];
 
-  const rows = [
-    { id: 1, show_number: 1, title: 'Quel est le hook le plus utilisé en React ?' },
-    { id: 23, show_number: 10, title: 'Comment définir une constante?' },
-    { id: 3, show_number: 30, title: 'Quelle est la différence entre A et B' },
-    { id: 4, show_number: 4, title: 'Qui a inventé React' },
-    { id: 5, show_number: 5, title: 'Quelle est la différence entre A et B' },
-  ];
-
-  const themes = [
-    {
-      id: '1',
-      label: 'React',
-    },
-    {
-      id: '2',
-      label: 'Ruby',
-    },
-    {
-      id: '3',
-      label: 'POO',
-    },
-  ];
-
-  const changeActiveLabel = () => {
-    setIsActive(!isActive);
-    setToogleLabel(isActive ? 'active' : 'inactive');
-  };
-
-  return (
-    <Container maxWidth="md" direction="column">
-      <Stack spacing={6} mt={4}>
-        <TextField
-          id="standard-basic"
-          label="Name"
-          variant="standard"
-          value={values.name}
-          onChange={handleChange('name')}
-        />
-        <Stack direction="row" spacing={2}>
-          <p>Theme</p>
-          <FormControl fullWidth={true}>
-            <InputLabel>Theme</InputLabel>
-            <Select value={values.theme} label="Theme" onChange={handleChange('theme')}>
-              {themes.map((theme) => {
-                return <MenuItem value={theme.label}>{theme.label}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-          <CreateThemeModal initial_page={history.location.pathname} />
-        </Stack>
-        <Stack>
-          <FormGroup>
-            <FormControlLabel
-              control={<Switch defaultChecked />}
-              label={toogleLabel}
-              onChange={() => changeActiveLabel()}
-            />
-          </FormGroup>
-        </Stack>
-        <Stack direction="column" spacing={2} style={{ height: 450, alignItems: 'center' }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            disableSelectionOnClick
-            sortModel={[{ field: 'show_number', sort: 'asc' }]}
-            style={{ width: '100%' }}
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
+      <Container>
+        <Stack spacing={6} mt={4}>
+          <TextField
+            id="standard-basic"
+            label="Name"
+            variant="standard"
+            value={quiz.label}
+            onChange={handleChange('name')}
           />
-          <Button variant="outlined" size="large" onClick={() => toCreateQuestion(1)}>
-            <AddIcon />
-            Add Question
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <FormControl fullWidth={true}>
+              <InputLabel>Theme</InputLabel>
+              <Select value={quiz.theme.id} label="Theme" onChange={handleChange('theme')}>
+                {themes.map((theme) => {
+                  return <MenuItem value={theme.id}>{theme.label}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
+            <CreateThemeModal initial_page={history.location.pathname} />
+          </Stack>
+          <Stack>
+            <FormGroup>
+              <FormControlLabel
+                control={<Switch defaultChecked />}
+                label={toogleLabel}
+                onChange={() => changeActiveLabel()}
+              />
+            </FormGroup>
+          </Stack>
+          <Stack direction="column" spacing={2} style={{ height: 450, alignItems: 'center' }}>
+            <DataGrid
+              rows={quiz.questions}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5]}
+              disableSelectionOnClick
+              style={{ width: '100%' }}
+            />
+            <Button variant="outlined" size="large" onClick={() => toCreateQuestion(1)}>
+              <AddIcon />
+              Add Question
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
-    </Container>
-  );
+      </Container>
+    );
+  }
 };
 
 export { QuizContent };

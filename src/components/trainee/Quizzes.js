@@ -1,33 +1,28 @@
 import { useState, useEffect } from 'react';
-import { Container, Stack, LinearProgress } from '@mui/material';
+import { Container, Stack, Alert, AlertTitle, LinearProgress } from '@mui/material';
+
 import MUIDataTable from 'mui-datatables';
 
 import { Header } from 'components/header/Header';
+import QuizService from 'services/QuizService';
 
 const Quizzes = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [quizzes, setQuizzes] = useState([]);
 
+  const successCallback = (response) => {
+    setIsLoaded(true);
+    setQuizzes(response);
+  };
+
+  const errorCallback = () => {
+    setIsLoaded(true);
+    setError(true);
+  };
+
   useEffect(() => {
-    fetch('https://myfakeapi.com/api/cars/')
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          result = [
-            { quizLabel: 'ReactJS', themeLabel: 'React' },
-            { quizLabel: 'ReactNative', themeLabel: 'React' },
-            { quizLabel: 'Hooks', themeLabel: 'React' },
-            { quizLabel: 'LinearRegression', themeLabel: 'DataSciences' },
-          ];
-          setIsLoaded(true);
-          setQuizzes(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        },
-      );
+    QuizService.index(successCallback, errorCallback);
   }, []);
 
   //const columns = ["Quiz Name", "Theme"];
@@ -57,7 +52,12 @@ const Quizzes = () => {
   };
 
   if (error) {
-    return <div>Erreur : {error.message}</div>;
+    return (
+      <Alert color="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
   } else if (!isLoaded) {
     return <LinearProgress />;
   } else {

@@ -4,28 +4,34 @@ import MUIDataTable from 'mui-datatables';
 const UserRecord = () => {
   const columns = [
     {
-      name: 'Quiz Name',
+      name: 'quizName',
+      label: 'Quiz Name',
     },
     {
-      name: 'Theme',
+      name: 'theme',
+      label: 'Theme',
     },
     {
-      name: 'Score',
+      name: 'score',
+      label: 'Score',
     },
     {
-      name: 'Best Score of the quiz',
+      name: 'bestScore',
+      label: 'Best Score of the quizz',
       options: {
         setCellProps: () => ({ style: { minWidth: '150px' } }),
       },
     },
     {
-      name: 'Rank',
+      name: 'rank',
+      label: 'Rank',
     },
   ];
 
   const data = [
-    ['Intro to Java EE', 'Java EE', '80% in 10:15', '90% in 9:21', '3/8'],
-    ['Intro React', 'React', '80% in 10:15', '90% in 9:21', '3/8'],
+    { quizName: 'Joe James', theme: 'Test Corp', score: 'Yonkers', bestScore: 'NY', rank: '4/20' },
+    { quizName: 'Joe James', theme: 'Test Corp', score: 'Yonkers', bestScore: 'NY', rank: '4/20' },
+    { quizName: 'Joe James', theme: 'Test Corp', score: 'Yonkers', bestScore: 'NY', rank: '4/20' },
   ];
 
   return (
