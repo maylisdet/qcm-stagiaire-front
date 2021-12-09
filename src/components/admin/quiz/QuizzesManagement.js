@@ -3,6 +3,7 @@ import { Button, Container, Stack, LinearProgress, AlertTitle, Alert } from '@mu
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { Loader } from 'components/loading/Loader';
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
@@ -97,6 +98,8 @@ const QuizzesManagement = (props) => {
       <Alert severity="error">
         <AlertTitle>Erreur de chargement des données</AlertTitle>
         Les données n'ont pas pu être chargée.
+        <p>Détails : </p>
+        {error}
       </Alert>
     );
   } else if (!isLoaded) {

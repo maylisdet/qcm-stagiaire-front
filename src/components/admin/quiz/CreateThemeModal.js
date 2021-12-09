@@ -1,37 +1,55 @@
 import { useState } from 'react';
-import { Stack, TextField, Button, Modal } from '@mui/material';
+import { Stack, TextField, Modal, Button } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useHistory } from 'react-router-dom';
+import ThemeService from 'services/ThemeService';
 
-const CreateThemeModal = (props) => {
+const CreateThemeModal = ({ updateThemes }) => {
+  /*************************/
+  /******** Handlers ******/
+  /***********************/
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState('');
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
+  /*************************/
+  /******** Handlers ******/
+  /***********************/
+  const handleTheme = (event) => {
+    setTheme(event.target.value);
+  };
   const handleChange = () => setOpen(!open);
 
-  const history = useHistory();
-
-  const handleValueChange = (prop) => (event) => {};
-
-  const createTheme = () => {
-    //Add theme + reload themes from back
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+  const successCallback = (theme) => {
+    updateThemes(theme);
+    setLoading(false);
     setOpen(false);
-    history.push(props.initial_page);
+  };
+
+  const errorCallback = (error) => {
+    console.error(error);
+  };
+
+  const createTheme = (event) => {
+    setLoading(true);
+    ThemeService.post(theme, successCallback, errorCallback);
   };
 
   return (
     <Stack>
-      <Button variant="contained" onClick={() => handleChange()}>
+      <Button variant="contained" onClick={handleChange}>
         New Theme
       </Button>
-      <Modal open={open} onClose={() => handleChange()}>
+      <Modal open={open}>
         <Stack className="theme_modal" direction="row" alignItems="center" justifyContent="space-around">
-          <TextField
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            onChange={() => handleValueChange('new_theme')}
-          />
-          <Button variant="contained" onClick={() => createTheme()}>
+          <TextField id="outlined-basic" label="Name" variant="outlined" onChange={handleTheme} />
+          <LoadingButton variant="contained" onClick={createTheme} loading={loading}>
             Add Theme
-          </Button>
+          </LoadingButton>
         </Stack>
       </Modal>
     </Stack>
