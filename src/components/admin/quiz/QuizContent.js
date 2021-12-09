@@ -37,6 +37,7 @@ const QuizContent = (prop) => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [quiz, setQuiz] = useState(prop.quiz);
+  const [currentTheme, setCurrentTheme] = useState(quiz.theme);
   const [themes, setThemes] = useState([]);
   const [values, setValues] = useState({
     name: '',
@@ -57,18 +58,26 @@ const QuizContent = (prop) => {
   /*************************/
   /******** API Call ******/
   /***********************/
-  const themesSuccessCallback = (themes) => {
+  const getThemesSuccessCallback = (themes) => {
     setThemes(themes);
     setIsLoaded(true);
   };
 
-  const themesErrorCallback = (error) => {
+  const getThemesErrorCallback = (error) => {
     setError(true);
   };
 
   useEffect(() => {
-    ThemeService.index(themesSuccessCallback, themesErrorCallback);
+    ThemeService.index(getThemesSuccessCallback, getThemesErrorCallback);
   }, []);
+
+  const updateThemes = (newTheme) => {
+    setThemes(themes.concat([newTheme]));
+    let newQuiz = quiz;
+    newQuiz.theme = newTheme;
+    setQuiz(newQuiz);
+    setCurrentTheme(newTheme);
+  };
 
   /*************************/
   /***** Other Methods ****/
@@ -146,13 +155,13 @@ const QuizContent = (prop) => {
           <Stack direction="row" spacing={2}>
             <FormControl fullWidth={true}>
               <InputLabel>Theme</InputLabel>
-              <Select value={quiz.theme.id} label="Theme" onChange={handleChange('theme')}>
+              <Select value={currentTheme.id} label="Theme" onChange={handleChange('currentTheme')}>
                 {themes.map((theme) => {
                   return <MenuItem value={theme.id}>{theme.label}</MenuItem>;
                 })}
               </Select>
             </FormControl>
-            <CreateThemeModal initial_page={history.location.pathname} />
+            <CreateThemeModal initial_page={history.location.pathname} updateThemes={updateThemes} />
           </Stack>
           <Stack>
             <FormGroup>

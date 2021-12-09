@@ -20,4 +20,16 @@ export default class ThemeService {
         errorCallback(error);
       });
   }
+
+  static post(themeLabel, callback, errorCallback) {
+    API.post(`themes`, {
+      label: themeLabel,
+    })
+      .then(function (response) {
+        callback(response.data);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
 }
