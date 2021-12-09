@@ -13,6 +13,7 @@ const CreateThemeModal = (props) => {
   const createTheme = () => {
     //Add theme + reload themes from back
     setOpen(false);
+    console.log('ok');
     history.push(props.initial_page);
   };
 
