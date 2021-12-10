@@ -34,7 +34,7 @@ function App() {
             {/* User management */}
             <Route exact path="/admin/create-user" component={CreateUser} />
             <Route exact path="/admin/users" component={UserManagement} />
-            <Route exact path="/admin/users/:id" component={UserDetailledProfile} />
+            <Route exact path="/admin/users/:userId" component={UserDetailledProfile} />
 
             {/* Quiz management */}
             <Route exact path="/admin/create-quiz" component={CreateQuiz} />

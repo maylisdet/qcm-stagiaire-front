@@ -1,24 +1,47 @@
-import { Container, Stack, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Container, Stack, Button, LinearProgress, AlertTitle, Alert } from '@mui/material';
 import Search from '@mui/icons-material/Search';
-
 import MUIDataTable from 'mui-datatables';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+
+import { toTraineeProfil } from 'utils/RouteUtils';
+import { tableOptions } from 'utils/TableUtils';
+
+import QuizService from 'services/QuizService';
 
 const QuizRecords = () => {
+  /*************************/
+  /******** useHooks ******/
+  /***********************/
   const history = useHistory();
+  const [records, setRecords] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const params = useParams();
 
-  const toTraineeProfil = (trainee_id) => {
-    const url = `/admin/users/${trainee_id}`;
-    history.push(url);
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+  const successCallback = (data) => {
+    setRecords(data);
+    setIsLoaded(true);
   };
+
+  const errorCallback = (error) => {
+    setError(true);
+  };
+
+  useEffect(() => {
+    QuizService.get_records(params.quizId, successCallback, errorCallback);
+  }, [params.quizId]);
 
   const columns = [
     {
-      name: 'firstName',
+      name: 'user.firstname',
       label: 'First Name',
     },
     {
-      name: 'lastName',
+      name: 'user.lastname',
       label: 'Last Name',
     },
     {
@@ -30,12 +53,13 @@ const QuizRecords = () => {
       label: 'Rank',
     },
     {
-      name: 'details',
+      name: 'user.id',
       label: 'Details',
       options: {
-        customBodyRender: () => {
+        customBodyRender: (value) => {
+          console.log(value);
           return (
-            <Button onClick={() => toTraineeProfil(1)}>
+            <Button onClick={() => toTraineeProfil(history, value)}>
               <Search />
             </Button>
           );
@@ -44,21 +68,26 @@ const QuizRecords = () => {
     },
   ];
 
-  const data = [
-    { firstName: 'Joe James', lastName: 'Test Corp', score: '30', rank: '4/20' },
-    { firstName: 'Joe James', lastName: 'Test Corp', score: '30', rank: '4/20' },
-    { firstName: 'Joe James', lastName: 'Test Corp', score: '30', rank: '4/20' },
-  ];
-
-  return (
-    <>
-      <Container alignitems="center">
-        <Stack direction="column" spacing={2} mt={2}>
-          <MUIDataTable title={'Quiz Record'} data={data} columns={columns} />
-        </Stack>
-      </Container>
-    </>
-  );
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
+      <>
+        <Container alignitems="center">
+          <Stack direction="column" spacing={2} mt={2}>
+            <MUIDataTable title={'Quiz Record'} data={records} columns={columns} options={tableOptions} />
+          </Stack>
+        </Container>
+      </>
+    );
+  }
 };
 
 export { QuizRecords };

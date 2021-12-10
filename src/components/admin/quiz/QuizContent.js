@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -28,17 +28,19 @@ import { DeleteButton } from 'components/DeleteButton';
 import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 
 import ThemeService from 'services/ThemeService';
-import { toQuestionEdit } from 'utils/RouteUtils';
+import { toQuestionEdit, toCreateQuestion } from 'utils/RouteUtils';
+import QuestionService from 'services/QuestionService';
 
-const QuizContent = (prop) => {
+const QuizContent = (props) => {
   /*************************/
   /******** UseState ******/
   /***********************/
+  const [quiz, setQuiz] = useState(props.quiz);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [quiz, setQuiz] = useState(prop.quiz);
   const [currentTheme, setCurrentTheme] = useState(quiz.theme);
   const [themes, setThemes] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [values, setValues] = useState({
     name: '',
     theme: '',
@@ -58,18 +60,29 @@ const QuizContent = (prop) => {
   /*************************/
   /******** API Call ******/
   /***********************/
-  const getThemesSuccessCallback = (themes) => {
-    setThemes(themes);
-    setIsLoaded(true);
-  };
-
   const getThemesErrorCallback = (error) => {
     setError(true);
   };
 
   useEffect(() => {
+    const getThemesSuccessCallback = (themes) => {
+      setThemes(themes);
+      setQuestions(quiz.questions);
+      setCurrentTheme(quiz.theme);
+      setIsLoaded(true);
+    };
     ThemeService.index(getThemesSuccessCallback, getThemesErrorCallback);
-  }, []);
+  }, [quiz.questions, quiz.theme]);
+
+  const deleteQuestion = useCallback(
+    (questionId) => {
+      const callback = () => {
+        setQuestions(questions.filter((question) => question.id !== questionId));
+      };
+      QuestionService.delete(questionId, callback, getThemesErrorCallback);
+    },
+    [questions],
+  );
 
   const updateThemes = (newTheme) => {
     setThemes(themes.concat([newTheme]));
@@ -85,11 +98,6 @@ const QuizContent = (prop) => {
   const changeActiveLabel = () => {
     setIsActive(!isActive);
     setToogleLabel(isActive ? 'active' : 'inactive');
-  };
-
-  const toCreateQuestion = (quiz_id) => {
-    const url = `/admin/quiz/${quiz_id}/create-question`;
-    history.push(url);
   };
 
   const addOneToQuestionShowNumber = (row_id) => {
@@ -124,10 +132,10 @@ const QuizContent = (prop) => {
       },
     },
     {
-      field: 'delete',
+      field: 'id',
       headerName: 'Delete',
-      renderCell: () => {
-        return <DeleteButton />;
+      renderCell: (row) => {
+        return <DeleteButton onClick={() => deleteQuestion(row.id)} />;
       },
     },
   ];
@@ -155,7 +163,13 @@ const QuizContent = (prop) => {
           <Stack direction="row" spacing={2}>
             <FormControl fullWidth={true}>
               <InputLabel>Theme</InputLabel>
-              <Select value={currentTheme.id} label="Theme" onChange={handleChange('currentTheme')}>
+              <Select
+                value={currentTheme.id}
+                label="Theme"
+                onChange={(event) => {
+                  setCurrentTheme(event.target.value);
+                }}
+              >
                 {themes.map((theme) => {
                   return <MenuItem value={theme.id}>{theme.label}</MenuItem>;
                 })}
@@ -174,14 +188,14 @@ const QuizContent = (prop) => {
           </Stack>
           <Stack direction="column" spacing={2} style={{ height: 450, alignItems: 'center' }}>
             <DataGrid
-              rows={quiz.questions}
+              rows={questions}
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
               disableSelectionOnClick
               style={{ width: '100%' }}
             />
-            <Button variant="outlined" size="large" onClick={() => toCreateQuestion(1)}>
+            <Button variant="outlined" size="large" onClick={() => toCreateQuestion(history, quiz.id)}>
               <AddIcon />
               Add Question
             </Button>

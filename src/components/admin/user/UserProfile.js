@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { Stack, TextField, Button, FormGroup, FormControlLabel, Switch } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
-const UserProfile = () => {
-  const [isActive, setIsActive] = useState();
-  const [toogleLabel, setToogleLabel] = useState('active');
+import { toUsersManagementPage } from 'utils/RouteUtils';
+
+const UserProfile = (props) => {
+  /*************************/
+  /******** React Hooks *****/
+  /***********************/
+  const history = useHistory();
+  const [isActive, setIsActive] = useState(props.user.active);
+  let label = isActive ? 'active' : 'inactive';
+  const [toogleLabel, setToogleLabel] = useState(label);
   const [name, setName] = useState('Pierre');
   const [last_name, setLastName] = useState('Dupond');
   const [email, setEmail] = useState('p.dupon@email.fr');
@@ -32,39 +40,47 @@ const UserProfile = () => {
 
   const changeActiveLabel = () => {
     setIsActive(!isActive);
-    setToogleLabel(isActive ? 'active' : 'inactive');
+    setToogleLabel(!isActive ? 'active' : 'inactive');
   };
 
   return (
-    <Stack spacing={3} mt={2}>
-      <TextField id="outlined-basic" label="Firstname" variant="outlined" value={name} onChange={handleNameChange} />
+    <Stack spacing={3} mt={2} direction="column">
+      <TextField
+        id="outlined-basic"
+        label="Firstname"
+        variant="outlined"
+        value={props.user.firstname}
+        onChange={handleNameChange}
+      />
+
       <TextField
         id="outlined-basic"
         label="Lastname"
         variant="outlined"
-        value={last_name}
+        value={props.user.lastname}
         onChange={handleLastNameChange}
       />
+
       <TextField
         id="outlined-basic"
         label="Email"
         variant="outlined"
         type="email"
-        value={email}
+        value={props.user.email}
         onChange={handleEmailChange}
       />
       <TextField
         id="outlined-basic"
         label="Phone Number"
         variant="outlined"
-        value={phone_number}
+        value={props.user.phone}
         onChange={handlePhoneNumberChange}
       />
       <TextField
         id="outlined-basic"
         label="Company"
         variant="outlined"
-        value={company}
+        value={props.user.company}
         onChange={handleCompanyChange}
       />
       <TextField
@@ -72,16 +88,20 @@ const UserProfile = () => {
         label="Date of creation"
         variant="outlined"
         disabled={true}
-        value="01/01/01 at 01:01"
+        value={props.user.createdAt}
       />
       <FormGroup>
         <FormControlLabel
-          control={<Switch defaultChecked />}
+          control={<Switch checked={isActive} />}
           label={toogleLabel}
           onChange={() => changeActiveLabel()}
         />
       </FormGroup>
-      <Button variant="outlined">Save modifications</Button>
+      <Stack alignItems="center">
+        <Button style={{ width: '50%' }} variant="contained" onClick={() => toUsersManagementPage(history)}>
+          Save modifications
+        </Button>
+      </Stack>
     </Stack>
   );
 };

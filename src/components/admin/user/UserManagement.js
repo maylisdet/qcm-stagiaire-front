@@ -1,4 +1,5 @@
-import { Button, Container, Stack } from '@mui/material';
+import { useState, useEffect, useCallback } from 'react';
+import { Button, Container, Stack, LinearProgress, Alert, AlertTitle } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -6,48 +7,74 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
 
+import UserService from 'services/UserService';
+import { toUserIdPage, toUsersManagementPage, toCreateUser } from 'utils/RouteUtils';
+import { tableOptions } from 'utils/TableUtils';
+
 const UserManagement = () => {
+  /*************************/
+  /******** React Hooks ******/
+  /***********************/
   const history = useHistory();
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [users, setUsers] = useState([]);
 
-  const toUserIdPage = (id) => {
-    const url = `/admin/users/${id}`;
-    history.push(url);
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+  const successCallback = (response) => {
+    setIsLoaded(true);
+    setUsers(response);
   };
 
-  const toUsersManagementPage = () => {
-    const url = '/admin/users/';
-    history.push(url);
+  const errorCallback = () => {
+    setIsLoaded(true);
+    setError(true);
   };
 
-  const toCreateUser = () => {
-    const url = '/admin/create-user';
-    history.push(url);
-  };
+  const deleteUser = useCallback(
+    (userId) => {
+      const callback = () => {
+        setUsers(users.filter((user) => user.id !== userId));
+      };
+      UserService.delete(userId, callback, errorCallback);
+    },
+    [users],
+  );
+
+  useEffect(() => {
+    UserService.trainee_index(successCallback, errorCallback);
+  }, []);
 
   const columns = [
     {
-      name: 'First Name',
+      name: 'firstname',
+      label: 'First Name',
     },
     {
-      name: 'Last Name',
+      name: 'lastname',
+      label: 'Last Name',
     },
     {
-      name: 'Company',
+      name: 'company',
+      label: 'Company',
     },
     {
-      name: 'Actions',
+      name: 'id',
+      label: 'Actions',
       options: {
         setCellHeaderProps: () => ({
           style: { display: 'flex', justifyContent: 'center', flexDirection: 'row-reverse' },
         }),
-        customBodyRender: () => {
+        customBodyRender: (value) => {
           return (
             <Stack direction="row" justifyContent="center">
-              <Button onClick={(id) => toUserIdPage(1)}>
+              <Button onClick={() => toUserIdPage(history, value)}>
                 <ModeEditOutlineOutlinedIcon />
               </Button>
-              <Button onClick={toUsersManagementPage}>
-                <DeleteButton />
+              <Button onClick={() => toUsersManagementPage(history)}>
+                <DeleteButton onClick={() => deleteUser(value)} />
               </Button>
             </Stack>
           );
@@ -56,25 +83,32 @@ const UserManagement = () => {
     },
   ];
 
-  const data = [
-    ['Michel', 'Dupont', 'Les bronzés font du ski'],
-    ['Pierre', 'Durant', 'UTC'],
-  ];
-  return (
-    <>
-      <Container maxWidth="md">
-        <Stack direction="column" spacing={2} mt={2} alignItems="strech">
-          <Stack direction="column" alignItems="flex-end" spacing={2}>
-            <Header />
-            <Button variant="contained" onClick={() => toCreateUser()}>
-              New trainee
-            </Button>
+  if (error) {
+    return (
+      <Alert color="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
+      <>
+        <Container maxWidth="md">
+          <Stack direction="column" spacing={2} mt={2} alignItems="strech">
+            <Stack direction="column" alignItems="flex-end" spacing={2}>
+              <Header />
+              <Button variant="contained" onClick={() => toCreateUser(history)}>
+                New trainee
+              </Button>
+            </Stack>
+            <MUIDataTable title={'Trainees'} data={users} columns={columns} options={tableOptions} padding="20px" />
           </Stack>
-          <MUIDataTable title={'Trainees'} data={data} columns={columns} padding="20px" />
-        </Stack>
-      </Container>
-    </>
-  );
+        </Container>
+      </>
+    );
+  }
 };
 
 export { UserManagement };

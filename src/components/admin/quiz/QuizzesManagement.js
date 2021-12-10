@@ -3,13 +3,13 @@ import { Button, Container, Stack, LinearProgress, AlertTitle, Alert } from '@mu
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import { Loader } from 'components/loading/Loader';
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
 
 import QuizService from 'services/QuizService';
 import { tableOptions } from 'utils/TableUtils';
+import { toQuizzesManagementPage, toQuizEditPage, toCreateQuiz } from 'utils/RouteUtils';
 
 const QuizzesManagement = (props) => {
   /*************************/
@@ -36,19 +36,13 @@ const QuizzesManagement = (props) => {
     QuizService.index(successCallback, errorCallback);
   }, []);
 
-  const toQuizEditPage = (id) => {
-    const url = `/admin/quiz/${id}/edit`;
-    history.push(url);
+  const deleteSuccessCallback = () => {
+    toQuizzesManagementPage(history);
+    setIsLoaded(true);
   };
 
-  const toQuizzesManagementPage = () => {
-    const url = '/admin/quizzes';
-    history.push(url);
-  };
-
-  const toCreateQuiz = () => {
-    const url = '/admin/create-quiz';
-    history.push(url);
+  const deleteQuiz = (value) => {
+    QuizService.delete(value, deleteSuccessCallback, errorCallback);
   };
 
   const columns = [
@@ -79,10 +73,10 @@ const QuizzesManagement = (props) => {
         customBodyRender: (value) => {
           return (
             <Stack direction="row" justifyContent="center">
-              <Button onClick={() => toQuizEditPage(value)}>
+              <Button onClick={() => toQuizEditPage(history, value)}>
                 <ModeEditOutlineOutlinedIcon />
               </Button>
-              <DeleteButton onClick={toQuizzesManagementPage} />
+              <DeleteButton onClick={() => deleteQuiz(value)} />
             </Stack>
           );
         },
@@ -110,7 +104,7 @@ const QuizzesManagement = (props) => {
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
           <Stack direction="column" alignItems={'flex-end'} spacing={2}>
-            <Button variant="contained" onClick={toCreateQuiz}>
+            <Button variant="contained" onClick={() => toCreateQuiz(history)}>
               New quiz
             </Button>
           </Stack>
