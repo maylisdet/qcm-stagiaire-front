@@ -1,14 +1,44 @@
-import { Container, Stack } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Container, Stack, LinearProgress, Alert, AlertTitle } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
+import { tableOptions } from 'utils/TableUtils';
 
-const UserRecord = () => {
+import UserService from 'services/UserService';
+
+const UserRecord = (props) => {
+  /*************************/
+  /******** React Hooks ******/
+  /***********************/
+  const user = props.user;
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [records, setRecords] = useState([]);
+
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+
+  const successCallback = (response) => {
+    setIsLoaded(true);
+    setRecords(response);
+  };
+
+  const errorCallback = () => {
+    setIsLoaded(true);
+    setError(true);
+  };
+
+  useEffect(() => {
+    UserService.get_records(user.id, successCallback, errorCallback);
+  }, [user.id]);
+
   const columns = [
     {
-      name: 'quizName',
+      name: 'quiz.label',
       label: 'Quiz Name',
     },
     {
-      name: 'theme',
+      name: 'quiz.theme.label',
       label: 'Theme',
     },
     {
@@ -16,33 +46,38 @@ const UserRecord = () => {
       label: 'Score',
     },
     {
-      name: 'bestScore',
+      name: 'ranking.duration_of_best_score',
       label: 'Best Score of the quizz',
       options: {
         setCellProps: () => ({ style: { minWidth: '150px' } }),
       },
     },
     {
-      name: 'rank',
+      name: 'ranking.score_rank',
       label: 'Rank',
     },
   ];
 
-  const data = [
-    { quizName: 'Joe James', theme: 'Test Corp', score: 'Yonkers', bestScore: 'NY', rank: '4/20' },
-    { quizName: 'Joe James', theme: 'Test Corp', score: 'Yonkers', bestScore: 'NY', rank: '4/20' },
-    { quizName: 'Joe James', theme: 'Test Corp', score: 'Yonkers', bestScore: 'NY', rank: '4/20' },
-  ];
-
-  return (
-    <>
-      <Container alignitems="center">
-        <Stack direction="column" spacing={2} mt={2}>
-          <MUIDataTable title={'Trainees'} data={data} columns={columns} />
-        </Stack>
-      </Container>
-    </>
-  );
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
+      <>
+        <Container alignitems="center">
+          <Stack direction="column" spacing={2} mt={2}>
+            <MUIDataTable title={'Records'} data={records} columns={columns} options={tableOptions} />
+          </Stack>
+        </Container>
+      </>
+    );
+  }
 };
 
 export { UserRecord };

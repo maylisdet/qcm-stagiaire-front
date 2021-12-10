@@ -1,7 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 
 const QuizResume = (quiz) => {
-  console.log(quiz);
   return (
     <Stack direction="column" p="20px">
       <Stack justifyContent="center" alignItems="center">
