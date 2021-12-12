@@ -10,4 +10,14 @@ export default class AuthentificationService {
         errorCallback();
       });
   }
+
+  static signUp(data, callback, errorCallback) {
+    API.post('auth/signup', data)
+      .then(function (response) {
+        callback(response);
+      })
+      .catch(function (error) {
+        errorCallback();
+      });
+  }
 }

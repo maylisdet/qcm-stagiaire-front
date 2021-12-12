@@ -3,6 +3,7 @@ import { Button, Container, Stack, LinearProgress, Alert, AlertTitle } from '@mu
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import toast from 'react-hot-toast';
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
@@ -35,7 +36,9 @@ const UserManagement = () => {
 
   const deleteUser = useCallback(
     (userId) => {
+      const notify = () => toast('User deleted');
       const callback = () => {
+        notify();
         setUsers(users.filter((user) => user.id !== userId));
       };
       UserService.delete(userId, callback, errorCallback);

@@ -18,11 +18,22 @@ import { AddQuestion } from 'components/admin/quiz/AddQuestion';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { tableTheme } from 'theme';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <ThemeProvider theme={tableTheme}>
       <Container maxWidth="md">
+        <Toaster
+          toastOptions={{
+            className: '',
+            style: {
+              border: '1px solid #1b5e20',
+              padding: '10px',
+              color: '#1b5e20',
+            },
+          }}
+        />
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Login} />

@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Stack, TextField, Button, FormGroup, FormControlLabel, Switch } from '@mui/material';
+import { Stack, TextField, FormGroup, FormControlLabel, Switch } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import { toUsersManagementPage } from 'utils/RouteUtils';
+import { useCallback } from 'react';
+import { LoadingButton } from '@mui/lab';
 
 const UserProfile = (props) => {
   /*************************/
@@ -12,36 +14,34 @@ const UserProfile = (props) => {
   const [isActive, setIsActive] = useState(props.user.active);
   let label = isActive ? 'active' : 'inactive';
   const [toogleLabel, setToogleLabel] = useState(label);
-  const [name, setName] = useState('Pierre');
-  const [last_name, setLastName] = useState('Dupond');
-  const [email, setEmail] = useState('p.dupon@email.fr');
-  const [phone_number, setPhoneNumber] = useState('+33600000000');
-  const [company, setCompany] = useState('Les bronzés font du ski');
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(props.user);
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-
-  const handleCompanyChange = (event) => {
-    setCompany(event.target.value);
+  const handleChange = (prop) => (event) => {
+    setUser({ ...user, [prop]: event.target.value });
   };
 
   const changeActiveLabel = () => {
     setIsActive(!isActive);
     setToogleLabel(!isActive ? 'active' : 'inactive');
   };
+
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+
+  const errorCallback = (error) => {
+    setLoading(false);
+  };
+
+  const updateUser = useCallback(() => {
+    const callback = () => {
+      setLoading(false);
+      toUsersManagementPage(history);
+    };
+    console.log(user);
+    // Update user
+  }, [user, history]);
 
   return (
     <Stack spacing={3} mt={2} direction="column">
@@ -50,7 +50,7 @@ const UserProfile = (props) => {
         label="Firstname"
         variant="outlined"
         value={props.user.firstname}
-        onChange={handleNameChange}
+        onChange={handleChange('firstname')}
       />
 
       <TextField
@@ -58,7 +58,7 @@ const UserProfile = (props) => {
         label="Lastname"
         variant="outlined"
         value={props.user.lastname}
-        onChange={handleLastNameChange}
+        onChange={handleChange('lastname')}
       />
 
       <TextField
@@ -67,21 +67,21 @@ const UserProfile = (props) => {
         variant="outlined"
         type="email"
         value={props.user.email}
-        onChange={handleEmailChange}
+        onChange={handleChange('email')}
       />
       <TextField
         id="outlined-basic"
         label="Phone Number"
         variant="outlined"
         value={props.user.phone}
-        onChange={handlePhoneNumberChange}
+        onChange={handleChange('phone')}
       />
       <TextField
         id="outlined-basic"
         label="Company"
         variant="outlined"
         value={props.user.company}
-        onChange={handleCompanyChange}
+        onChange={handleChange('company')}
       />
       <TextField
         id="outlined-basic"
@@ -98,9 +98,9 @@ const UserProfile = (props) => {
         />
       </FormGroup>
       <Stack alignItems="center">
-        <Button style={{ width: '50%' }} variant="contained" onClick={() => toUsersManagementPage(history)}>
+        <LoadingButton loading={loading} style={{ width: '50%' }} variant="contained" onClick={() => updateUser}>
           Save modifications
-        </Button>
+        </LoadingButton>
       </Stack>
     </Stack>
   );
