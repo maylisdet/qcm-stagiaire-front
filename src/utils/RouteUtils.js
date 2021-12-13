@@ -44,7 +44,13 @@ export const toCreateUser = (history) => {
   history.push(url);
 };
 
-export const toTraineeProfil = (history, trainee_id) => {
-  const url = `/admin/users/${trainee_id}`;
+export const toTraineeProfil = (history, traineeId) => {
+  const url = `/admin/users/${traineeId}`;
+  history.push(url);
+};
+
+/******** LAUNCH QUIZ *********/
+export const toLaunchQuiz = (history, traineeId, quizId) => {
+  const url = `/trainee/${traineeId}/quizzes/${quizId}`;
   history.push(url);
 };

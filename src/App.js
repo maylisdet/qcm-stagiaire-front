@@ -7,6 +7,7 @@ import { CreateUser } from 'components/admin/user/CreateUser';
 import { QuizzesRecords } from 'components/trainee/QuizzesRecords';
 import { User } from 'components/welcome_page/trainee/User';
 import { Quizzes } from 'components/trainee/Quizzes';
+import { QuizAnswerSheet } from 'components/trainee/QuizAnswerSheet';
 
 import { UserDetailledProfile } from 'components/admin/user/UserDetailledProfile';
 import { QuizzesManagement } from 'components/admin/quiz/QuizzesManagement';
@@ -57,7 +58,8 @@ function App() {
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />
             <Route exact path="/trainee/:id/quizzes/records" component={QuizzesRecords} />
-            <Route exact path="/trainee/:id/quizzes" component={Quizzes} />
+            <Route exact path="/trainee/:traineeId/quizzes" component={Quizzes} />
+            <Route exact path="/trainee/:traineeId/quizzes/:quizId" component={QuizAnswerSheet} />
             <Route exact path="/trainee/:id/quizzes/:id/result" component={QuizDetailledResult} />
           </Switch>
         </BrowserRouter>

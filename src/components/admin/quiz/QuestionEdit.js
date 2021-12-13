@@ -20,12 +20,6 @@ const QuestionEdit = () => {
   /*************************/
   /******** API Call ******/
   /***********************/
-  const successCallback = (question) => {
-    setQuestion(question);
-    setAnswers(question.answers);
-    setIsLoaded(true);
-  };
-
   const errorCallback = (error) => {
     setError(true);
   };
@@ -37,7 +31,7 @@ const QuestionEdit = () => {
       setIsLoaded(true);
     };
     QuestionService.get(params.questionId, successCallback, errorCallback);
-  }, [params.questionId, question]);
+  }, [params.questionId]);
 
   const updateAnswers = (newAnswer) => {
     setAnswers(anwsers ? anwsers.concat([newAnswer]) : newAnswer);
