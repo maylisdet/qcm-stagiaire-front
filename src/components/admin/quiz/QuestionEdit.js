@@ -1,36 +1,50 @@
-import { useState } from 'react';
-import { Button, TextField, Container, Typography, Stack } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Button, TextField, Container, Typography, Stack, LinearProgress, AlertTitle, Alert } from '@mui/material';
+import { useHistory, useParams } from 'react-router-dom';
 import 'styles/answer.css';
 
 import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
 import { Header } from 'components/header/Header';
 import { DeleteButton } from 'components/DeleteButton';
 
-const QuestionEdit = (props) => {
-  const history = useHistory();
+import QuestionService from 'services/QuestionService';
 
-  const [values, setValues] = useState({
-    title: props.title,
-    theme: '',
-    answers: [
-      {
-        label: 'Blabla',
-        correct_answer: false,
-      },
-      {
-        label: 'Rep1',
-        correct_answer: true,
-      },
-      {
-        label: 'Rep2',
-        correct_answer: false,
-      },
-    ],
-  });
+const QuestionEdit = () => {
+  const history = useHistory();
+  const params = useParams();
+  const [question, setQuestion] = useState([]);
+  const [anwsers, setAnswers] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  /*************************/
+  /******** API Call ******/
+  /***********************/
+  const successCallback = (question) => {
+    setQuestion(question);
+    setAnswers(question.answers);
+    setIsLoaded(true);
+  };
+
+  const errorCallback = (error) => {
+    setError(true);
+  };
+
+  useEffect(() => {
+    const successCallback = (question) => {
+      setQuestion(question);
+      setAnswers(question.answers);
+      setIsLoaded(true);
+    };
+    QuestionService.get(params.questionId, successCallback, errorCallback);
+  }, [params.questionId, question]);
+
+  const updateAnswers = (newAnswer) => {
+    setAnswers(anwsers ? anwsers.concat([newAnswer]) : newAnswer);
+  };
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setQuestion({ ...question, [prop]: event.target.value });
   };
 
   const toQuizEditPage = (id) => {
@@ -38,44 +52,59 @@ const QuestionEdit = (props) => {
     history.push(url);
   };
 
-  return (
-    <Container maxWidth="md">
-      <Stack spacing={4} mt={4} justifyContent="center" alignItems="center">
-        <Header />
-        <Typography variant="h5">Edit question</Typography>
-        <TextField
-          id="outlined-basic"
-          label="Title"
-          fullWidth
-          variant="standard"
-          value={values.title}
-          onChange={handleChange('title')}
-        />
-        {values.answers.map((answer) => {
-          const className = `correct_answer correct_answer_${answer.correct_answer}`;
-          return (
-            <>
-              <Stack direction="row" marginLeft={10}>
-                <TextField
-                  display="flex"
-                  className={className}
-                  value={answer.label}
-                  style={{ borderRadius: 3, marginLeft: 100 }}
-                ></TextField>
-                <DeleteButton />
-              </Stack>
-            </>
-          );
-        })}
-        <Stack spacing={2}>
-          <AddAnswerModal initial_page={history.location.pathname} />
-          <Button variant="contained" size="large" color="success" onClick={(id) => toQuizEditPage(1)}>
-            Save Modifications
-          </Button>
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
+      <Container maxWidth="md">
+        <Stack spacing={4} mt={4} justifyContent="center" alignItems="center">
+          <Header />
+          <Typography variant="h5">Edit question</Typography>
+          <TextField
+            label="Title"
+            fullWidth
+            defaultValue={question.title}
+            variant="standard"
+            onChange={handleChange('title')}
+          />
+          {question.possibleAnswers &&
+            question.possibleAnswers.map((answer) => {
+              const className = `correct_answer correct_answer_${answer.correct_answer}`;
+              return (
+                <>
+                  <Stack direction="row" marginLeft={10}>
+                    <TextField
+                      display="flex"
+                      className={className}
+                      value={answer.label}
+                      style={{ borderRadius: 3, marginLeft: 100 }}
+                    ></TextField>
+                    <DeleteButton />
+                  </Stack>
+                </>
+              );
+            })}
+          <Stack spacing={2}>
+            <AddAnswerModal
+              initial_page={history.location.pathname}
+              updateAnswers={updateAnswers}
+              question_id={question.id}
+            />
+            <Button variant="contained" size="large" color="success" onClick={(id) => toQuizEditPage(1)}>
+              Save Modifications
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
-    </Container>
-  );
+      </Container>
+    );
+  }
 };
 
 export { QuestionEdit };

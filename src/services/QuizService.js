@@ -34,6 +34,17 @@ export default class QuizService {
       });
   }
 
+  static create(callback, errorCallback) {
+    API.post('quizzes')
+      .then(function (response) {
+        let data = response.data;
+        callback(data);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
+
   static delete(quizId, callback, errorCallback) {
     API.delete(`quizzes/${quizId}`)
       .then(callback())

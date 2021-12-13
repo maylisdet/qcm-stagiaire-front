@@ -25,14 +25,22 @@ const AddQuestion = () => {
       <Stack spacing={4} mt={4} justifyContent="center" alignItems="center">
         <Header />
         <Typography variant="h5">Create question</Typography>
-        <TextField
-          id="outlined-basic"
-          label="Title"
-          fullWidth
-          variant="standard"
-          value={values.title}
-          onChange={() => handleChange('title')}
-        />
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label="Position"
+            variant="standard"
+            value={values.position}
+            style={{ width: '200' }}
+            onChange={() => handleChange('positon')}
+          />
+          <TextField
+            label="Title"
+            fullWidth
+            variant="standard"
+            value={values.title}
+            onChange={() => handleChange('title')}
+          />
+        </Stack>
         {values.answers.map((answer) => {
           const className = `correct_answer correct_answer_${answer.correct_answer}`;
           return (

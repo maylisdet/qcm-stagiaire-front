@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Button, Container, Stack, LinearProgress, AlertTitle, Alert } from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import toast from 'react-hot-toast';
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
 
 import QuizService from 'services/QuizService';
 import { tableOptions } from 'utils/TableUtils';
-import { toQuizzesManagementPage, toQuizEditPage, toCreateQuiz } from 'utils/RouteUtils';
+import { toQuizEditPage, toCreateQuiz } from 'utils/RouteUtils';
 
 const QuizzesManagement = (props) => {
   /*************************/
@@ -19,6 +20,8 @@ const QuizzesManagement = (props) => {
   const [quizzes, setQuizzes] = useState([]);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const notify = () => toast('Quizz well deleted');
 
   /*************************/
   /******** API Call ******/
@@ -36,14 +39,16 @@ const QuizzesManagement = (props) => {
     QuizService.index(successCallback, errorCallback);
   }, []);
 
-  const deleteSuccessCallback = () => {
-    toQuizzesManagementPage(history);
-    setIsLoaded(true);
-  };
-
-  const deleteQuiz = (value) => {
-    QuizService.delete(value, deleteSuccessCallback, errorCallback);
-  };
+  const deleteQuiz = useCallback(
+    (quizId) => {
+      const callback = () => {
+        notify();
+        setQuizzes(quizzes.filter((quiz) => quiz.id !== quizId));
+      };
+      QuizService.delete(quizId, callback, errorCallback);
+    },
+    [quizzes],
+  );
 
   const columns = [
     {

@@ -38,7 +38,7 @@ const QuizContent = (props) => {
   const [quiz, setQuiz] = useState(props.quiz);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(quiz.theme);
+  const [currentTheme, setCurrentTheme] = useState(quiz.theme.id);
   const [themes, setThemes] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [values, setValues] = useState({
@@ -68,7 +68,7 @@ const QuizContent = (props) => {
     const getThemesSuccessCallback = (themes) => {
       setThemes(themes);
       setQuestions(quiz.questions);
-      setCurrentTheme(quiz.theme);
+      setCurrentTheme(quiz.theme.id);
       setIsLoaded(true);
     };
     ThemeService.index(getThemesSuccessCallback, getThemesErrorCallback);
@@ -89,7 +89,7 @@ const QuizContent = (props) => {
     let newQuiz = quiz;
     newQuiz.theme = newTheme;
     setQuiz(newQuiz);
-    setCurrentTheme(newTheme);
+    setCurrentTheme(newTheme.id);
   };
 
   /*************************/
@@ -118,7 +118,7 @@ const QuizContent = (props) => {
       renderCell: (row) => {
         return (
           <>
-            <Button onClick={(quizz_id, question_id) => toQuestionEdit(history, 2, 3)}>
+            <Button onClick={(quizz_id, question_id) => toQuestionEdit(history, quiz.id, row.id)}>
               <ModeEditOutlineOutlinedIcon />
             </Button>
             <Button onClick={() => addOneToQuestionShowNumber(row.id)}>
@@ -164,7 +164,7 @@ const QuizContent = (props) => {
             <FormControl fullWidth={true}>
               <InputLabel>Theme</InputLabel>
               <Select
-                value={currentTheme.id}
+                value={currentTheme}
                 label="Theme"
                 onChange={(event) => {
                   setCurrentTheme(event.target.value);

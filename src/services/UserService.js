@@ -43,4 +43,14 @@ export default class UserService {
         errorCallback(error);
       });
   }
+
+  static new_user(data, callback, errorCallback) {
+    API.post('users', data)
+      .then(function (response) {
+        callback(response);
+      })
+      .catch(function (error) {
+        errorCallback();
+      });
+  }
 }
