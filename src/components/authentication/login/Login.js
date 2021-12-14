@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useCallback } from 'react';
 import { Container, Stack, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import { LoginButton } from 'components/authentication/LoginButton';
+import AuthentificationService from 'services/AuthentificationService';
+import { goToAdmin, goToTrainee } from 'utils/RouteUtils';
+
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,36 +26,30 @@ const Login = () => {
       redirectToNextPage();
     }
   };
+  const notifyError = () => toast.error('There is a problem, check your email and password');
+  const notifySucess = () => toast.success('Bienvenu dans votre application de QCM');
 
-  const redirectToNextPage = () => {
-    if (email === 'admin') {
-      history.push('/admin');
-    } else {
-      history.push('/trainee');
-    }
-  };
-
-  axios
-    .post(`https://jsonplaceholder.typicode.com/users`, {
-      email: email,
-      password: password,
-    })
-    .then((res) => {
-      console.log(res);
-      console.log(res.data);
-    });
+  const redirectToNextPage = useCallback(() => {
+    const signInCallback = (data) => {
+      if (data.roles[0] === 'ADMIN') {
+        localStorage.setItem('auth-token', data.token);
+        goToAdmin(history);
+        notifySucess();
+      } else {
+        goToTrainee(history);
+        notifySucess();
+      }
+    };
+    const signInErrorCallback = () => {
+      notifyError();
+    };
+    AuthentificationService.signIn({ email: email, password: password }, signInCallback, signInErrorCallback);
+  }, [history, email, password]);
 
   return (
     <Container maxWidth="xs">
       <Stack spacing={3} mt={4}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          onKeyPress={handleEnter}
-        />
+        <TextField label="Email" variant="outlined" type="email" value={email} onChange={handleEmailChange} />
         <TextField
           label="Password"
           variant="outlined"
