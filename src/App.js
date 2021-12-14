@@ -27,10 +27,9 @@ function App() {
         <Toaster
           toastOptions={{
             className: '',
+            duration: 3000,
             style: {
-              border: '1px solid #1b5e20',
-              padding: '10px',
-              color: '#1b5e20',
+              fontWeight: 'bold',
             },
           }}
         />
