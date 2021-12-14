@@ -1,6 +1,6 @@
 /******** QUIZ MANAGEMENT*********/
-export const toQuizEditPage = (history, quizzId) => {
-  const url = `/admin/quiz/${quizzId}/edit`;
+export const toQuizEditPage = (history, quizId) => {
+  const url = `/admin/quiz/${quizId}/edit`;
   history.push(url);
 };
 
@@ -16,13 +16,13 @@ export const toCreateQuiz = (history) => {
 
 /******** QUESTION MANAGEMENT*********/
 
-export const toCreateQuestion = (history, quizzId) => {
-  const url = `/admin/quiz/${quizzId}/create-question`;
+export const toCreateQuestion = (history, quizId) => {
+  const url = `/admin/quiz/${quizId}/create-question`;
   history.push(url);
 };
 
-export const toQuestionEdit = (history, quizz_id, question_id) => {
-  const url = `/admin/quiz/${quizz_id}/question/${question_id}/edit`;
+export const toQuestionEdit = (history, quiz_id, question_id) => {
+  const url = `/admin/quiz/${quiz_id}/question/${question_id}/edit`;
   history.push(url);
 };
 

@@ -30,18 +30,16 @@ const UserProfile = (props) => {
   /******** API Call ******/
   /***********************/
 
-  const errorCallback = (error) => {
-    setLoading(false);
-  };
-
   const updateUser = useCallback(() => {
     const callback = () => {
       setLoading(false);
       toUsersManagementPage(history);
     };
-    console.log(user);
+    const errorCallback = (error) => {
+      setLoading(false);
+    };
     // Update user
-  }, [user, history]);
+  }, [history]);
 
   return (
     <Stack spacing={3} mt={2} direction="column">

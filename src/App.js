@@ -14,7 +14,7 @@ import { QuizEdit } from 'components/admin/quiz/QuizEdit';
 import { QuestionEdit } from 'components/admin/quiz/QuestionEdit';
 import { QuizDetailledResult } from 'components/trainee/QuizDetailledResult';
 import { CreateQuiz } from 'components/admin/quiz/CreateQuiz';
-import { AddQuestion } from 'components/admin/quiz/AddQuestion';
+import { CreateQuestion } from 'components/admin/quiz/CreateQuestion';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { tableTheme } from 'theme';
@@ -52,7 +52,7 @@ function App() {
             <Route exact path="/admin/quizzes" component={QuizzesManagement} />
             <Route exact path="/admin/quiz/:quizId/edit" component={QuizEdit} />
             <Route exact path="/admin/quiz/:quizId/question/:questionId/edit" component={QuestionEdit} />
-            <Route exact path="/admin/quiz/:id/create-question" component={AddQuestion} />
+            <Route exact path="/admin/quiz/:quizId/create-question" component={CreateQuestion} />
 
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />

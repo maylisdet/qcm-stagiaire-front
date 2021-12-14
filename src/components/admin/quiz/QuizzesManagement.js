@@ -108,7 +108,7 @@ const QuizzesManagement = (props) => {
       <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
           <Header />
-          <Stack direction="column" alignItems={'flex-end'} spacing={2}>
+          <Stack direction="column" alignItems="center" spacing={2}>
             <Button variant="contained" onClick={() => toCreateQuiz(history)}>
               New quiz
             </Button>

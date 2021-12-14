@@ -41,7 +41,6 @@ const CreateUser = () => {
       setLoading(false);
       toUsersManagementPage(history);
     };
-    console.log(newUser);
     UserService.new_user(newUser, callback, errorCallback);
   }, [newUser, history]);
 

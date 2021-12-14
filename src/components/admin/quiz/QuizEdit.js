@@ -22,16 +22,15 @@ const QuizEdit = () => {
   /*************************/
   /******** API Call ******/
   /***********************/
-  const successCallback = (quiz) => {
-    setQuiz(quiz);
-    setIsLoaded(true);
-  };
-
   const errorCallback = (error) => {
     setError(true);
   };
 
   useEffect(() => {
+    const successCallback = (quiz) => {
+      setQuiz(quiz);
+      setIsLoaded(true);
+    };
     QuizService.get(params.quizId, successCallback, errorCallback);
   }, [params.quizId]);
 

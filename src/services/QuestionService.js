@@ -3,7 +3,9 @@ import { API } from 'utils/ServiceUtils';
 export default class QuestionService {
   static delete(questionId, callback, errorCallback) {
     API.delete(`/questions/${questionId}`)
-      .then(callback())
+      .then(function (response) {
+        callback();
+      })
       .catch(function (error) {
         errorCallback(error);
       });
@@ -13,6 +15,16 @@ export default class QuestionService {
     API.get(`/questions/${questionId}`)
       .then(function (response) {
         callback(response.data);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
+
+  static create(question, callback, errorCallback) {
+    API.post('/questions', question)
+      .then(function (response) {
+        callback();
       })
       .catch(function (error) {
         errorCallback(error);

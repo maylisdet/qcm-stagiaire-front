@@ -15,6 +15,7 @@ import {
   LinearProgress,
   Alert,
   AlertTitle,
+  Typography,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import 'styles/themes.css';
@@ -24,7 +25,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
-import { DeleteButton } from 'components/DeleteButton';
 import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 
 import ThemeService from 'services/ThemeService';
@@ -40,15 +40,14 @@ const QuizContent = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(quiz.theme.id);
   const [themes, setThemes] = useState([]);
-  const [questions, setQuestions] = useState([]);
   const [values, setValues] = useState({
     name: '',
     theme: '',
     new_theme: '',
   });
   const history = useHistory();
-  const [isActive, setIsActive] = useState();
-  const [toogleLabel, setToogleLabel] = useState('active');
+  const [isActive, setIsActive] = useState(quiz.active);
+  const [toogleLabel, setToogleLabel] = useState(isActive ? 'Active Quiz' : 'Inactive Quiz');
 
   /*************************/
   /******** Handlers ******/
@@ -67,22 +66,11 @@ const QuizContent = (props) => {
   useEffect(() => {
     const getThemesSuccessCallback = (themes) => {
       setThemes(themes);
-      setQuestions(quiz.questions);
       setCurrentTheme(quiz.theme.id);
       setIsLoaded(true);
     };
     ThemeService.index(getThemesSuccessCallback, getThemesErrorCallback);
   }, [quiz.questions, quiz.theme]);
-
-  const deleteQuestion = useCallback(
-    (questionId) => {
-      const callback = () => {
-        setQuestions(questions.filter((question) => question.id !== questionId));
-      };
-      QuestionService.delete(questionId, callback, getThemesErrorCallback);
-    },
-    [questions],
-  );
 
   const updateThemes = (newTheme) => {
     setThemes(themes.concat([newTheme]));
@@ -92,12 +80,18 @@ const QuizContent = (props) => {
     setCurrentTheme(newTheme.id);
   };
 
+  const saveQuiz = useCallback(() => {
+    //TODO : PUT du Quiz
+    // QuestionService update
+  }, []);
+
   /*************************/
   /***** Other Methods ****/
   /***********************/
   const changeActiveLabel = () => {
+    //TODO : Toast on change
     setIsActive(!isActive);
-    setToogleLabel(isActive ? 'active' : 'inactive');
+    setToogleLabel(!isActive ? 'Active Quiz' : 'Inactive Quiz');
   };
 
   const addOneToQuestionShowNumber = (row_id) => {
@@ -110,7 +104,7 @@ const QuizContent = (props) => {
 
   const columns = [
     { field: 'position', headerName: 'Number', width: 100 },
-    { field: 'title', headerName: 'Question', width: 350 },
+    { field: 'label', headerName: 'Question', width: 455 },
     {
       field: 'edit',
       headerName: 'Edit',
@@ -118,7 +112,7 @@ const QuizContent = (props) => {
       renderCell: (row) => {
         return (
           <>
-            <Button onClick={(quizz_id, question_id) => toQuestionEdit(history, quiz.id, row.id)}>
+            <Button onClick={() => toQuestionEdit(history, quiz.id, row.id)}>
               <ModeEditOutlineOutlinedIcon />
             </Button>
             <Button onClick={() => addOneToQuestionShowNumber(row.id)}>
@@ -129,13 +123,6 @@ const QuizContent = (props) => {
             </Button>
           </>
         );
-      },
-    },
-    {
-      field: 'id',
-      headerName: 'Delete',
-      renderCell: (row) => {
-        return <DeleteButton onClick={() => deleteQuestion(row.id)} />;
       },
     },
   ];
@@ -153,13 +140,7 @@ const QuizContent = (props) => {
     return (
       <Container>
         <Stack spacing={6} mt={4}>
-          <TextField
-            id="standard-basic"
-            label="Name"
-            variant="standard"
-            value={quiz.label}
-            onChange={handleChange('name')}
-          />
+          <TextField label="Name" variant="standard" value={quiz.label} onChange={handleChange('name')} />
           <Stack direction="row" spacing={2}>
             <FormControl fullWidth={true}>
               <InputLabel>Theme</InputLabel>
@@ -177,27 +158,46 @@ const QuizContent = (props) => {
             </FormControl>
             <CreateThemeModal initial_page={history.location.pathname} updateThemes={updateThemes} />
           </Stack>
-          <Stack>
-            <FormGroup>
-              <FormControlLabel
-                control={<Switch defaultChecked />}
-                label={toogleLabel}
-                onChange={() => changeActiveLabel()}
-              />
-            </FormGroup>
-          </Stack>
-          <Stack direction="column" spacing={2} style={{ height: 450, alignItems: 'center' }}>
-            <DataGrid
-              rows={questions}
-              columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-              disableSelectionOnClick
-              style={{ width: '100%' }}
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch checked={isActive} />}
+              label={toogleLabel}
+              onChange={changeActiveLabel}
             />
+          </FormGroup>
+          <Stack spacing={5} style={{ alignItems: 'center' }}>
+            <div style={{ width: '100%' }}>
+              <Typography fontWeight="bold">Active questions</Typography>
+              <div style={{ height: 450, width: '100%' }}>
+                <DataGrid
+                  rows={quiz.questions.filter((question) => question.active)}
+                  columns={columns}
+                  pageSize={5}
+                  rowsPerPageOptions={[5]}
+                  disableSelectionOnClick
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+            <div style={{ width: '100%' }}>
+              <Typography fontWeight="bold">Inactive questions</Typography>
+              <div style={{ height: 450, width: '100%' }}>
+                <DataGrid
+                  rows={quiz.questions.filter((question) => !question.active)}
+                  columns={columns}
+                  pageSize={5}
+                  rowsPerPageOptions={[5]}
+                  disableSelectionOnClick
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
             <Button variant="outlined" size="large" onClick={() => toCreateQuestion(history, quiz.id)}>
               <AddIcon />
               Add Question
+            </Button>
+            <Button variant="contained" size="large" onClick={() => toCreateQuestion(history, quiz.id)}>
+              Save Quizz
             </Button>
           </Stack>
         </Stack>
