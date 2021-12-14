@@ -9,8 +9,8 @@ import {
   LinearProgress,
   AlertTitle,
   Alert,
+  Button,
 } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -29,7 +29,6 @@ const CreateQuiz = () => {
   const [currentTheme, setCurrentTheme] = useState('');
   const [quizLabel, setQuizLabel] = useState('');
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   /*************************/
   /******** API Call ******/
@@ -44,13 +43,13 @@ const CreateQuiz = () => {
       setIsLoaded(true);
     };
     ThemeService.index(getThemesSuccessCallback, errorCallback);
-  }, [themes]);
+  }, []);
 
   const createQuiz = useCallback(() => {
     const callback = (quiz) => {
       toCreateQuestion(history, quiz.id);
     };
-    let data = { label: quizLabel, theme: { id: currentTheme } };
+    let data = { label: quizLabel, theme: { id: currentTheme }, active: true, questions: [] };
     QuizService.create(data, callback, errorCallback);
   }, [history, currentTheme, quizLabel]);
 
@@ -94,16 +93,20 @@ const CreateQuiz = () => {
                       setCurrentTheme(event.target.value);
                     }}
                   >
-                    {themes.map((theme) => {
-                      return <MenuItem value={theme.id}>{theme.label}</MenuItem>;
+                    {themes.map((theme, index) => {
+                      return (
+                        <MenuItem key={index} value={theme.id}>
+                          {theme.label}
+                        </MenuItem>
+                      );
                     })}
                   </Select>
                 </FormControl>
                 <CreateThemeModal initial_page={history.location.pathname} updateThemes={updateThemes} />
               </Stack>
-              <LoadingButton loading={loading} variant="contained" onClick={() => createQuiz()}>
+              <Button variant="contained" onClick={createQuiz}>
                 Create Quiz
-              </LoadingButton>
+              </Button>
             </Stack>
           </Stack>
         </Stack>
