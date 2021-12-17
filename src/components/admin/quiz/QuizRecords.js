@@ -32,7 +32,7 @@ const QuizRecords = () => {
   };
 
   useEffect(() => {
-    QuizService.get_records(params.quizId, successCallback, errorCallback);
+    QuizService.getRecords(params.quizId, successCallback, errorCallback);
   }, [params.quizId]);
 
   const columns = [

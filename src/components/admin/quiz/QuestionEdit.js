@@ -17,7 +17,6 @@ import 'styles/answer.css';
 
 import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
 import { Header } from 'components/header/Header';
-import { DeleteButton } from 'components/DeleteButton';
 import { EditAnswerModal } from 'components/admin/quiz/EditAnswerModal';
 
 import QuestionService from 'services/QuestionService';
@@ -43,6 +42,10 @@ const QuestionEdit = () => {
     toQuizEditPage(history, params.quizId);
   }, [history, params.quizId]);
 
+  const errorCallback = (error) => {
+    setError(true);
+  };
+
   useEffect(() => {
     const successCallback = (question) => {
       setQuestion(question);
@@ -50,9 +53,7 @@ const QuestionEdit = () => {
       setToogleLabel(question.active ? 'Active Question' : 'Inactive Question');
       setIsLoaded(true);
     };
-    const errorCallback = (error) => {
-      setError(true);
-    };
+
     QuestionService.get(params.questionId, successCallback, errorCallback);
   }, [params.questionId]);
 

@@ -42,8 +42,8 @@ export const toCreateUser = (history) => {
   history.push(url);
 };
 
-export const toTraineeProfil = (history, trainee_id) => {
-  const url = `/admin/users/${trainee_id}`;
+export const toTraineeProfil = (history, traineeId) => {
+  const url = `/admin/users/${traineeId}`;
   history.push(url);
 };
 
@@ -57,4 +57,29 @@ export const goToAdmin = (history) => {
 export const goToTrainee = (history) => {
   const url = '/trainee';
   history.push(url);
+};
+
+/******** TRAINEE QUIZ *********/
+export const toTraineeQuizzes = (history, traineeId) => {
+  const url = `/trainee/${traineeId}/quizzes`;
+  history.push(url);
+};
+
+export const toTraineeRecord = (history, traineeId, recordId) => {
+  const url = `/trainee/${traineeId}/records/${recordId}/detailed`;
+  history.push(url);
+};
+
+export const toTraineeRecords = (history, traineeId) => {
+  const url = `trainee/${traineeId}/records`;
+  history.push(url);
+};
+
+export const toLaunchQuiz = (history, traineeId, quizId) => {
+  const url = `/trainee/${traineeId}/quizzes/${quizId}`;
+  history.push(url);
+};
+
+export const toQuizFinished = (history, traineeId, recordId) => {
+  window.location.href = `/trainee/${traineeId}/records/${recordId}`;
 };

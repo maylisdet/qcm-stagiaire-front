@@ -47,7 +47,7 @@ const UserManagement = () => {
   );
 
   useEffect(() => {
-    UserService.trainee_index(successCallback, errorCallback);
+    UserService.getTrainees(successCallback, errorCallback);
   }, []);
 
   const columns = [

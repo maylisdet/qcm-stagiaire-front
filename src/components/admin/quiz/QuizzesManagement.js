@@ -50,6 +50,9 @@ const QuizzesManagement = (props) => {
     [quizzes],
   );
 
+  /******************************/
+  /******** Table Columns ******/
+  /****************************/
   const columns = [
     {
       name: 'label',

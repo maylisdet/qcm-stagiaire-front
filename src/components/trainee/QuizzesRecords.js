@@ -1,25 +1,42 @@
-import { Container, Button, Stack } from '@mui/material';
-import MUIDataTable from 'mui-datatables';
-import { useHistory } from 'react-router-dom';
+import { Alert, AlertTitle, Container, Button, Stack, LinearProgress } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
+import MUIDataTable from 'mui-datatables';
 import { Header } from 'components/header/Header';
+
+import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { toTraineeRecord } from 'utils/RouteUtils';
+import UserService from 'services/UserService';
+import { tableOptions } from 'utils/TableUtils';
 
 const QuizzesRecords = () => {
   const history = useHistory();
+  const params = useParams();
+  const [records, setRecords] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const toTraineeQuizResult = (trainee_id, quiz_id) => {
-    const url = `/trainee/${trainee_id}/quizzes/${quiz_id}/result`;
-    history.push(url);
-  };
+  useEffect(() => {
+    const successCallback = (data) => {
+      setRecords(data);
+      setIsLoaded(true);
+    };
+
+    const errorCallback = () => {
+      setIsLoaded(true);
+      setError(true);
+    };
+
+    UserService.getRecords(params.traineeId, successCallback, errorCallback);
+  }, [params.traineeId]);
 
   const columns = [
     {
-      name: 'quizLabel',
+      name: 'quiz.label',
       label: 'Quiz Name',
     },
     {
-      name: 'theme',
+      name: 'quiz.theme.label',
       label: 'Theme',
     },
     {
@@ -27,7 +44,7 @@ const QuizzesRecords = () => {
       label: 'Score',
     },
     {
-      name: 'rank',
+      name: 'ranking.scoreRank',
       label: 'Rank',
     },
     {
@@ -35,12 +52,12 @@ const QuizzesRecords = () => {
       label: 'Duration',
     },
     {
-      name: 'details',
+      name: 'id',
       label: 'Details',
       options: {
-        customBodyRender: () => {
+        customBodyRender: (value) => {
           return (
-            <Button onClick={(trainee_id, quiz_id) => toTraineeQuizResult(1, 3)}>
+            <Button onClick={() => toTraineeRecord(history, params.traineeId, value)}>
               <SearchIcon />
             </Button>
           );
@@ -49,26 +66,27 @@ const QuizzesRecords = () => {
     },
   ];
 
-  const data = [
-    { quizLabel: 'Joe James', theme: 'Test Corp', score: '30', rank: '4/20', duration: '3 hours' },
-    { quizLabel: 'Joe James', theme: 'Test Corp', score: '30', rank: '4/20', duration: '3 hours' },
-    { quizLabel: 'Joe James', theme: 'Test Corp', score: '30', rank: '4/20', duration: '3 hours' },
-  ];
-
-  const options = {
-    filterType: 'checkbox',
-  };
-
-  return (
-    <>
-      <Container maxWidth="md" justifyContent="center" alignItems="center">
-        <Stack direction="column" spacing={2} mt={2}>
-          <Header />
-          <MUIDataTable title={'Results'} data={data} columns={columns} options={options} />
-        </Stack>
-      </Container>
-    </>
-  );
+  if (error) {
+    return (
+      <Alert color="error">
+        <AlertTitle>Erreur de chargement des données</AlertTitle>
+        Les données n'ont pas pu être chargée.
+      </Alert>
+    );
+  } else if (!isLoaded) {
+    return <LinearProgress />;
+  } else {
+    return (
+      <>
+        <Container maxWidth="md" justifyContent="center" alignItems="center">
+          <Stack direction="column" spacing={2} mt={2}>
+            <Header />
+            <MUIDataTable title={'My Quizzes Records'} data={records} columns={columns} options={tableOptions} />
+          </Stack>
+        </Container>
+      </>
+    );
+  }
 };
 
 export { QuizzesRecords };
