@@ -1,7 +1,7 @@
 import { API } from 'utils/ServiceUtils';
 
 export default class UserService {
-  static trainee_index(callback, errorCallback) {
+  static getTrainees(callback, errorCallback) {
     API.get('users?traineesOnly=true')
       .then(function (response) {
         let data = response.data;
@@ -24,8 +24,8 @@ export default class UserService {
       });
   }
 
-  static get_records(userId, callback, errorCallback) {
-    API.get(`users/${userId}/records`)
+  static getRecords(traineeId, callback, errorCallback) {
+    API.get(`users/${traineeId}/records`)
       .then(function (response) {
         callback(response.data);
       })

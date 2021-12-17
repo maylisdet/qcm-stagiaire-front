@@ -18,8 +18,7 @@ const Quizzes = () => {
   /***********************/
   const history = useHistory();
   const params = useParams();
-  console.log(params);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [quizzes, setQuizzes] = useState([]);
 

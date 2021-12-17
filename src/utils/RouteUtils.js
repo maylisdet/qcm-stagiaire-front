@@ -49,8 +49,28 @@ export const toTraineeProfil = (history, traineeId) => {
   history.push(url);
 };
 
-/******** LAUNCH QUIZ *********/
+/******** TRAINEE QUIZ *********/
+
+export const toTraineeQuizzes = (history, traineeId) => {
+  const url = `/trainee/${traineeId}/quizzes`;
+  history.push(url);
+};
+
+export const toTraineeRecord = (history, traineeId, recordId) => {
+  const url = `/trainee/${traineeId}/records/${recordId}/detailed`;
+  history.push(url);
+};
+
+export const toTraineeRecords = (history, traineeId) => {
+  const url = `trainee/${traineeId}/records`;
+  history.push(url);
+};
+
 export const toLaunchQuiz = (history, traineeId, quizId) => {
   const url = `/trainee/${traineeId}/quizzes/${quizId}`;
   history.push(url);
+};
+
+export const toQuizFinished = (history, traineeId, recordId) => {
+  window.location.href = `/trainee/${traineeId}/records/${recordId}`;
 };

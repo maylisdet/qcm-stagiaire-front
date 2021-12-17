@@ -13,13 +13,14 @@ import { UserDetailledProfile } from 'components/admin/user/UserDetailledProfile
 import { QuizzesManagement } from 'components/admin/quiz/QuizzesManagement';
 import { QuizEdit } from 'components/admin/quiz/QuizEdit';
 import { QuestionEdit } from 'components/admin/quiz/QuestionEdit';
-import { QuizDetailledResult } from 'components/trainee/QuizDetailledResult';
+import { QuizDetailedResult } from 'components/trainee/QuizDetailedResult';
 import { CreateQuiz } from 'components/admin/quiz/CreateQuiz';
 import { AddQuestion } from 'components/admin/quiz/AddQuestion';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { tableTheme } from 'theme';
 import { Toaster } from 'react-hot-toast';
+import { QuizFinished } from 'components/trainee/QuizFinished';
 
 function App() {
   return (
@@ -57,10 +58,11 @@ function App() {
 
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee" component={User} />
-            <Route exact path="/trainee/:id/quizzes/records" component={QuizzesRecords} />
+            <Route exact path="/trainee/:traineeId/records" component={QuizzesRecords} />
             <Route exact path="/trainee/:traineeId/quizzes" component={Quizzes} />
             <Route exact path="/trainee/:traineeId/quizzes/:quizId" component={QuizAnswerSheet} />
-            <Route exact path="/trainee/:id/quizzes/:id/result" component={QuizDetailledResult} />
+            <Route exact path="/trainee/:traineeId/records/:recordId" component={QuizFinished} />
+            <Route exact path="/trainee/:traineeId/records/:recordId/detailed" component={QuizDetailedResult} />
           </Switch>
         </BrowserRouter>
       </Container>

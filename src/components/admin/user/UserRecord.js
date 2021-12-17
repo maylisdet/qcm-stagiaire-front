@@ -29,7 +29,7 @@ const UserRecord = (props) => {
   };
 
   useEffect(() => {
-    UserService.get_records(user.id, successCallback, errorCallback);
+    UserService.getRecords(user.id, successCallback, errorCallback);
   }, [user.id]);
 
   const columns = [

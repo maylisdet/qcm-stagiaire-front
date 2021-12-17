@@ -24,7 +24,7 @@ export default class QuizService {
       });
   }
 
-  static get_records(quizId, callback, errorCallback) {
+  static getRecords(quizId, callback, errorCallback) {
     API.get(`quizzes/${quizId}/records`)
       .then(function (response) {
         callback(response.data);

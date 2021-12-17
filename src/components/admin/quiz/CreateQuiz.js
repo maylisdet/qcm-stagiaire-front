@@ -48,6 +48,7 @@ const CreateQuiz = () => {
 
   const createQuiz = useCallback(() => {
     const callback = (quiz) => {
+      setLoading(false);
       toCreateQuestion(history, quiz.id);
     };
     let data = { label: quizLabel, theme: { id: currentTheme } };
