@@ -54,8 +54,13 @@ export const goToAdmin = (history) => {
   history.push(url);
 };
 
-export const goToTrainee = (history) => {
-  const url = '/trainee';
+export const goToTrainee = (history, traineeId) => {
+  const url = `/trainee/${traineeId}`;
+  history.push(url);
+};
+
+export const toTraineeRecordFromAdmin = (history, traineeId, recordId) => {
+  const url = `/admin/${traineeId}/records/${recordId}/detailed`;
   history.push(url);
 };
 
@@ -65,13 +70,13 @@ export const toTraineeQuizzes = (history, traineeId) => {
   history.push(url);
 };
 
-export const toTraineeRecord = (history, traineeId, recordId) => {
+export const toTraineeRecordFromTrainee = (history, traineeId, recordId) => {
   const url = `/trainee/${traineeId}/records/${recordId}/detailed`;
   history.push(url);
 };
 
 export const toTraineeRecords = (history, traineeId) => {
-  const url = `trainee/${traineeId}/records`;
+  const url = `${traineeId}/records`;
   history.push(url);
 };
 

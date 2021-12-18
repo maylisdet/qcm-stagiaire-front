@@ -14,7 +14,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 
-import { toCreateQuestion } from 'utils/RouteUtils';
+import { toCreateQuestion, toQuizzesManagementPage } from 'utils/RouteUtils';
 
 import { CreateThemeModal } from 'components/admin/quiz/CreateThemeModal';
 import { Header } from 'components/header/Header';
@@ -71,7 +71,7 @@ const CreateQuiz = () => {
     return (
       <Container maxWidth="md">
         <Stack spacing={2} mt={2}>
-          <Header />
+          <Header toBackPage={() => toQuizzesManagementPage(history)} />
           <Stack alignItems="center">
             <Stack width="600px" spacing={2} mt={2}>
               <TextField
@@ -89,7 +89,6 @@ const CreateQuiz = () => {
                     value={currentTheme}
                     label="Theme"
                     onChange={(event) => {
-                      console.log(event.target);
                       setCurrentTheme(event.target.value);
                     }}
                   >

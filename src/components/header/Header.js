@@ -4,7 +4,7 @@ import { BackButton } from 'components/header/BackButton';
 import { LogoutButton } from 'components/header/LogoutButton';
 import { useHistory } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ toBackPage }) => {
   const history = useHistory();
 
   const toLoginPage = () => {
@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <>
       <Grid container direction="row" justifyContent="space-between">
-        <BackButton />
+        <BackButton toBackPage={toBackPage} />
         <LogoutButton onClick={() => toLoginPage()} />
       </Grid>
     </>

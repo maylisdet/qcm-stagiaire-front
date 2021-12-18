@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import RecordService from 'services/RecordService';
 import { QuizResume } from 'components/trainee/QuizResume';
 
-import { toTraineeRecord } from 'utils/RouteUtils';
+import { toTraineeQuizzes, toTraineeRecordFromTrainee } from 'utils/RouteUtils';
 
 const QuizFinished = () => {
   const history = useHistory();
@@ -44,11 +44,15 @@ const QuizFinished = () => {
     return (
       <Container maxWidth="md">
         <Stack direction="column" spacing={2} mt={2}>
-          <Header />
+          <Header toBackPage={() => toTraineeQuizzes(history, record.user.id)} />
           <QuizResume record={record} />
         </Stack>
         <Stack alignItems="center" mt={3}>
-          <Button variant="outlined" size="large" onClick={() => toTraineeRecord(history, record.user.id, record.id)}>
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={() => toTraineeRecordFromTrainee(history, record.user.id, record.id)}
+          >
             See more details
           </Button>
         </Stack>

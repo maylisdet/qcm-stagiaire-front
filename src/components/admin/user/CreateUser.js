@@ -6,7 +6,8 @@ import { useHistory } from 'react-router-dom';
 import { toUsersManagementPage } from 'utils/RouteUtils';
 
 import { Header } from 'components/header/Header';
-import UserService from 'services/UserService';
+import AuthentificationService from 'services/AuthentificationService';
+import { notifySucess } from 'utils/NotifyUtils';
 
 const CreateUser = () => {
   const history = useHistory();
@@ -18,10 +19,7 @@ const CreateUser = () => {
     email: '',
     company: '',
     password: '',
-    role: {
-      id: '2',
-      label: 'TRAINEE',
-    },
+    role: 'TRAINEE',
   });
 
   const handleChange = (prop) => (event) => {
@@ -39,15 +37,16 @@ const CreateUser = () => {
   const createTrainee = useCallback(() => {
     const callback = () => {
       setLoading(false);
+      notifySucess('User well created');
       toUsersManagementPage(history);
     };
-    UserService.new_user(newUser, callback, errorCallback);
+    AuthentificationService.signUp(newUser, callback, errorCallback);
   }, [newUser, history]);
 
   return (
     <Container maxWidth="md">
       <Stack spacing={2} mt={2}>
-        <Header />
+        <Header toBackPage={() => toUsersManagementPage(history)} />
         <Stack alignItems="center">
           <Stack width="600px" spacing={2} mt={2}>
             <TextField label="Firstname" variant="outlined" required onChange={handleChange('firstname')} />

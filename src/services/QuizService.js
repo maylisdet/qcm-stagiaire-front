@@ -5,9 +5,7 @@ export default class QuizService {
     API.get('quizzes')
       .then(function (response) {
         let data = response.data;
-        //TODO : Replace next line by a call to the records API
-        let dataNew = data.map((obj) => ({ ...obj, records: [] }));
-        callback(dataNew);
+        callback(data);
       })
       .catch(function (error) {
         errorCallback(error);
@@ -49,6 +47,16 @@ export default class QuizService {
     API.delete(`quizzes/${quizId}`)
       .then(function (response) {
         callback();
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
+
+  static patch_update(quizId, data, callback, errorCallback) {
+    API.put(`quizzes/${quizId}`, data)
+      .then(function (response) {
+        callback(response);
       })
       .catch(function (error) {
         errorCallback(error);

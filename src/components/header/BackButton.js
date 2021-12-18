@@ -1,16 +1,9 @@
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useHistory } from 'react-router-dom';
 
-const BackButton = () => {
-  const history = useHistory();
+const BackButton = ({ toBackPage }) => {
   return (
-    <Button
-      aria-label="back"
-      onClick={() => {
-        history.goBack();
-      }}
-    >
+    <Button aria-label="back" onClick={toBackPage}>
       <ArrowBackIcon />
     </Button>
   );

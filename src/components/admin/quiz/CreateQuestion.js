@@ -7,10 +7,10 @@ import 'styles/answer.css';
 import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
 import { EditAnswerModal } from 'components/admin/quiz/EditAnswerModal';
 import { Header } from 'components/header/Header';
-import { DeleteButton } from 'components/DeleteButton';
 import QuestionService from 'services/QuestionService';
 
 import { toQuizEditPage } from 'utils/RouteUtils';
+import { notifySucess } from 'utils/NotifyUtils';
 
 const CreateQuestion = () => {
   /*************************/
@@ -53,6 +53,7 @@ const CreateQuestion = () => {
 
   const createQuestion = useCallback(() => {
     const callback = () => {
+      notifySucess('Question created');
       toQuizEditPage(history, params.quizId);
     };
     QuestionService.create(question, callback, errorCallback);
@@ -61,7 +62,7 @@ const CreateQuestion = () => {
   return (
     <Container maxWidth="md">
       <Stack spacing={4} mt={4} justifyContent="center" alignItems="center">
-        <Header />
+        <Header toBackPage={() => toQuizEditPage(history, params.quizId)} />
         <Typography variant="h5">Create question</Typography>
         <Stack direction="row" spacing={2} style={{ width: '100%' }}>
           <TextField

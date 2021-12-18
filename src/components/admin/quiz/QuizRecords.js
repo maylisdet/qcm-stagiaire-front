@@ -4,7 +4,7 @@ import Search from '@mui/icons-material/Search';
 import MUIDataTable from 'mui-datatables';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { toTraineeProfil } from 'utils/RouteUtils';
+import { toTraineeRecordFromAdmin } from 'utils/RouteUtils';
 import { tableOptions } from 'utils/TableUtils';
 
 import QuizService from 'services/QuizService';
@@ -22,16 +22,15 @@ const QuizRecords = () => {
   /*************************/
   /******** API Call ******/
   /***********************/
-  const successCallback = (data) => {
-    setRecords(data);
-    setIsLoaded(true);
-  };
-
-  const errorCallback = (error) => {
-    setError(true);
-  };
-
   useEffect(() => {
+    const successCallback = (data) => {
+      setRecords(data);
+      setIsLoaded(true);
+    };
+
+    const errorCallback = (error) => {
+      setError(true);
+    };
     QuizService.getRecords(params.quizId, successCallback, errorCallback);
   }, [params.quizId]);
 
@@ -49,17 +48,16 @@ const QuizRecords = () => {
       label: 'Score',
     },
     {
-      name: 'rank',
+      name: 'ranking.scoreRank',
       label: 'Rank',
     },
     {
-      name: 'user.id',
+      name: 'id',
       label: 'Details',
       options: {
-        customBodyRender: (value) => {
-          console.log(value);
+        customBodyRender: (id) => {
           return (
-            <Button onClick={() => toTraineeProfil(history, value)}>
+            <Button onClick={() => toTraineeRecordFromAdmin(history, params.traineeId, id)}>
               <Search />
             </Button>
           );

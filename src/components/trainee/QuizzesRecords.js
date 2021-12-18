@@ -5,7 +5,7 @@ import { Header } from 'components/header/Header';
 
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { toTraineeRecord } from 'utils/RouteUtils';
+import { goToTrainee, toTraineeRecordFromTrainee } from 'utils/RouteUtils';
 import UserService from 'services/UserService';
 import { tableOptions } from 'utils/TableUtils';
 
@@ -57,7 +57,7 @@ const QuizzesRecords = () => {
       options: {
         customBodyRender: (value) => {
           return (
-            <Button onClick={() => toTraineeRecord(history, params.traineeId, value)}>
+            <Button onClick={() => toTraineeRecordFromTrainee(history, params.traineeId, value)}>
               <SearchIcon />
             </Button>
           );
@@ -80,7 +80,7 @@ const QuizzesRecords = () => {
       <>
         <Container maxWidth="md" justifyContent="center" alignItems="center">
           <Stack direction="column" spacing={2} mt={2}>
-            <Header />
+            <Header toBackPage={() => goToTrainee(history, params.traineeId)} />
             <MUIDataTable title={'My Quizzes Records'} data={records} columns={columns} options={tableOptions} />
           </Stack>
         </Container>

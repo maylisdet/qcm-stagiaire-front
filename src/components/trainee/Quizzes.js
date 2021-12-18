@@ -9,7 +9,7 @@ import MUIDataTable from 'mui-datatables';
 import { Header } from 'components/header/Header';
 import QuizService from 'services/QuizService';
 
-import { toLaunchQuiz } from 'utils/RouteUtils';
+import { toLaunchQuiz, goToTrainee } from 'utils/RouteUtils';
 import { tableOptions } from 'utils/TableUtils';
 
 const Quizzes = () => {
@@ -25,17 +25,17 @@ const Quizzes = () => {
   /*************************/
   /******** API Call ******/
   /***********************/
-  const successCallback = (response) => {
-    setIsLoaded(true);
-    setQuizzes(response);
-  };
-
-  const errorCallback = () => {
-    setIsLoaded(true);
-    setError(true);
-  };
-
   useEffect(() => {
+    const successCallback = (response) => {
+      setIsLoaded(true);
+      setQuizzes(response);
+    };
+
+    const errorCallback = () => {
+      setIsLoaded(true);
+      setError(true);
+    };
+
     QuizService.index(successCallback, errorCallback);
   }, []);
 
@@ -93,7 +93,7 @@ const Quizzes = () => {
       <>
         <Container maxWidth="md" justifyContent="center" alignItems="center">
           <Stack direction="column" spacing={2} mt={2}>
-            <Header />
+            <Header toBackPage={() => goToTrainee(history, params.traineeId)} />
             <MUIDataTable title={'Available Quizzes'} data={quizzes} columns={columns} options={tableOptions} />
           </Stack>
         </Container>
