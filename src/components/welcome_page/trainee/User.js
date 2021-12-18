@@ -1,5 +1,5 @@
 import { Button, Container, Stack } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { toTraineeRecords, toTraineeQuizzes } from 'utils/RouteUtils';
 
@@ -7,6 +7,7 @@ import { Header } from 'components/header/Header';
 
 const User = () => {
   const history = useHistory();
+  const params = useParams();
 
   return (
     <>
@@ -15,10 +16,10 @@ const User = () => {
           <Header />
           <Stack alignItems="center">
             <Stack width="300px" spacing={2} mt={2}>
-              <Button variant="contained" onClick={(id) => toTraineeQuizzes(history, 1)}>
+              <Button variant="contained" onClick={() => toTraineeQuizzes(history, params.traineeId)}>
                 See quizzes
               </Button>
-              <Button variant="contained" onClick={(id) => toTraineeRecords(history, 1)}>
+              <Button variant="contained" onClick={() => toTraineeRecords(history, params.traineeId)}>
                 See Records
               </Button>
             </Stack>

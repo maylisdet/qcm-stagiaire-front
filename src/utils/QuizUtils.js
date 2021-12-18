@@ -9,6 +9,9 @@ export const getNextQuestion = (quiz, alreayAskedQuestions) => {
       ),
   );
 
+  let nextQuestionAnwsers = nextQuestion.answers.filter((answer) => answer.active === true);
+  nextQuestion.answers = nextQuestionAnwsers;
+
   console.log('Next questions : ', nextQuestion);
 
   if (nextQuestion !== undefined) {

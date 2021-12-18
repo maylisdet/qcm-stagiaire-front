@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { Alert, AlertTitle, Container, LinearProgress, Stack, Typography } from '@mui/material';
 import { Header } from 'components/header/Header';
@@ -9,22 +9,28 @@ import 'styles/answer.css';
 
 import { QuizResume } from 'components/trainee/QuizResume';
 import RecordService from 'services/RecordService';
+import { toTraineeQuizzes } from 'utils/RouteUtils';
 
 const QuizDetailedResult = () => {
   const params = useParams();
+  const history = useHistory();
   const [record, setRecord] = useState([]);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const isAdmin = window.location.pathname.split('/')[1] === 'admin';
 
-  const errorCallback = () => {
-    setIsLoaded(true);
-    setError(true);
-  };
+  const [activeQuestions, setActiveQuestions] = useState();
 
   useEffect(() => {
     const successCallback = (record) => {
       setRecord(record);
+      setActiveQuestions(record.quiz.questions.filter((question) => question.active === true));
       setIsLoaded(true);
+    };
+
+    const errorCallback = () => {
+      setIsLoaded(true);
+      setError(true);
     };
 
     RecordService.get(params.recordId, successCallback, errorCallback);
@@ -44,14 +50,14 @@ const QuizDetailedResult = () => {
       <>
         <Container maxWidth="md" justifyContent="center" alignitems="center">
           <Stack direction="column" spacing={4} mt={2} mb={4}>
-            <Header />
+            <Header toBackPage={() => toTraineeQuizzes(history, record.user.id)} />
             <QuizResume record={record} />
           </Stack>
           <Stack alignItems="center" mb={5}>
-            <Typography variant="h3">Your answers</Typography>
+            <Typography variant="h4">{isAdmin ? "Trainee's answers" : 'Your answers'}</Typography>
           </Stack>
           <Stack direction="column" spacing={10} mb={10}>
-            {record.quiz.questions.map((question) => {
+            {activeQuestions.map((question) => {
               return <AnswerDetailed question={question} traineeAnswers={record.answers} />;
             })}
           </Stack>

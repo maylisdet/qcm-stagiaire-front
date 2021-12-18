@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  Button,
   TextField,
   Container,
   Typography,
@@ -14,6 +13,7 @@ import {
 } from '@mui/material';
 import { useHistory, useParams } from 'react-router-dom';
 import 'styles/answer.css';
+import { LoadingButton } from '@mui/lab';
 
 import { AddAnswerModal } from 'components/admin/quiz/AddAnswerModal';
 import { Header } from 'components/header/Header';
@@ -21,6 +21,7 @@ import { EditAnswerModal } from 'components/admin/quiz/EditAnswerModal';
 
 import QuestionService from 'services/QuestionService';
 import { toQuizEditPage } from 'utils/RouteUtils';
+import { notifyError, notifySucess } from 'utils/NotifyUtils';
 
 const QuestionEdit = () => {
   /*************************/
@@ -33,14 +34,28 @@ const QuestionEdit = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [toogleLabel, setToogleLabel] = useState('active');
+  const [loading, setLoading] = useState(false);
 
   /*************************/
   /******** API Call ******/
   /***********************/
+
   const updateQuestion = useCallback(() => {
-    //TODO: Call API PUT
-    toQuizEditPage(history, params.quizId);
-  }, [history, params.quizId]);
+    const callback = () => {
+      setLoading(false);
+      notifySucess('Question updated');
+      toQuizEditPage(history, params.quizId);
+    };
+
+    const errorCallback = (error) => {
+      setLoading(false);
+      notifyError('There was a problem, your question is not updated');
+    };
+    question.answers.forEach((answer) => {
+      delete answer.question_id;
+    });
+    QuestionService.update(params.questionId, question, callback, errorCallback);
+  }, [history, question, params.quizId, params.questionId]);
 
   const errorCallback = (error) => {
     setError(true);
@@ -62,6 +77,10 @@ const QuestionEdit = () => {
   /***********************/
   const handleChange = (prop) => (event) => {
     setQuestion({ ...question, [prop]: event.target.value });
+  };
+
+  const handlePostion = (prop) => (event) => {
+    setQuestion({ ...question, position: parseInt(event.target.value) });
   };
 
   const createAnswer = (newAnswer) => {
@@ -91,9 +110,10 @@ const QuestionEdit = () => {
   // );
 
   const changeActiveLabel = () => {
-    //TODO : Toast
     setIsActive(!isActive);
+    setQuestion({ ...question, active: !isActive });
     setToogleLabel(!isActive ? 'Active Question' : 'Inactive Question');
+    notifySucess('Active status changed');
   };
 
   if (error) {
@@ -109,16 +129,16 @@ const QuestionEdit = () => {
     return (
       <Container maxWidth="md">
         <Stack spacing={4} mt={4} justifyContent="center" alignItems="center">
-          <Header />
+          <Header toBackPage={() => toQuizEditPage(history, params.quizId)} />
           <Typography variant="h5">Edit question</Typography>
           <Stack direction="row" spacing={2} style={{ width: '100%' }}>
             <TextField
               label="Position"
               variant="standard"
-              type={'number'}
+              type="number"
               value={question.position}
               style={{ width: '200' }}
-              onChange={handleChange('position')}
+              onChange={handlePostion('position')}
             />
             <TextField
               label="Title"
@@ -163,9 +183,9 @@ const QuestionEdit = () => {
               createAnswer={createAnswer}
               question_id={question.id}
             />
-            <Button variant="contained" size="large" color="success" onClick={updateQuestion}>
+            <LoadingButton loading={loading} variant="contained" size="large" color="success" onClick={updateQuestion}>
               Save Modifications
-            </Button>
+            </LoadingButton>
           </Stack>
         </Stack>
       </Container>

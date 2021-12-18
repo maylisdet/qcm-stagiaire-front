@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Container, Stack, LinearProgress, Alert, AlertTitle } from '@mui/material';
+import { Container, Stack, LinearProgress, Alert, AlertTitle, Button } from '@mui/material';
+import Search from '@mui/icons-material/Search';
 import MUIDataTable from 'mui-datatables';
-import { tableOptions } from 'utils/TableUtils';
+import { useHistory } from 'react-router-dom';
 
 import UserService from 'services/UserService';
+
+import { toTraineeRecordFromAdmin } from 'utils/RouteUtils';
+import { tableOptions } from 'utils/TableUtils';
 
 const UserRecord = (props) => {
   /*************************/
@@ -13,22 +17,22 @@ const UserRecord = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [records, setRecords] = useState([]);
+  const history = useHistory();
 
   /*************************/
   /******** API Call ******/
   /***********************/
-
-  const successCallback = (response) => {
-    setIsLoaded(true);
-    setRecords(response);
-  };
-
-  const errorCallback = () => {
-    setIsLoaded(true);
-    setError(true);
-  };
-
   useEffect(() => {
+    const successCallback = (data) => {
+      setRecords(data);
+      setIsLoaded(true);
+    };
+
+    const errorCallback = () => {
+      setIsLoaded(true);
+      setError(true);
+    };
+
     UserService.getRecords(user.id, successCallback, errorCallback);
   }, [user.id]);
 
@@ -46,15 +50,28 @@ const UserRecord = (props) => {
       label: 'Score',
     },
     {
-      name: 'ranking.duration_of_best_score',
+      name: 'ranking.durationOfBestScore',
       label: 'Best Score of the quizz',
       options: {
         setCellProps: () => ({ style: { minWidth: '150px' } }),
       },
     },
     {
-      name: 'ranking.score_rank',
+      name: 'ranking.scoreRank',
       label: 'Rank',
+    },
+    {
+      name: 'id',
+      label: 'Details',
+      options: {
+        customBodyRender: (id) => {
+          return (
+            <Button onClick={() => toTraineeRecordFromAdmin(history, user.id, id)}>
+              <Search />
+            </Button>
+          );
+        },
+      },
     },
   ];
 

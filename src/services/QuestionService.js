@@ -30,4 +30,24 @@ export default class QuestionService {
         errorCallback(error);
       });
   }
+
+  static update(questionId, question, callback, errorCallback) {
+    API.put(`/questions/${questionId}`, question)
+      .then(function (response) {
+        callback(response);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
+
+  static patch_update(questionId, question, callback, errorCallback) {
+    API.patch(`/questions/${questionId}`, question)
+      .then(function (response) {
+        callback(response.data);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
 }

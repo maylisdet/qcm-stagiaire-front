@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Container, Stack, Tab, Box, LinearProgress, AlertTitle, Alert } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { UserProfile } from 'components/admin/user/UserProfile';
 import { UserRecord } from 'components/admin/user/UserRecord';
 import { Header } from 'components/header/Header';
 
 import UserService from 'services/UserService';
+import { toUsersManagementPage } from 'utils/RouteUtils';
 
 const UserDetailledProfile = () => {
   /*************************/
@@ -18,6 +19,7 @@ const UserDetailledProfile = () => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const params = useParams();
+  const history = useHistory();
 
   /*************************/
   /******** API Call ******/
@@ -52,7 +54,7 @@ const UserDetailledProfile = () => {
     return (
       <Container maxWidth="md">
         <Stack spacing={3} mt={2}>
-          <Header />
+          <Header toBackPage={() => toUsersManagementPage(history)} />
           <TabContext value={tabValue}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={handleChange}>

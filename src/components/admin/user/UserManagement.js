@@ -3,14 +3,14 @@ import { Button, Container, Stack, LinearProgress, Alert, AlertTitle } from '@mu
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import toast from 'react-hot-toast';
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
 
 import UserService from 'services/UserService';
-import { toUserIdPage, toUsersManagementPage, toCreateUser } from 'utils/RouteUtils';
+import { toUserIdPage, toCreateUser, goToAdmin } from 'utils/RouteUtils';
 import { tableOptions } from 'utils/TableUtils';
+import { notifySucess } from 'utils/NotifyUtils';
 
 const UserManagement = () => {
   /*************************/
@@ -36,9 +36,8 @@ const UserManagement = () => {
 
   const deleteUser = useCallback(
     (userId) => {
-      const notify = () => toast('User deleted');
       const callback = () => {
-        notify();
+        notifySucess('User deleted');
         setUsers(users.filter((user) => user.id !== userId));
       };
       UserService.delete(userId, callback, errorCallback);
@@ -76,9 +75,7 @@ const UserManagement = () => {
               <Button onClick={() => toUserIdPage(history, value)}>
                 <ModeEditOutlineOutlinedIcon />
               </Button>
-              <Button onClick={() => toUsersManagementPage(history)}>
-                <DeleteButton onClick={() => deleteUser(value)} />
-              </Button>
+              <DeleteButton onClick={() => deleteUser(value)} />
             </Stack>
           );
         },
@@ -101,7 +98,7 @@ const UserManagement = () => {
         <Container maxWidth="md">
           <Stack direction="column" spacing={2} mt={2} alignItems="strech">
             <Stack direction="column" alignItems="flex-end" spacing={2}>
-              <Header />
+              <Header toBackPage={() => goToAdmin(history)} />
               <Button variant="contained" onClick={() => toCreateUser(history)}>
                 New trainee
               </Button>

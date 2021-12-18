@@ -7,6 +7,7 @@ import AuthentificationService from 'services/AuthentificationService';
 import { goToAdmin, goToTrainee } from 'utils/RouteUtils';
 
 import toast from 'react-hot-toast';
+import { notifySucess, notifyError } from 'utils/NotifyUtils';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -26,22 +27,20 @@ const Login = () => {
       redirectToNextPage();
     }
   };
-  const notifyError = () => toast.error('There is a problem, check your email and password');
-  const notifySucess = () => toast.success('Bienvenu dans votre application de QCM');
 
   const redirectToNextPage = useCallback(() => {
     const signInCallback = (data) => {
       if (data.roles[0] === 'ADMIN') {
         localStorage.setItem('auth-token', data.token);
         goToAdmin(history);
-        notifySucess();
+        notifySucess('Bienvenu dans votre application de QCM');
       } else {
-        goToTrainee(history);
-        notifySucess();
+        goToTrainee(history, data.id);
+        notifySucess('Bienvenu dans votre application de QCM');
       }
     };
     const signInErrorCallback = () => {
-      notifyError();
+      notifyError('There is a problem, check your email and password');
     };
     AuthentificationService.signIn({ email: email, password: password }, signInCallback, signInErrorCallback);
   }, [history, email, password]);

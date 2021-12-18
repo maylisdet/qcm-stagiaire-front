@@ -57,7 +57,8 @@ const QuizAnswerSheet = () => {
     };
 
     const successCallback = (quiz) => {
-      setQuiz(quiz);
+      let activeQuestions = quiz.questions.filter((question) => question.active === true);
+      setQuiz({ ...quiz, questions: activeQuestions });
       let nextQuestion = getNextQuestion(quiz, []);
       setCurrentQuestion(nextQuestion);
       setIsLoaded(true);
@@ -78,7 +79,7 @@ const QuizAnswerSheet = () => {
     },
     [alreadyAskedQuestions, quiz],
   );
-
+  console.log(quiz);
   /*************************/
   /******** Handlers ******/
   /***********************/

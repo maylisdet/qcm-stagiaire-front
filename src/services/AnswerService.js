@@ -10,4 +10,14 @@ export default class AnswerService {
         errorCallback(error);
       });
   }
+
+  static update(answerId, answer, callback, errorCallback) {
+    API.patch(`/questions/${answerId}`, answer)
+      .then(function (response) {
+        callback(response);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
 }

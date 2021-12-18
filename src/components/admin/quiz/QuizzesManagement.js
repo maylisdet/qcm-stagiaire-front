@@ -3,14 +3,14 @@ import { Button, Container, Stack, LinearProgress, AlertTitle, Alert } from '@mu
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import toast from 'react-hot-toast';
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
 
 import QuizService from 'services/QuizService';
 import { tableOptions } from 'utils/TableUtils';
-import { toQuizEditPage, toCreateQuiz } from 'utils/RouteUtils';
+import { toQuizEditPage, toCreateQuiz, goToAdmin } from 'utils/RouteUtils';
+import { notifySucess } from 'utils/NotifyUtils';
 
 const QuizzesManagement = (props) => {
   /*************************/
@@ -21,29 +21,28 @@ const QuizzesManagement = (props) => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const notify = () => toast('Quizz well deleted');
-
   /*************************/
   /******** API Call ******/
   /***********************/
-  const successCallback = (data) => {
-    setQuizzes(data);
-    setIsLoaded(true);
-  };
-
-  const errorCallback = (error) => {
-    setError(true);
-  };
-
   useEffect(() => {
+    const errorCallback = (error) => {
+      setError(true);
+    };
+    const successCallback = (data) => {
+      setQuizzes(data);
+      setIsLoaded(true);
+    };
     QuizService.index(successCallback, errorCallback);
   }, []);
 
   const deleteQuiz = useCallback(
     (quizId) => {
       const callback = () => {
-        notify();
+        notifySucess('Quiz well archive');
         setQuizzes(quizzes.filter((quiz) => quiz.id !== quizId));
+      };
+      const errorCallback = (error) => {
+        setError(true);
       };
       QuizService.delete(quizId, callback, errorCallback);
     },
@@ -67,7 +66,7 @@ const QuizzesManagement = (props) => {
       name: 'records',
       options: {
         customBodyRender: (value) => {
-          return <p>{value.length}</p>;
+          return <p>{quizzes.length}</p>;
         },
       },
     },
@@ -110,7 +109,7 @@ const QuizzesManagement = (props) => {
     return (
       <Container alignitems="center">
         <Stack direction="column" spacing={2} mt={2}>
-          <Header />
+          <Header toBackPage={() => goToAdmin(history)} />
           <Stack direction="column" alignItems="center" spacing={2}>
             <Button variant="contained" onClick={() => toCreateQuiz(history)}>
               New quiz

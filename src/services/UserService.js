@@ -44,8 +44,18 @@ export default class UserService {
       });
   }
 
-  static new_user(data, callback, errorCallback) {
+  static newUser(data, callback, errorCallback) {
     API.post('users', data)
+      .then(function (response) {
+        callback(response);
+      })
+      .catch(function (error) {
+        errorCallback();
+      });
+  }
+
+  static update(userId, data, callback, errorCallback) {
+    API.patch(`users/${userId}`, data)
       .then(function (response) {
         callback(response);
       })

@@ -10,24 +10,24 @@ const QuizResume = ({ record }) => {
   return (
     <>
       <Stack alignItems="center">
-        <Typography variant="h2" gutterBottom component="div">
-          Résultat de votre Quiz
+        <Typography variant="h4" gutterBottom component="div">
+          Quiz Results
         </Typography>
         <hr style={{ width: '100%' }} />
       </Stack>
       <Stack direction="column" spacing={5} mt={2}>
         <AlertResult record={record} />
         <Stack direction="row" spacing={5}>
-          <Typography component="div" variant="h5">
+          <Typography component="div" variant="h6">
             Quiz : <em>{record.quiz.label}</em>
           </Typography>
-          <Typography component="div" variant="h5">
+          <Typography component="div" variant="h6">
             Theme : <em>{record.quiz.theme.label}</em>
           </Typography>
         </Stack>
 
         <Stack direction="row" spacing={5}>
-          <Typography component="div" variant="h5">
+          <Typography component="div" variant="h6">
             Duration : <em>{showTime()}</em>
           </Typography>
         </Stack>
@@ -42,22 +42,22 @@ const AlertResult = ({ record }) => {
     return (
       <Alert icon={false}>
         <AlertTitle>
-          <h1>Félicitations ! </h1>
+          <h2>Félicitations ! </h2>
         </AlertTitle>
-        <h3>
+        <h4>
           Vous avez plus obtenu un score de : <em>{record.score}</em> sur {record.answers.length}
-        </h3>
+        </h4>
       </Alert>
     );
   } else {
     return (
       <Alert icon={false} color="warning">
         <AlertTitle>
-          <h1>Résultats insuffisant </h1>
+          <h2>Résultats insuffisant </h2>
         </AlertTitle>
-        <h3>
+        <h4>
           Vous avez plus obtenu un score de : <em>{record.score}</em> sur {record.answers.length}
-        </h3>
+        </h4>
       </Alert>
     );
   }

@@ -29,7 +29,6 @@ const EditAnswerModal = ({ updateAnswer, currentAnswer }) => {
   }, []);
 
   const updateAnswerModal = useCallback(() => {
-    //TODO: API call put answers
     updateAnswer({ label: title, active: isActive, correct: isCorrect }, oldLabel);
     setOpenEdit(!openEdit);
   }, [updateAnswer, isActive, isCorrect, title, openEdit, oldLabel]);

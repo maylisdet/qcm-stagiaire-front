@@ -54,9 +54,10 @@ function App() {
             <Route exact path="/admin/quiz/:quizId/edit" component={QuizEdit} />
             <Route exact path="/admin/quiz/:quizId/question/:questionId/edit" component={QuestionEdit} />
             <Route exact path="/admin/quiz/:quizId/create-question" component={CreateQuestion} />
+            <Route exact path="/admin/:traineeId/records/:recordId/detailed" component={QuizDetailedResult} />
 
             {/* TRAINEE ROUTES */}
-            <Route exact path="/trainee" component={User} />
+            <Route exact path="/trainee/:traineeId" component={User} />
             <Route exact path="/trainee/:traineeId/records" component={QuizzesRecords} />
             <Route exact path="/trainee/:traineeId/quizzes" component={Quizzes} />
             <Route exact path="/trainee/:traineeId/quizzes/:quizId" component={QuizAnswerSheet} />

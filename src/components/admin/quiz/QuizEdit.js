@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Stack, Box, Tab, Alert, AlertTitle, LinearProgress } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab/';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { Header } from 'components/header/Header';
 import { QuizContent } from 'components/admin/quiz/QuizContent';
 import { QuizRecords } from 'components/admin/quiz/QuizRecords';
 
 import QuizService from 'services/QuizService';
+import { toQuizzesManagementPage } from 'utils/RouteUtils';
 
 const QuizEdit = () => {
   /*************************/
@@ -18,6 +19,7 @@ const QuizEdit = () => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const params = useParams();
+  const history = useHistory();
 
   /*************************/
   /******** API Call ******/
@@ -56,7 +58,7 @@ const QuizEdit = () => {
   } else {
     return (
       <Stack spacing={3} mt={4}>
-        <Header />
+        <Header toBackPage={() => toQuizzesManagementPage(history)} />
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange}>
