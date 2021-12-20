@@ -6,7 +6,6 @@ import { LoginButton } from 'components/authentication/LoginButton';
 import AuthentificationService from 'services/AuthentificationService';
 import { goToAdmin, goToTrainee } from 'utils/RouteUtils';
 
-import toast from 'react-hot-toast';
 import { notifySucess, notifyError } from 'utils/NotifyUtils';
 
 const Login = () => {
@@ -33,10 +32,10 @@ const Login = () => {
       if (data.roles[0] === 'ADMIN') {
         localStorage.setItem('auth-token', data.token);
         goToAdmin(history);
-        notifySucess('Bienvenu dans votre application de QCM');
+        notifySucess('Welcome to your Quiz Management application !');
       } else {
         goToTrainee(history, data.id);
-        notifySucess('Bienvenu dans votre application de QCM');
+        notifySucess('Welcome to your Quiz Management application !');
       }
     };
     const signInErrorCallback = () => {
