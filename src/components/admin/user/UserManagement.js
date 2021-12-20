@@ -94,19 +94,19 @@ const UserManagement = () => {
     return <LinearProgress />;
   } else {
     return (
-      <>
-        <Container maxWidth="md">
-          <Stack direction="column" spacing={2} mt={2} alignItems="strech">
-            <Stack direction="column" alignItems="flex-end" spacing={2}>
-              <Header toBackPage={() => goToAdmin(history)} />
-              <Button variant="contained" onClick={() => toCreateUser(history)}>
-                New trainee
-              </Button>
-            </Stack>
+      <Container maxWidth="md">
+        <Stack direction="column" spacing={2} mt={2}>
+          <Header toBackPage={() => goToAdmin(history)} />
+          <Stack direction="column" alignItems="center" spacing={2}>
+            <Button variant="contained" onClick={() => toCreateUser(history)}>
+              New trainee
+            </Button>
+          </Stack>
+          <Stack spacing={8} bottom={2}>
             <MUIDataTable title={'Trainees'} data={users} columns={columns} options={tableOptions} padding="20px" />
           </Stack>
-        </Container>
-      </>
+        </Stack>
+      </Container>
     );
   }
 };
