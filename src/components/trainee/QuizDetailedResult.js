@@ -9,7 +9,7 @@ import 'styles/answer.css';
 
 import { QuizResume } from 'components/trainee/QuizResume';
 import RecordService from 'services/RecordService';
-import { toTraineeQuizzes } from 'utils/RouteUtils';
+import { toTraineeQuizzes, toUserIdPage } from 'utils/RouteUtils';
 
 const QuizDetailedResult = () => {
   const params = useParams();
@@ -17,10 +17,13 @@ const QuizDetailedResult = () => {
   const [record, setRecord] = useState([]);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const isAdmin = window.location.pathname.split('/')[1] === 'admin';
+  const isAdmin = localStorage.getItem('isAdmin');
 
   const [activeQuestions, setActiveQuestions] = useState();
 
+  const toBackPage = () => {
+    isAdmin === 'true' ? toUserIdPage(history, record.user.id) : toTraineeQuizzes(history, record.user.id);
+  };
   useEffect(() => {
     const successCallback = (record) => {
       setRecord(record);
@@ -50,7 +53,7 @@ const QuizDetailedResult = () => {
       <>
         <Container maxWidth="md" justifyContent="center" alignitems="center">
           <Stack direction="column" spacing={4} mt={2} mb={4}>
-            <Header toBackPage={() => toTraineeQuizzes(history, record.user.id)} />
+            <Header toBackPage={toBackPage} />
             <QuizResume record={record} />
           </Stack>
           <Stack alignItems="center" mb={5}>
