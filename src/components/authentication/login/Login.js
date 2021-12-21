@@ -3,9 +3,8 @@ import { Container, Stack, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import { LoginButton } from 'components/authentication/LoginButton';
-import AuthentificationService from 'services/AuthentificationService';
+import AuthenticationService from 'services/AuthenticationService';
 import { goToAdmin, goToTrainee } from 'utils/RouteUtils';
-
 import { notifySucess, notifyError } from 'utils/NotifyUtils';
 
 const Login = () => {
@@ -31,9 +30,12 @@ const Login = () => {
     const signInCallback = (data) => {
       if (data.roles[0] === 'ADMIN') {
         localStorage.setItem('auth-token', data.token);
+        localStorage.setItem('isAdmin', true);
         goToAdmin(history);
         notifySucess('Welcome to your Quiz Management application !');
       } else {
+        localStorage.setItem('auth-token', data.token);
+        localStorage.setItem('isAdmin', false);
         goToTrainee(history, data.id);
         notifySucess('Welcome to your Quiz Management application !');
       }
@@ -41,7 +43,7 @@ const Login = () => {
     const signInErrorCallback = () => {
       notifyError('There is a problem, check your email and password');
     };
-    AuthentificationService.signIn({ email: email, password: password }, signInCallback, signInErrorCallback);
+    AuthenticationService.signIn({ email: email, password: password }, signInCallback, signInErrorCallback);
   }, [history, email, password]);
 
   return (
