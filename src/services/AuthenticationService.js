@@ -1,6 +1,6 @@
 import { API } from 'utils/ServiceUtils';
 
-export default class AuthentificationService {
+export default class AuthenticationService {
   static signIn(data, callback, errorCallback) {
     API.post('/auth/signin', data)
       .then(function (response) {

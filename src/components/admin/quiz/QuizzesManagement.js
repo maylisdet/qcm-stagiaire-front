@@ -6,7 +6,7 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
-
+import { Emoji } from 'components/Emoji';
 import QuizService from 'services/QuizService';
 import { tableOptions } from 'utils/TableUtils';
 import { toQuizEditPage, toCreateQuiz, goToAdmin } from 'utils/RouteUtils';
@@ -52,7 +52,7 @@ const QuizzesManagement = (props) => {
   /******************************/
   /******** Table Columns ******/
   /****************************/
-  const columns = [
+  const columnsActive = [
     {
       name: 'label',
       label: 'Quiz',
@@ -63,10 +63,10 @@ const QuizzesManagement = (props) => {
     },
     {
       label: 'Number of records',
-      name: 'records',
+      name: 'numberOfRecords',
       options: {
         customBodyRender: (value) => {
-          return <p>{quizzes.length}</p>;
+          return <p>{value}</p>;
         },
       },
     },
@@ -84,6 +84,44 @@ const QuizzesManagement = (props) => {
                 <ModeEditOutlineOutlinedIcon />
               </Button>
               <DeleteButton onClick={() => deleteQuiz(value)} />
+            </Stack>
+          );
+        },
+      },
+    },
+  ];
+
+  const columnsInactive = [
+    {
+      name: 'label',
+      label: 'Quiz',
+    },
+    {
+      name: 'theme.label',
+      label: 'Theme',
+    },
+    {
+      label: 'Number of records',
+      name: 'numberOfRecords',
+      options: {
+        customBodyRender: (value) => {
+          return <p>{value}</p>;
+        },
+      },
+    },
+    {
+      label: 'Actions',
+      name: 'id',
+      options: {
+        setCellHeaderProps: () => ({
+          style: { display: 'flex', justifyContent: 'center', flexDirection: 'row-reverse' },
+        }),
+        customBodyRender: (value) => {
+          return (
+            <Stack direction="row" justifyContent="center">
+              <Button onClick={() => toQuizEditPage(history, value)}>
+                <ModeEditOutlineOutlinedIcon />
+              </Button>
             </Stack>
           );
         },
@@ -113,19 +151,20 @@ const QuizzesManagement = (props) => {
           <Stack direction="column" alignItems="center" spacing={2}>
             <Button variant="contained" onClick={() => toCreateQuiz(history)}>
               New quiz
+              <Emoji symbol="✍🏻" label="hand_with_prn" marginLeft="5" />
             </Button>
           </Stack>
           <Stack spacing={8} bottom={2}>
             <MUIDataTable
               title={'Active quizzes'}
               data={quizzes.filter((quiz) => quiz.active)}
-              columns={columns}
+              columns={columnsActive}
               options={tableOptions}
             />
             <MUIDataTable
               title={'Inactive quizzes'}
               data={quizzes.filter((quiz) => !quiz.active)}
-              columns={columns}
+              columns={columnsInactive}
               options={tableOptions}
             />
           </Stack>

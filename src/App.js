@@ -21,6 +21,9 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { tableTheme } from 'theme';
 import { Toaster } from 'react-hot-toast';
 import { QuizFinished } from 'components/trainee/QuizFinished';
+import { PageNotFound } from 'components/access_errors/PageNotFound';
+import { ProtectedRoute } from 'ProtectedRoute';
+import { AccesDenied } from 'components/access_errors/AccessDenied';
 
 function App() {
   return (
@@ -41,20 +44,20 @@ function App() {
             <Route exact path="/login" component={Login} />
 
             {/* ADMIN ROUTES */}
-            <Route exact path="/admin" component={Admin} />
+            <ProtectedRoute exact path="/admin" component={Admin} />
 
             {/* User management */}
-            <Route exact path="/admin/create-user" component={CreateUser} />
-            <Route exact path="/admin/users" component={UserManagement} />
-            <Route exact path="/admin/users/:userId" component={UserDetailledProfile} />
+            <ProtectedRoute exact path="/admin/create-user" component={CreateUser} />
+            <ProtectedRoute exact path="/admin/users" component={UserManagement} />
+            <ProtectedRoute exact path="/admin/users/:userId" component={UserDetailledProfile} />
 
             {/* Quiz management */}
-            <Route exact path="/admin/create-quiz" component={CreateQuiz} />
-            <Route exact path="/admin/quizzes" component={QuizzesManagement} />
-            <Route exact path="/admin/quiz/:quizId/edit" component={QuizEdit} />
-            <Route exact path="/admin/quiz/:quizId/question/:questionId/edit" component={QuestionEdit} />
-            <Route exact path="/admin/quiz/:quizId/create-question" component={CreateQuestion} />
-            <Route exact path="/admin/:traineeId/records/:recordId/detailed" component={QuizDetailedResult} />
+            <ProtectedRoute exact path="/admin/create-quiz" component={CreateQuiz} />
+            <ProtectedRoute exact path="/admin/quizzes" component={QuizzesManagement} />
+            <ProtectedRoute exact path="/admin/quiz/:quizId/edit" component={QuizEdit} />
+            <ProtectedRoute exact path="/admin/quiz/:quizId/question/:questionId/edit" component={QuestionEdit} />
+            <ProtectedRoute exact path="/admin/quiz/:quizId/create-question" component={CreateQuestion} />
+            <ProtectedRoute exact path="/admin/:traineeId/records/:recordId/detailed" component={QuizDetailedResult} />
 
             {/* TRAINEE ROUTES */}
             <Route exact path="/trainee/:traineeId" component={User} />
@@ -63,6 +66,14 @@ function App() {
             <Route exact path="/trainee/:traineeId/quizzes/:quizId" component={QuizAnswerSheet} />
             <Route exact path="/trainee/:traineeId/records/:recordId" component={QuizFinished} />
             <Route exact path="/trainee/:traineeId/records/:recordId/detailed" component={QuizDetailedResult} />
+
+            {/* ERRORS */}
+            <Route path="/access-denied">
+              <AccesDenied />
+            </Route>
+            <Route path="*">
+              <PageNotFound />
+            </Route>
           </Switch>
         </BrowserRouter>
       </Container>

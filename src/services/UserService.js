@@ -24,6 +24,16 @@ export default class UserService {
       });
   }
 
+  static availableQuizzes(userId, callback, errorCallback) {
+    API.get(`users/${userId}/quizzes`)
+      .then(function (response) {
+        callback(response.data);
+      })
+      .catch(function (error) {
+        errorCallback(error);
+      });
+  }
+
   static getRecords(traineeId, callback, errorCallback) {
     API.get(`users/${traineeId}/records`)
       .then(function (response) {

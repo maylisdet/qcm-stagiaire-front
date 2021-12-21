@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { toUsersManagementPage } from 'utils/RouteUtils';
 
 import { Header } from 'components/header/Header';
-import AuthentificationService from 'services/AuthentificationService';
+import AuthentificationService from 'services/AuthenticationService';
 import { notifySucess } from 'utils/NotifyUtils';
 
 const CreateUser = () => {

@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
 import { Container, Stack, Alert, AlertTitle, LinearProgress, Button } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-
 import MUIDataTable from 'mui-datatables';
 
 import { Header } from 'components/header/Header';
-import QuizService from 'services/QuizService';
-
+import UserService from 'services/UserService';
 import { toLaunchQuiz, goToTrainee } from 'utils/RouteUtils';
 import { tableOptions } from 'utils/TableUtils';
 
@@ -35,9 +32,8 @@ const Quizzes = () => {
       setIsLoaded(true);
       setError(true);
     };
-
-    QuizService.index(successCallback, errorCallback);
-  }, []);
+    UserService.availableQuizzes(params.traineeId, successCallback, errorCallback);
+  }, [params.traineeId]);
 
   /******************************/
   /******** Table Columns ******/

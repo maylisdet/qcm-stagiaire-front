@@ -6,7 +6,7 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 
 import { DeleteButton } from 'components/DeleteButton';
 import { Header } from 'components/header/Header';
-
+import { Emoji } from 'components/Emoji';
 import UserService from 'services/UserService';
 import { toUserIdPage, toCreateUser, goToAdmin } from 'utils/RouteUtils';
 import { tableOptions } from 'utils/TableUtils';
@@ -100,6 +100,7 @@ const UserManagement = () => {
           <Stack direction="column" alignItems="center" spacing={2}>
             <Button variant="contained" onClick={() => toCreateUser(history)}>
               New trainee
+              <Emoji symbol="👫" label="Woman_and_man_holding_hands" marginLeft="5" />
             </Button>
           </Stack>
           <Stack spacing={8} bottom={2}>
