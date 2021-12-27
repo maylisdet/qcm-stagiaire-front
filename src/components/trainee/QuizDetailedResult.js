@@ -17,7 +17,7 @@ const QuizDetailedResult = () => {
   const [record, setRecord] = useState([]);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const isAdmin = localStorage.getItem('isAdmin');
+  const isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
 
   const [activeQuestions, setActiveQuestions] = useState();
 
@@ -27,7 +27,7 @@ const QuizDetailedResult = () => {
   useEffect(() => {
     const successCallback = (record) => {
       setRecord(record);
-      setActiveQuestions(record.quiz.questions.filter((question) => question.active === true));
+      setActiveQuestions(record.quiz.questions.filter((question) => question.active));
       setIsLoaded(true);
     };
 
@@ -49,6 +49,7 @@ const QuizDetailedResult = () => {
   } else if (!isLoaded) {
     return <LinearProgress />;
   } else {
+    console.log(isAdmin);
     return (
       <>
         <Container maxWidth="md" justifyContent="center" alignitems="center">
