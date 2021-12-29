@@ -22,7 +22,7 @@ const QuizDetailedResult = () => {
   const [activeQuestions, setActiveQuestions] = useState();
 
   const toBackPage = () => {
-    isAdmin === 'true' ? toUserIdPage(history, record.user.id) : toTraineeQuizzes(history, record.user.id);
+    isAdmin ? toUserIdPage(history, record.user.id) : toTraineeQuizzes(history, record.user.id);
   };
   useEffect(() => {
     const successCallback = (record) => {

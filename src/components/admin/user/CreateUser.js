@@ -7,7 +7,7 @@ import { toUsersManagementPage } from 'utils/RouteUtils';
 
 import { Header } from 'components/header/Header';
 import AuthentificationService from 'services/AuthenticationService';
-import { notifySucess } from 'utils/NotifyUtils';
+import { notifySucess, notifyError } from 'utils/NotifyUtils';
 
 const CreateUser = () => {
   const history = useHistory();
@@ -31,14 +31,15 @@ const CreateUser = () => {
   /***********************/
 
   const errorCallback = (error) => {
+    notifyError('User not created, check fields');
     setLoading(false);
   };
 
   const createTrainee = useCallback(() => {
     const callback = () => {
       setLoading(false);
-      notifySucess('User well created');
       toUsersManagementPage(history);
+      notifySucess('User well created');
     };
     AuthentificationService.signUp(newUser, callback, errorCallback);
   }, [newUser, history]);

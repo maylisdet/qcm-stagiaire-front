@@ -25,7 +25,8 @@ const Quizzes = () => {
   useEffect(() => {
     const successCallback = (response) => {
       setIsLoaded(true);
-      setQuizzes(response);
+      let activeQuizzes = response.filter((quiz) => quiz.active);
+      setQuizzes(activeQuizzes);
     };
 
     const errorCallback = () => {
