@@ -119,6 +119,7 @@ const QuizContent = (props) => {
     const updateCallback = () => {
       notifySucess('Position changed');
       setUpdateQuestionLoading(false);
+      window.location.reload(false);
     };
     const updateErrorCallback = () => {
       notifyError("You can't upward this position");
@@ -137,6 +138,7 @@ const QuizContent = (props) => {
         notifySucess('Position changed');
         setUpdateQuestionLoading(false);
         toQuizEditPage(history, question.quiz_id);
+        window.location.reload(false);
       };
       const updateErrorCallback = () => {
         notifyError("You can't downward this position");

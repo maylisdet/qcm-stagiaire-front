@@ -51,7 +51,7 @@ const UserRecord = (props) => {
     },
     {
       name: 'ranking.durationOfBestScore',
-      label: 'Best Score of the quizz',
+      label: 'Best duration of the quizz',
       options: {
         setCellProps: () => ({ style: { minWidth: '150px' } }),
       },

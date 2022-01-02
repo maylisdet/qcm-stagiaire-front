@@ -40,6 +40,7 @@ const QuizzesManagement = (props) => {
       const callback = () => {
         notifySucess('Quiz well archive');
         setQuizzes(quizzes.filter((quiz) => quiz.id !== quizId));
+        window.location.reload(false);
       };
       const errorCallback = (error) => {
         setError(true);
